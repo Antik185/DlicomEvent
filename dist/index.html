@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070a0d">
+  <meta name="description" content="RU × Nigeria Community Tournament — vote for the game, follow the standings and get ready to compete.">
+  <title>RU × Nigeria Community Tournament</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23070a0d'/%3E%3Cpath d='M10 16h17v32H10z' fill='%23009966'/%3E%3Cpath d='M37 16h17v32H37z' fill='%230055ff'/%3E%3Cpath d='M24 25h16v14H24z' fill='%23f5f7ed'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #070a0d;
+      --panel: #0d1217;
+      --panel-2: #111920;
+      --line: #26323b;
+      --text: #f5f7ed;
+      --muted: #8f9aa2;
+      --green: #32ef8b;
+      --blue: #4d82ff;
+      --gold: #ffd457;
+      --orange: #ff6846;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -5%, rgba(77,130,255,.18), transparent 28rem),
+        radial-gradient(circle at 90% 18%, rgba(50,239,139,.12), transparent 30rem),
+        var(--bg);
+      font-family: var(--font);
+      line-height: 1.5;
+    }
+    button, select { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
+    .topbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .brand { display: flex; align-items: center; gap: 13px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-mark { display: grid; grid-template-columns: 1fr 1fr; width: 36px; height: 36px; overflow: hidden; border: 1px solid #52606a; border-radius: 9px; }
+    .brand-mark i:first-child { background: linear-gradient(#fff 0 33%, #1855e8 33% 66%, #e53935 66%); }
+    .brand-mark i:last-child { background: linear-gradient(90deg, #098653 0 33%, #fff 33% 66%, #098653 66%); }
+    .brand small { display: block; color: var(--muted); font-size: .7rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+    .nav { display: flex; align-items: center; gap: 24px; color: #c8d0d5; font-size: .9rem; }
+    .nav a:hover, .nav a:focus-visible { color: #fff; }
+    .live-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(50,239,139,.35); border-radius: 999px; background: rgba(50,239,139,.08); color: #b9ffd8; font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+    .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(50,239,139,.12); }
+    .hero { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(32px, 6vw, 88px); align-items: center; min-height: 580px; padding: 72px 0 62px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: #c0c9cf; font-size: .78rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--green); }
+    h1 { max-width: 740px; margin: 22px 0 22px; font-size: clamp(3.2rem, 7vw, 6.6rem); line-height: .89; letter-spacing: -.07em; text-transform: uppercase; }
+    .versus { color: transparent; -webkit-text-stroke: 1.5px #cbd4da; }
+    .lede { max-width: 610px; margin: 0; color: #aeb8bf; font-size: clamp(1rem, 1.6vw, 1.16rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; }
+    .btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid var(--line); border-radius: 8px; background: #11171c; cursor: pointer; font-weight: 750; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
+    .btn:hover { transform: translateY(-2px); border-color: #52616d; }
+    .btn.primary { border-color: var(--green); background: var(--green); color: #041109; box-shadow: 0 12px 36px rgba(50,239,139,.14); }
+    .btn.primary:hover { background: #72ffae; }
+    .btn:focus-visible, .game-card:focus-visible, select:focus-visible { outline: 3px solid rgba(77,130,255,.65); outline-offset: 3px; }
+    .time-note { color: var(--muted); font-size: .85rem; }
+    .scoreboard { position: relative; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(17,25,32,.98), rgba(9,13,17,.98)); box-shadow: 0 36px 80px rgba(0,0,0,.32); }
+    .scoreboard::before { content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; background: linear-gradient(135deg, rgba(77,130,255,.4), transparent 35%, rgba(50,239,139,.28)); }
+    .score-head { display: flex; justify-content: space-between; align-items: start; padding: 8px 7px 18px; }
+    .score-head h2 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -.03em; }
+    .score-head p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .score-total { color: var(--green); font-variant-numeric: tabular-nums; font-weight: 800; }
+    .leader { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; min-height: 64px; padding: 10px 12px; border-top: 1px solid rgba(255,255,255,.06); }
+    .leader:first-of-type { border-radius: 10px; border-top-color: rgba(50,239,139,.2); background: rgba(50,239,139,.055); }
+    .rank { color: #71808a; font-size: .8rem; font-weight: 800; }
+    .game-name { display: flex; align-items: center; gap: 10px; font-weight: 750; }
+    .game-emoji { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid #2b3740; border-radius: 7px; background: #10171c; }
+    .bar { height: 4px; margin-top: 8px; overflow: hidden; border-radius: 4px; background: #202b33; }
+    .bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); }
+    .points { min-width: 46px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .voting { padding: 66px 0; border-top: 1px solid rgba(255,255,255,.07); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 28px; }
+    .kicker { margin: 0 0 10px; color: var(--green); font-size: .74rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    h2.section-title { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: -.055em; line-height: 1; }
+    .section-copy { max-width: 450px; margin: 0; color: var(--muted); }
+    .games { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .game-card { position: relative; min-height: 145px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); text-align: left; cursor: pointer; transition: border .18s ease, transform .18s ease, background .18s ease; }
+    .game-card:hover { transform: translateY(-2px); border-color: #46545e; }
+    .game-card.selected { border-color: var(--green); background: linear-gradient(145deg, rgba(50,239,139,.12), #0d1418); box-shadow: inset 0 0 0 1px rgba(50,239,139,.2); }
+    .game-card .icon { display: block; margin-bottom: 20px; font-size: 1.65rem; }
+    .game-card strong { display: block; font-size: 1rem; }
+    .format { color: var(--muted); font-size: .78rem; }
+    .check { position: absolute; top: 14px; right: 14px; display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid #3a4650; border-radius: 50%; color: transparent; font-size: .75rem; }
+    .selected .check { border-color: var(--green); background: var(--green); color: #041109; }
+    .ballot-bar { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; margin-top: 16px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #0a0f13; }
+    label { display: grid; gap: 7px; color: #c7d0d6; font-size: .82rem; font-weight: 700; }
+    select { width: 100%; min-height: 46px; padding: 0 36px 0 13px; border: 1px solid #34424c; border-radius: 7px; color: #f3f6f7; background: #11181e; }
+    .selection-count { margin: 14px 0 0; color: var(--muted); font-size: .82rem; }
+    .selection-count strong { color: #fff; }
+    .prototype-note { display: flex; align-items: flex-start; gap: 11px; margin-top: 16px; padding: 13px 15px; border: 1px solid rgba(77,130,255,.25); border-radius: 9px; background: rgba(77,130,255,.06); color: #aebbc6; font-size: .8rem; }
+    .prototype-note strong { color: #dfe8ee; }
+    .score-foot { margin: 11px 7px 2px; color: #71808a; font-size: .72rem; }
+    .section { padding: 82px 0; border-top: 1px solid rgba(255,255,255,.07); }
+    .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
+    .phase-card { position: relative; min-height: 154px; padding: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .phase-card.active { border-color: rgba(50,239,139,.45); background: linear-gradient(140deg, rgba(50,239,139,.11), var(--panel)); }
+    .phase-num { color: #5c6870; font-size: .78rem; font-weight: 800; letter-spacing: .1em; }
+    .phase-card h3 { margin: 28px 0 5px; font-size: 1.1rem; }
+    .phase-card p { margin: 0; color: var(--muted); font-size: .85rem; }
+    .phase-state { position: absolute; top: 16px; right: 16px; padding: 5px 8px; border-radius: 999px; background: #1b242b; color: #91a0aa; font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .phase-card.active .phase-state { background: rgba(50,239,139,.14); color: #8dffbc; }
+    .prize-layout { display: grid; grid-template-columns: .74fr 1.26fr; gap: clamp(36px, 8vw, 110px); align-items: center; }
+    .prize-total { display: flex; align-items: flex-end; gap: 10px; margin: 25px 0 14px; }
+    .prize-total strong { font-size: clamp(5rem, 12vw, 9rem); line-height: .78; letter-spacing: -.09em; color: var(--gold); }
+    .prize-total span { margin-bottom: 8px; color: #d9e0e4; font-size: 1rem; font-weight: 800; text-transform: uppercase; }
+    .podium { display: grid; gap: 10px; }
+    .podium-row { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 16px; min-height: 80px; padding: 0 22px 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .podium-row:first-child { border-color: rgba(255,212,87,.45); background: linear-gradient(90deg, rgba(255,212,87,.12), var(--panel) 55%); }
+    .medal { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #37444d; border-radius: 9px; background: #11181d; font-size: 1.25rem; }
+    .place { font-weight: 800; }
+    .place small { display: block; margin-top: 2px; color: var(--muted); font-size: .72rem; font-weight: 600; }
+    .amount { font-size: 1.45rem; font-weight: 850; font-variant-numeric: tabular-nums; }
+    .two-col { display: grid; grid-template-columns: .9fr 1.1fr; gap: 16px; align-items: start; }
+    .panel { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+    .panel-head { padding: 20px 22px; border-bottom: 1px solid var(--line); }
+    .panel-head h3 { margin: 0 0 4px; font-size: 1.15rem; }
+    .panel-head p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .role-list { padding: 7px 20px 13px; }
+    .role-row { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 58px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .role-row:last-child { border: 0; }
+    .role-name { display: flex; align-items: center; gap: 11px; font-weight: 750; }
+    .role-dot { width: 9px; height: 9px; border-radius: 2px; background: #64717a; transform: rotate(45deg); }
+    .role-row:nth-child(2) .role-dot { background: var(--blue); }
+    .role-row:nth-child(3) .role-dot { background: var(--orange); }
+    .role-row:nth-child(4) .role-dot { background: var(--gold); }
+    .multiplier { color: var(--green); font-size: 1.05rem; font-weight: 850; }
+    .rule-list { display: grid; gap: 0; margin: 0; padding: 7px 22px 13px; list-style: none; counter-reset: rules; }
+    .rule-list li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #b6c0c6; font-size: .9rem; }
+    .rule-list li:last-child { border-bottom: 0; }
+    .rule-list li::before { counter-increment: rules; content: counter(rules, decimal-leading-zero); color: #58666f; font-size: .7rem; font-weight: 800; letter-spacing: .05em; }
+    .bracket-shell { margin-top: 32px; padding: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(135deg, #0e151a, #090d10); }
+    .bracket { display: grid; grid-template-columns: repeat(3, 1fr); gap: 46px; min-width: 760px; align-items: center; }
+    .round-label { margin-bottom: 12px; color: #68767f; font-size: .7rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .match { position: relative; display: grid; gap: 1px; margin: 10px 0; overflow: visible; border: 1px solid #29353e; border-radius: 8px; background: #11181d; }
+    .match span { display: flex; align-items: center; justify-content: space-between; min-height: 37px; padding: 0 11px; color: #75828b; font-size: .78rem; }
+    .match span + span { border-top: 1px solid #29353e; }
+    .match::after { content: ""; position: absolute; left: 100%; top: 50%; width: 47px; height: 1px; background: #2d3a43; }
+    .round:last-child .match::after { display: none; }
+    .finale .match { border-color: rgba(255,212,87,.35); }
+    .locked-box { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; padding: 18px 20px; border: 1px dashed #33414a; border-radius: 10px; }
+    .locked-box strong { display: block; margin-bottom: 2px; }
+    .locked-box p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .btn[disabled] { opacity: .48; cursor: not-allowed; transform: none; }
+    .results-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .results { width: 100%; min-width: 650px; border-collapse: collapse; }
+    .results th, .results td { padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .results th { color: #778690; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+    .results td { color: #aab5bc; font-size: .86rem; }
+    .results-empty { display: flex; align-items: center; justify-content: center; gap: 11px; min-height: 100px; color: #82909a; }
+    .results-empty span { font-size: 1.35rem; filter: grayscale(1); }
+    footer { padding: 34px 0 44px; border-top: 1px solid rgba(255,255,255,.07); }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #73808a; font-size: .78rem; }
+    .footer-row strong { color: #dce3e7; }
+    dialog { width: min(540px, calc(100% - 24px)); padding: 0; overflow: hidden; border: 1px solid #3a4852; border-radius: 15px; color: var(--text); background: #0d1318; box-shadow: 0 40px 110px rgba(0,0,0,.72); }
+    dialog::backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(6px); }
+    .modal-head { display: flex; justify-content: space-between; align-items: start; padding: 22px; border-bottom: 1px solid var(--line); }
+    .modal-head h2 { margin: 0 0 3px; font-size: 1.35rem; }
+    .modal-head p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .icon-btn { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 8px; background: #151d23; cursor: pointer; }
+    .modal-body { padding: 22px; }
+    .review-line { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.07); color: #929fa8; font-size: .86rem; }
+    .review-line strong { color: #eef2f4; text-align: right; }
+    .modal-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; margin-top: 22px; }
+    .toast { position: fixed; right: 20px; bottom: 20px; z-index: 30; max-width: 390px; padding: 15px 17px; border: 1px solid rgba(50,239,139,.4); border-radius: 10px; background: #102019; box-shadow: 0 20px 60px rgba(0,0,0,.45); color: #d8ffe8; opacity: 0; transform: translateY(20px); pointer-events: none; transition: .25s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .submitted { color: var(--green); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+    @media (max-width: 860px) {
+      .nav a:not(.live-pill) { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 55px; }
+      .scoreboard { max-width: 620px; }
+      .games { grid-template-columns: repeat(2, 1fr); }
+      .ballot-bar { grid-template-columns: 1fr 1fr; }
+      .ballot-bar .btn { grid-column: 1 / -1; }
+      .prize-layout, .two-col { grid-template-columns: 1fr; }
+      .phase-grid { grid-template-columns: 1fr; }
+      .phase-card { min-height: 126px; }
+      .phase-card h3 { margin-top: 18px; }
+    }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 20px, 1180px); }
+      .brand span { font-size: .86rem; }
+      .brand small { font-size: .6rem; }
+      .hero { padding: 44px 0; }
+      h1 { font-size: clamp(3rem, 17vw, 5rem); }
+      .section-head { display: grid; }
+      .games { grid-template-columns: 1fr; }
+      .game-card { min-height: 116px; }
+      .ballot-bar { grid-template-columns: 1fr; }
+      .ballot-bar .btn { grid-column: auto; }
+      .section, .voting { padding: 60px 0; }
+      .locked-box, .footer-row { align-items: flex-start; flex-direction: column; }
+      .prize-total strong { font-size: 6rem; }
+      .podium-row { grid-template-columns: 48px 1fr auto; padding-right: 14px; }
+      .modal-actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#top" aria-label="RU × Nigeria Tournament home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+      <span>RU × Nigeria<small>Community Tournament</small></span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#vote">Vote</a>
+      <a href="#prizes">Prizes</a>
+      <a href="#rules">Rules</a>
+      <a class="live-pill" href="#vote"><span class="pulse"></span>Voting live</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div>
+        <p class="eyebrow">One shared arena</p>
+        <h1>Russia <span class="versus">×</span><br>Nigeria</h1>
+        <p class="lede">Two regions choose one game. Cast up to two votes, help set the arena, and compete for a guaranteed <strong>$30 prize pool.</strong></p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#vote">Cast your vote <span aria-hidden="true">↓</span></a>
+          <span class="time-note">Voting window · <strong>3 days</strong></span>
+        </div>
+      </div>
+      <aside class="scoreboard" id="standings" aria-labelledby="score-title">
+        <div class="score-head">
+          <div><h2 id="score-title">Live standings</h2><p>Weighted community score</p></div>
+          <span class="score-total"><span id="total-points">0</span> pts</span>
+        </div>
+        <div class="leader" data-game="Counter-Strike 1.6"><span class="rank">01</span><div><span class="game-name"><span class="game-emoji">🔫</span>Counter-Strike 1.6</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
+        <div class="leader" data-game="eFootball"><span class="rank">02</span><div><span class="game-name"><span class="game-emoji">⚽</span>eFootball</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
+        <div class="leader" data-game="Chess"><span class="rank">03</span><div><span class="game-name"><span class="game-emoji">♟️</span>Chess</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
+        <div class="leader" data-game="Kirka"><span class="rank">04</span><div><span class="game-name"><span class="game-emoji">🎯</span>Kirka</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
+        <div class="leader" data-game="GeoGuessr"><span class="rank">05</span><div><span class="game-name"><span class="game-emoji">🌍</span>GeoGuessr</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
+        <div class="leader" data-game="Poxel.io"><span class="rank">06</span><div><span class="game-name"><span class="game-emoji">🧱</span>Poxel.io</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
+        <p class="score-foot">Prototype tally · official live connection pending</p>
+      </aside>
+    </section>
+
+    <section class="voting" id="vote">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">Community ballot</p><h2 class="section-title">Choose the game</h2></div>
+          <p class="section-copy">Pick up to two. Your community role multiplies the points awarded to every selected game.</p>
+        </div>
+        <div class="games" id="game-grid">
+          <button class="game-card" data-game="eFootball" aria-pressed="false"><span class="check">✓</span><span class="icon">⚽</span><strong>eFootball</strong><span class="format">1v1</span></button>
+          <button class="game-card" data-game="Counter-Strike 1.6" aria-pressed="false"><span class="check">✓</span><span class="icon">🔫</span><strong>Counter-Strike 1.6</strong><span class="format">1v1 / 2v2</span></button>
+          <button class="game-card" data-game="Kirka" aria-pressed="false"><span class="check">✓</span><span class="icon">🎯</span><strong>Kirka</strong><span class="format">1v1 / 2v2</span></button>
+          <button class="game-card" data-game="Chess" aria-pressed="false"><span class="check">✓</span><span class="icon">♟️</span><strong>Chess</strong><span class="format">1v1</span></button>
+          <button class="game-card" data-game="GeoGuessr" aria-pressed="false"><span class="check">✓</span><span class="icon">🌍</span><strong>GeoGuessr</strong><span class="format">1v1</span></button>
+          <button class="game-card" data-game="Poxel.io" aria-pressed="false"><span class="check">✓</span><span class="icon">🧱</span><strong>Poxel.io</strong><span class="format">1v1 / 2v2</span></button>
+        </div>
+        <div class="ballot-bar">
+          <label>Region<select id="region"><option value="">Select your region</option><option>RU</option><option>Nigeria</option></select></label>
+          <label>Community role<select id="role"><option value="">Select your role</option><option value="1">Regular ×1</option><option value="2">Deliver ×2</option><option value="3">Decoder ×3</option><option value="5">DSO ×5</option></select></label>
+          <button class="btn primary" id="review-vote" type="button">Review ballot</button>
+        </div>
+        <p class="selection-count" aria-live="polite"><strong id="selection-count">0 of 2</strong> games selected</p>
+        <p class="prototype-note"><span aria-hidden="true">ⓘ</span><span><strong>Prototype voting:</strong> this version stores one ballot on the current device. Connect the official member database or Discord bot before public voting to verify region and role across the community.</span></p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="timeline-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">Event status</p><h2 class="section-title" id="timeline-title">Road to the final</h2></div>
+          <p class="section-copy">The winning game unlocks registration. Team format is decided from the final participant count.</p>
+        </div>
+        <div class="phase-grid">
+          <article class="phase-card active"><span class="phase-num">01</span><span class="phase-state">Live now</span><h3>Game vote</h3><p>Three-day weighted community poll.</p></article>
+          <article class="phase-card"><span class="phase-num">02</span><span class="phase-state">Next</span><h3>Registration</h3><p>Opens after the winning game is announced.</p></article>
+          <article class="phase-card"><span class="phase-num">03</span><span class="phase-state">TBA</span><h3>Tournament</h3><p>Bracket and match schedule appear here.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prizes" aria-labelledby="prize-title">
+      <div class="shell prize-layout">
+        <div>
+          <p class="kicker">Guaranteed prize pool</p>
+          <h2 class="section-title" id="prize-title">Play for the podium.</h2>
+          <div class="prize-total"><strong>$30</strong><span>minimum</span></div>
+          <p class="section-copy">The pool may increase. Any update will be announced separately before the tournament.</p>
+        </div>
+        <div class="podium" aria-label="Prize distribution">
+          <div class="podium-row"><span class="medal">🥇</span><span class="place">1st place<small>Champion</small></span><span class="amount">$15</span></div>
+          <div class="podium-row"><span class="medal">🥈</span><span class="place">2nd place<small>Runner-up</small></span><span class="amount">$10</span></div>
+          <div class="podium-row"><span class="medal">🥉</span><span class="place">3rd place<small>Bronze</small></span><span class="amount">$5</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rules" aria-labelledby="rules-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">Fair play</p><h2 class="section-title" id="rules-title">Every vote has weight</h2></div>
+          <p class="section-copy">Your role multiplier applies to every selected game. A Decoder choosing two games gives each one 3 points.</p>
+        </div>
+        <div class="two-col">
+          <article class="panel">
+            <header class="panel-head"><h3>Voting power</h3><p>Community role multiplier</p></header>
+            <div class="role-list">
+              <div class="role-row"><span class="role-name"><i class="role-dot"></i>Regular</span><span class="multiplier">×1</span></div>
+              <div class="role-row"><span class="role-name"><i class="role-dot"></i>Deliver</span><span class="multiplier">×2</span></div>
+              <div class="role-row"><span class="role-name"><i class="role-dot"></i>Decoder</span><span class="multiplier">×3</span></div>
+              <div class="role-row"><span class="role-name"><i class="role-dot"></i>DSO</span><span class="multiplier">×5</span></div>
+            </div>
+          </article>
+          <article class="panel">
+            <header class="panel-head"><h3>Voting rules</h3><p>One participant, one ballot</p></header>
+            <ol class="rule-list">
+              <li>Only official RU and Nigeria region members are eligible.</li>
+              <li>Vote only in the region where you are officially registered.</li>
+              <li>Select one or two games on a single ballot.</li>
+              <li>Duplicate and cross-region ballots will not be counted.</li>
+              <li>No paid votes. The highest weighted score wins.</li>
+              <li>For flexible games, 1v1 or 2v2 depends on registration numbers.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bracket" aria-labelledby="bracket-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">Tournament board</p><h2 class="section-title" id="bracket-title">Bracket</h2></div>
+          <p class="section-copy">Slots will populate after game voting closes and player registration is confirmed.</p>
+        </div>
+        <div class="bracket-shell" role="img" aria-label="Locked eight-player tournament bracket placeholder">
+          <div class="bracket">
+            <div class="round"><div class="round-label">Quarterfinals</div><div class="match"><span>Player / Team A</span><span>Player / Team B</span></div><div class="match"><span>Player / Team C</span><span>Player / Team D</span></div></div>
+            <div class="round"><div class="round-label">Semifinals</div><div class="match"><span>Winner QF 1</span><span>Winner QF 2</span></div></div>
+            <div class="round finale"><div class="round-label">Grand final</div><div class="match"><span>Finalist 1</span><span>Finalist 2</span></div></div>
+          </div>
+        </div>
+        <div class="locked-box"><div><strong>Registration is not open yet</strong><p>It begins immediately after the winning game is announced.</p></div><button class="btn" type="button" disabled>Registration locked</button></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="results-title">
+      <div class="shell">
+        <div class="section-head"><div><p class="kicker">Official record</p><h2 class="section-title" id="results-title">Match results</h2></div><p class="section-copy">Scores and winners will be published here as each match is completed.</p></div>
+        <div class="results-wrap">
+          <table class="results"><thead><tr><th>Round</th><th>Match</th><th>Score</th><th>Status</th></tr></thead><tbody><tr><td colspan="4"><div class="results-empty"><span>⌛</span>No matches scheduled yet</div></td></tr></tbody></table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell footer-row"><span><strong>RU × Nigeria Community Tournament</strong><br>Two regions. One community. One tournament.</span><span>🇷🇺 × 🇳🇬</span></div></footer>
+
+  <dialog id="ballot-dialog" aria-labelledby="dialog-title">
+    <div class="modal-head"><div><h2 id="dialog-title">Review your ballot</h2><p>Confirm once — duplicate votes are not accepted.</p></div><button class="icon-btn" id="close-dialog" aria-label="Close review">×</button></div>
+    <div class="modal-body">
+      <div class="review-line"><span>Region</span><strong id="review-region">—</strong></div>
+      <div class="review-line"><span>Role</span><strong id="review-role">—</strong></div>
+      <div class="review-line"><span>Games</span><strong id="review-games">—</strong></div>
+      <div class="review-line"><span>Points awarded</span><strong id="review-points">—</strong></div>
+      <div class="modal-actions"><button class="btn" id="edit-ballot" type="button">Go back</button><button class="btn primary" id="confirm-vote" type="button">Confirm ballot</button></div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite">Ballot saved on this device. Thank you for voting!</div>
+
+  <script>
+    const selected = new Set();
+    const cards = [...document.querySelectorAll('.game-card')];
+    const count = document.querySelector('#selection-count');
+    const regionSelect = document.querySelector('#region');
+    const roleSelect = document.querySelector('#role');
+    const dialog = document.querySelector('#ballot-dialog');
+    const reviewButton = document.querySelector('#review-vote');
+    const gameOrder = ['Counter-Strike 1.6', 'eFootball', 'Chess', 'Kirka', 'GeoGuessr', 'Poxel.io'];
+
+    function toggleGame(card) {
+      const game = card.dataset.game;
+      if (selected.has(game)) selected.delete(game);
+      else if (selected.size < 2) selected.add(game);
+      card.classList.toggle('selected', selected.has(game));
+      card.setAttribute('aria-pressed', String(selected.has(game)));
+      count.textContent = `${selected.size} of 2`;
+    }
+
+    cards.forEach(card => card.addEventListener('click', () => toggleGame(card)));
+
+    function showFormError() {
+      document.querySelector('.ballot-bar').animate([
+        { transform: 'translateX(0)' }, { transform: 'translateX(-6px)' },
+        { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }
+      ], { duration: 260 });
+    }
+
+    function openReview() {
+      const region = regionSelect.value;
+      const role = roleSelect.value;
+      if (!region || !role || selected.size === 0) {
+        showFormError();
+        return false;
+      }
+      const roleLabel = roleSelect.options[roleSelect.selectedIndex].text;
+      document.querySelector('#review-region').textContent = region;
+      document.querySelector('#review-role').textContent = roleLabel;
+      document.querySelector('#review-games').textContent = [...selected].join(' + ');
+      document.querySelector('#review-points').textContent = `${role} point${role === '1' ? '' : 's'} per game`;
+      dialog.showModal();
+      return true;
+    }
+
+    function renderScores(ballot) {
+      const scores = Object.fromEntries(gameOrder.map(game => [game, 0]));
+      if (ballot) ballot.games.forEach(game => { scores[game] += Number(ballot.role); });
+      const max = Math.max(1, ...Object.values(scores));
+      const leaders = [...document.querySelectorAll('.leader')];
+      leaders.sort((a, b) => scores[b.dataset.game] - scores[a.dataset.game] || gameOrder.indexOf(a.dataset.game) - gameOrder.indexOf(b.dataset.game));
+      const parent = leaders[0].parentElement;
+      leaders.forEach((row, index) => {
+        row.querySelector('.rank').textContent = String(index + 1).padStart(2, '0');
+        row.querySelector('.points').textContent = scores[row.dataset.game];
+        row.querySelector('.bar span').style.width = `${scores[row.dataset.game] / max * 100}%`;
+        parent.insertBefore(row, parent.querySelector('.score-foot'));
+      });
+      document.querySelector('#total-points').textContent = Object.values(scores).reduce((sum, value) => sum + value, 0);
+    }
+
+    function setSubmittedState(ballot) {
+      selected.clear();
+      ballot.games.forEach(game => selected.add(game));
+      cards.forEach(card => {
+        card.disabled = true;
+        card.classList.toggle('selected', selected.has(card.dataset.game));
+        card.setAttribute('aria-pressed', String(selected.has(card.dataset.game)));
+      });
+      regionSelect.value = ballot.region;
+      roleSelect.value = String(ballot.role);
+      regionSelect.disabled = true;
+      roleSelect.disabled = true;
+      reviewButton.disabled = true;
+      reviewButton.textContent = 'Ballot submitted';
+      reviewButton.classList.add('submitted');
+      count.textContent = `${selected.size} of 2`;
+      renderScores(ballot);
+    }
+
+    function submitBallot(input) {
+      const allowedRegions = ['RU', 'Nigeria'];
+      const allowedRoles = [1, 2, 3, 5];
+      if (!allowedRegions.includes(input.region)) throw new Error('Select an eligible region.');
+      if (!allowedRoles.includes(Number(input.role))) throw new Error('Select a valid community role.');
+      if (!Array.isArray(input.games) || input.games.length < 1 || input.games.length > 2 || input.games.some(game => !gameOrder.includes(game))) throw new Error('Choose one or two valid games.');
+      if (localStorage.getItem('ruNgTournamentBallot')) throw new Error('A ballot is already stored on this device.');
+      const ballot = { region: input.region, role: Number(input.role), games: [...new Set(input.games)] };
+      if (ballot.games.length !== input.games.length) throw new Error('Duplicate game selections are not allowed.');
+      localStorage.setItem('ruNgTournamentBallot', JSON.stringify(ballot));
+      setSubmittedState(ballot);
+      return { status: 'submitted', region: ballot.region, roleMultiplier: ballot.role, games: ballot.games, pointsPerGame: ballot.role };
+    }
+
+    reviewButton.addEventListener('click', openReview);
+    document.querySelector('#close-dialog').addEventListener('click', () => dialog.close());
+    document.querySelector('#edit-ballot').addEventListener('click', () => dialog.close());
+    document.querySelector('#confirm-vote').addEventListener('click', () => {
+      try {
+        submitBallot({ region: regionSelect.value, role: Number(roleSelect.value), games: [...selected] });
+        dialog.close();
+        const toast = document.querySelector('#toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 4200);
+      } catch (error) {
+        dialog.close();
+        alert(error.message);
+      }
+    });
+
+    const saved = localStorage.getItem('ruNgTournamentBallot');
+    if (saved) {
+      try { setSubmittedState(JSON.parse(saved)); } catch { localStorage.removeItem('ruNgTournamentBallot'); renderScores(null); }
+    } else renderScores(null);
+
+    if (document.modelContext?.registerTool) {
+      try {
+        document.modelContext.registerTool({
+          name: 'submit_local_ballot',
+          title: 'Submit tournament ballot',
+          description: 'Submit one RU × Nigeria tournament ballot in this prototype on the current device and update the visible standings.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              region: { type: 'string', enum: ['RU', 'Nigeria'] },
+              role: { type: 'integer', enum: [1, 2, 3, 5] },
+              games: { type: 'array', minItems: 1, maxItems: 2, uniqueItems: true, items: { type: 'string', enum: gameOrder } }
+            },
+            required: ['region', 'role', 'games'],
+            additionalProperties: false
+          },
+          annotations: { readOnlyHint: false, untrustedContentHint: false },
+          execute: submitBallot
+        });
+      } catch (error) { console.warn('WebMCP unavailable:', error); }
+    }
+  </script>
+</body>
+</html>
