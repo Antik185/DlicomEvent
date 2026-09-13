@@ -3,457 +3,186 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050714">
-  <meta name="description" content="Official Dlicom RU × Nigeria Community Tournament standings, verified voting statistics, rules, prize pool and tournament updates.">
-  <title>Dlicom Tournament — RU × Nigeria</title>
+  <meta name="theme-color" content="#dcebff">
+  <meta name="description" content="Official Dlicom RU × Nigeria Community Tournament standings, voting statistics, rules and prize information.">
+  <title>Dlicom Community Tournament — RU × Nigeria</title>
   <link rel="icon" type="image/png" href="assets/dlicom-logo.png">
   <style>
-    :root {
-      --bg: #050714;
-      --bg-soft: #080d21;
-      --panel: #0c1229;
-      --panel-2: #111a38;
-      --line: rgba(151, 177, 255, .17);
-      --line-strong: rgba(151, 177, 255, .3);
-      --text: #f7f9ff;
-      --muted: #99a8c8;
-      --blue: #2f82ff;
-      --blue-bright: #54b6ff;
-      --cyan: #58f4ff;
-      --green: #3bec91;
-      --gold: #ffd35a;
-      --red: #ff5f6d;
-      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-width: 320px;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 18% -4%, rgba(26, 100, 255, .22), transparent 28rem),
-        radial-gradient(circle at 86% 9%, rgba(55, 226, 246, .12), transparent 26rem),
-        linear-gradient(180deg, #050714 0%, #060a18 48%, #040611 100%);
-      font: 16px/1.55 var(--font);
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .24;
-      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: linear-gradient(to bottom, #000, transparent 74%);
-    }
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; color: inherit; }
-    .shell { width: min(1180px, calc(100% - 36px)); margin-inline: auto; }
-    .section { padding: 82px 0; border-top: 1px solid rgba(255,255,255,.07); }
-    .eyebrow { margin: 0 0 10px; color: var(--cyan); font-size: .78rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
-    .muted { color: var(--muted); }
-
-    .topbar { position: relative; z-index: 5; display: flex; min-height: 78px; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.03em; }
-    .brand-logo { width: 42px; height: 42px; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 11px; box-shadow: 0 0 28px rgba(47,130,255,.24); }
-    .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .brand-copy { line-height: 1.05; }
-    .brand-copy b { display: block; font-size: 1.04rem; letter-spacing: .08em; }
-    .brand-copy small { color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
-    .nav { display: flex; align-items: center; gap: 24px; color: #c7d2eb; font-size: .88rem; font-weight: 700; }
-    .nav a { transition: color .18s ease; }
-    .nav a:hover, .nav a:focus-visible { color: #fff; }
-    .status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(84,182,255,.35); border-radius: 999px; background: rgba(47,130,255,.1); color: #cbe8ff; font-size: .72rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue-bright); box-shadow: 0 0 0 4px rgba(84,182,255,.11); }
-
-    .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(270px, .58fr); gap: clamp(30px, 7vw, 92px); align-items: center; min-height: 438px; padding: 58px 0 42px; overflow: hidden; }
-    .hero h1 { max-width: 760px; margin: 14px 0 19px; font-size: clamp(3.15rem, 7.5vw, 6.7rem); line-height: .88; letter-spacing: -.072em; text-transform: uppercase; }
-    .outline { color: transparent; -webkit-text-stroke: 1.4px #d8e4ff; }
-    .hero-copy { max-width: 650px; margin: 0; color: #adb9d3; font-size: clamp(1rem, 1.7vw, 1.16rem); }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
-    .meta-chip { display: grid; gap: 1px; min-width: 168px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 9px; background: rgba(12,18,41,.72); }
-    .meta-chip small { color: #7586ab; font-size: .67rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-    .meta-chip strong { font-size: .9rem; }
-    .mascot-wrap { position: relative; align-self: end; justify-self: center; width: min(300px, 100%); }
-    .mascot-wrap::before { content: ""; position: absolute; left: 50%; bottom: 4%; width: 82%; aspect-ratio: 1; border-radius: 50%; background: rgba(46,130,255,.33); filter: blur(38px); transform: translateX(-50%); }
-    .mascot-wrap img { position: relative; width: 100%; max-height: 360px; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 25px 42px rgba(0,0,0,.38)); }
-
-    .stats-band { padding: 0 0 76px; }
-    .summary-grid { display: grid; grid-template-columns: 1.2fr repeat(3, .8fr); gap: 10px; margin-bottom: 16px; }
-    .summary-card { min-height: 112px; padding: 17px 18px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(145deg, rgba(17,26,56,.9), rgba(8,13,31,.9)); }
-    .summary-card.primary { border-color: rgba(84,182,255,.38); background: linear-gradient(135deg, rgba(47,130,255,.18), rgba(11,18,42,.96) 60%); }
-    .summary-label { display: block; margin-bottom: 16px; color: #7f8fb2; font-size: .7rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
-    .summary-value { display: block; font-size: clamp(1.45rem, 2.8vw, 2.2rem); font-weight: 900; line-height: 1; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
-    .summary-detail { display: block; margin-top: 8px; color: #8292b4; font-size: .72rem; }
-
-    .standings { overflow: hidden; border: 1px solid var(--line-strong); border-radius: 16px; background: rgba(9,14,34,.94); box-shadow: 0 32px 90px rgba(0,0,0,.3); }
-    .standings-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 24px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(47,130,255,.12), transparent 55%); }
-    .standings-head h2 { margin: 0 0 3px; font-size: clamp(1.35rem, 2.4vw, 1.8rem); letter-spacing: -.04em; }
-    .standings-head p { margin: 0; color: var(--muted); font-size: .84rem; }
-    .updated { min-width: max-content; text-align: right; }
-    .updated span { display: block; color: #7f8fb2; font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
-    .updated strong { display: block; margin-top: 3px; color: #dce6fb; font-size: .78rem; }
-    .table-head, .game-row { display: grid; grid-template-columns: 54px minmax(230px, 1fr) 128px 112px 104px; align-items: center; gap: 18px; }
-    .table-head { min-height: 45px; padding: 0 22px; border-bottom: 1px solid var(--line); color: #7182a8; font-size: .66rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
-    .game-row { position: relative; min-height: 88px; padding: 13px 22px; border-bottom: 1px solid rgba(151,177,255,.1); }
-    .game-row:last-child { border-bottom: 0; }
-    .game-row.is-leading { background: linear-gradient(90deg, rgba(47,130,255,.1), transparent 58%); }
-    .rank { color: #66789e; font-size: .78rem; font-weight: 900; }
-    .game-cell { min-width: 0; }
-    .game-title { display: flex; align-items: center; gap: 12px; min-width: 0; font-weight: 850; }
-    .game-icon { flex: 0 0 38px; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--line); border-radius: 9px; background: #101938; font-size: 1.28rem; }
-    .game-text { min-width: 0; }
-    .game-text strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .game-text small { display: block; color: #7586aa; font-size: .7rem; font-weight: 650; }
-    .score-bar { height: 5px; margin: 10px 0 0 50px; overflow: hidden; border-radius: 999px; background: #172142; }
-    .score-bar i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); box-shadow: 0 0 14px rgba(88,244,255,.35); transition: width .5s ease; }
-    .metric { font-size: 1rem; font-weight: 850; font-variant-numeric: tabular-nums; }
-    .metric small { display: block; color: #7182a5; font-size: .67rem; font-weight: 700; }
-    .share { color: var(--cyan); font-size: 1rem; font-weight: 900; font-variant-numeric: tabular-nums; text-align: right; }
-    .empty-note { display: none; align-items: center; justify-content: center; gap: 10px; min-height: 72px; padding: 16px; border-top: 1px solid var(--line); color: #8292b4; font-size: .85rem; }
-    .empty-note.visible { display: flex; }
-    .stats-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 22px; border-top: 1px solid var(--line); background: rgba(18,26,54,.56); color: #8090b0; font-size: .76rem; }
-    .verified { color: #b9c8e4; }
-
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 30px; }
-    .section-title { margin: 0; font-size: clamp(2.05rem, 4.4vw, 3.7rem); line-height: .96; letter-spacing: -.06em; }
-    .section-copy { max-width: 510px; margin: 0; color: var(--muted); }
-
-    .split-panel { display: grid; grid-template-columns: .92fr 1.08fr; gap: 16px; }
-    .panel { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: rgba(12,18,41,.88); }
-    .panel-head { padding: 20px 22px; border-bottom: 1px solid var(--line); }
-    .panel-head h3 { margin: 0 0 4px; font-size: 1.16rem; }
-    .panel-head p { margin: 0; color: var(--muted); font-size: .8rem; }
-    .region-panel { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 18px; padding: 24px; }
-    .donut { position: relative; display: grid; width: 150px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: conic-gradient(var(--blue) 0 var(--ru-share), var(--green) var(--ru-share) 100%); }
-    .donut::before { content: ""; position: absolute; width: 102px; aspect-ratio: 1; border-radius: 50%; background: #0b122a; box-shadow: inset 0 0 0 1px var(--line); }
-    .donut-center { position: relative; z-index: 1; text-align: center; }
-    .donut-center strong { display: block; font-size: 1.8rem; line-height: 1; }
-    .donut-center small { color: #7485a9; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .region-list { display: grid; gap: 16px; }
-    .region-row { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 10px; }
-    .region-color { width: 9px; height: 9px; border-radius: 2px; background: var(--blue); }
-    .region-row.ng .region-color { background: var(--green); }
-    .region-row span { color: #c5d0e7; font-weight: 750; }
-    .region-row strong { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
-    .region-row small { grid-column: 2 / 4; color: #7383a7; font-size: .7rem; }
-    .role-list { padding: 6px 20px 12px; }
-    .role-row { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 57px; border-bottom: 1px solid rgba(151,177,255,.1); }
-    .role-row:last-child { border: 0; }
-    .role-name { display: flex; align-items: center; gap: 11px; font-weight: 800; }
-    .role-gem { width: 9px; height: 9px; border-radius: 2px; background: #7e8eae; transform: rotate(45deg); }
-    .role-row:nth-child(2) .role-gem { background: var(--blue-bright); }
-    .role-row:nth-child(3) .role-gem { background: #b96dff; }
-    .role-row:nth-child(4) .role-gem { background: var(--gold); }
-    .multiplier { color: var(--cyan); font-size: 1.1rem; font-weight: 900; }
-
-    .prize-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(34px, 7vw, 90px); align-items: center; }
-    .prize-visual { position: relative; min-height: 330px; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(47,130,255,.25); border-radius: 18px; background: radial-gradient(circle at 45% 44%, rgba(47,130,255,.34), transparent 46%), #080d20; }
-    .prize-visual img { width: min(500px, 94%); filter: drop-shadow(0 22px 45px rgba(0,0,0,.34)); }
-    .prize-total { display: flex; align-items: flex-end; gap: 12px; margin: 24px 0 18px; }
-    .prize-total strong { color: var(--gold); font-size: clamp(5.4rem, 12vw, 8.6rem); line-height: .75; letter-spacing: -.09em; }
-    .prize-total span { margin-bottom: 7px; color: #cbd5ea; font-size: .9rem; font-weight: 850; text-transform: uppercase; }
-    .podium { display: grid; gap: 8px; margin-top: 26px; }
-    .podium-row { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 12px; min-height: 62px; padding: 0 16px; border: 1px solid var(--line); border-radius: 9px; background: rgba(12,18,41,.74); }
-    .podium-row:first-child { border-color: rgba(255,211,90,.35); }
-    .podium-row strong:last-child { font-size: 1.15rem; }
-
-    .rules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; counter-reset: rule; }
-    .rule { display: grid; grid-template-columns: 42px 1fr; gap: 14px; min-height: 112px; align-items: start; padding: 19px; border: 1px solid var(--line); border-radius: 12px; background: rgba(12,18,41,.74); color: #b3bfd8; }
-    .rule::before { counter-increment: rule; content: counter(rule, decimal-leading-zero); color: #5f719b; font-size: .72rem; font-weight: 900; letter-spacing: .06em; }
-    .rule strong { display: block; margin-bottom: 4px; color: var(--text); }
-    .update-callout { display: grid; grid-template-columns: auto 1fr; gap: 14px; margin-top: 18px; padding: 17px 19px; border: 1px solid rgba(84,182,255,.27); border-radius: 11px; background: rgba(47,130,255,.08); color: #a8b6d2; }
-    .update-callout span:first-child { color: var(--cyan); font-size: 1.15rem; }
-    .update-callout strong { color: #e6eeff; }
-
-    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .phase { position: relative; min-height: 146px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: rgba(12,18,41,.8); }
-    .phase.active { border-color: rgba(84,182,255,.42); background: linear-gradient(145deg, rgba(47,130,255,.16), rgba(12,18,41,.9)); }
-    .phase-label { color: #68799e; font-size: .68rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
-    .phase h3 { margin: 24px 0 4px; font-size: 1.08rem; }
-    .phase p { margin: 0; color: var(--muted); font-size: .8rem; }
-    .phase-state { position: absolute; top: 16px; right: 16px; padding: 4px 8px; border-radius: 999px; background: #17213f; color: #8292b4; font-size: .62rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
-    .phase.active .phase-state { background: rgba(84,182,255,.15); color: #bee7ff; }
-
-    .bracket-shell { margin-top: 28px; padding: 24px; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, rgba(13,20,44,.94), rgba(6,10,24,.94)); }
-    .bracket { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; min-width: 760px; align-items: center; }
-    .round-label { margin-bottom: 12px; color: #68799e; font-size: .68rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
-    .match { position: relative; display: grid; margin: 10px 0; overflow: visible; border: 1px solid var(--line); border-radius: 8px; background: #101735; }
-    .match span { display: flex; min-height: 37px; align-items: center; padding: 0 11px; color: #7080a3; font-size: .76rem; }
-    .match span + span { border-top: 1px solid var(--line); }
-    .match::after { content: ""; position: absolute; top: 50%; left: 100%; width: 49px; height: 1px; background: rgba(151,177,255,.22); }
-    .round:last-child .match::after { display: none; }
-    .locked { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 16px; padding: 16px 18px; border: 1px dashed var(--line-strong); border-radius: 10px; color: #8191b2; font-size: .8rem; }
-    .locked strong { display: block; color: #e3ebfb; font-size: .9rem; }
-
-    .link-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
-    .btn { display: inline-flex; min-height: 47px; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid var(--line-strong); border-radius: 8px; background: #121a37; font-weight: 850; transition: transform .18s ease, border-color .18s ease; }
-    .btn:hover { transform: translateY(-2px); border-color: rgba(84,182,255,.62); }
-    .btn.primary { border-color: var(--blue); background: var(--blue); color: white; box-shadow: 0 14px 34px rgba(47,130,255,.22); }
-    .btn.pending { color: #8191b0; cursor: default; }
-    .btn.pending:hover { transform: none; border-color: var(--line-strong); }
-    .btn:focus-visible, .nav a:focus-visible { outline: 3px solid rgba(84,182,255,.56); outline-offset: 3px; }
-    footer { padding: 34px 0 42px; border-top: 1px solid rgba(255,255,255,.07); }
-    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; color: #7484a8; font-size: .78rem; }
-    .footer-row strong { color: #dbe5fa; }
-
-    @media (max-width: 940px) {
-      .nav a:not(.status-pill) { display: none; }
-      .hero { grid-template-columns: 1fr 240px; }
-      .summary-grid { grid-template-columns: repeat(2, 1fr); }
-      .table-head, .game-row { grid-template-columns: 42px minmax(210px, 1fr) 100px 92px; }
-      .table-head span:nth-child(4), .game-row .region-metric { display: none; }
-      .prize-grid { grid-template-columns: 1fr; }
-      .prize-visual { order: 2; min-height: 270px; }
-    }
-    @media (max-width: 720px) {
-      .shell { width: min(100% - 22px, 1180px); }
-      .topbar { min-height: 68px; }
-      .brand-copy small { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 42px; }
-      .hero h1 { font-size: clamp(3.1rem, 17vw, 5.2rem); }
-      .mascot-wrap { position: absolute; right: -56px; bottom: -6px; width: 220px; opacity: .25; }
-      .hero-copy, .hero-meta { position: relative; z-index: 1; }
-      .summary-grid { grid-template-columns: 1fr 1fr; }
-      .standings-head { align-items: flex-start; flex-direction: column; }
-      .updated { text-align: left; }
-      .table-head { display: none; }
-      .game-row { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; min-height: 100px; padding: 14px; }
-      .game-row .votes-metric, .game-row .region-metric { display: none; }
-      .game-row .share { grid-column: 3; grid-row: 1; }
-      .score-bar { margin-left: 50px; }
-      .stats-foot, .section-head, .footer-row, .locked { align-items: flex-start; flex-direction: column; }
-      .split-panel, .rules-grid { grid-template-columns: 1fr; }
-      .timeline { grid-template-columns: 1fr; }
-      .region-panel { grid-template-columns: 145px 1fr; }
-      .section { padding: 60px 0; }
-    }
-    @media (max-width: 480px) {
-      .brand-logo { width: 36px; height: 36px; }
-      .status-pill { padding: 7px 9px; font-size: .62rem; }
-      .summary-grid { grid-template-columns: 1fr; }
-      .summary-card { min-height: 96px; }
-      .region-panel { grid-template-columns: 1fr; justify-items: center; }
-      .region-list { width: 100%; }
-      .prize-total strong { font-size: 5.3rem; }
-      .prize-visual { min-height: 220px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-    }
+    :root { --navy:#07194c; --blue:#0968f1; --blue-2:#3ca6ff; --muted:#667ba9; --line:rgba(54,115,204,.16); --glass:rgba(255,255,255,.83); --shadow:0 18px 55px rgba(20,77,154,.14); --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; overflow-x:hidden; color:var(--navy); background:#ddecff url("assets/event-background.png") center top/cover fixed no-repeat; font:16px/1.45 var(--font); }
+    body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(235,247,255,.08)); }
+    img { display:block; max-width:100%; }
+    a { color:inherit; text-decoration:none; }
+    .shell { width:min(1110px,calc(100% - 28px)); margin-inline:auto; }
+    .glass { border:1px solid rgba(255,255,255,.88); background:var(--glass); box-shadow:var(--shadow); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+    .topbar { position:sticky; top:12px; z-index:20; display:grid; grid-template-columns:1.25fr auto 1.25fr; align-items:center; gap:18px; min-height:58px; margin-top:14px; padding:7px 14px; border-radius:15px; }
+    .brand { display:flex; min-width:0; align-items:center; gap:11px; }
+    .brand-logo { flex:0 0 54px; width:54px; height:42px; overflow:hidden; border-radius:9px; background:#061841; }
+    .brand-logo img { width:100%; height:100%; object-fit:cover; }
+    .brand-copy { min-width:0; line-height:1.02; }
+    .brand-copy strong { display:block; overflow:hidden; color:#07184b; font-size:.96rem; font-weight:900; letter-spacing:.055em; text-overflow:ellipsis; white-space:nowrap; }
+    .brand-copy strong b { color:var(--blue); }
+    .brand-copy small { display:block; margin-top:4px; font-size:.56rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    .nav { display:flex; align-items:center; gap:8px; font-size:.82rem; font-weight:700; }
+    .nav a { padding:10px 14px; border-radius:9px; color:#516792; transition:background .18s ease,color .18s ease; }
+    .nav a:hover,.nav a:focus-visible,.nav a.active { color:var(--blue); background:rgba(255,255,255,.86); }
+    .discord-wrap { display:flex; justify-content:flex-end; }
+    .discord-btn { display:inline-flex; min-height:42px; align-items:center; justify-content:center; gap:9px; padding:0 14px; border:1px solid rgba(255,255,255,.5); border-radius:10px; color:#fff; background:linear-gradient(105deg,#1764f0,#3188ff); box-shadow:0 8px 22px rgba(0,87,226,.25); font-size:.78rem; font-weight:800; }
+    .discord-btn svg { width:19px; height:19px; fill:currentColor; }
+    .discord-btn .arrow { font-size:1.1rem; transition:transform .18s ease; }
+    .discord-btn:hover .arrow { transform:translateX(3px); }
+    .hero { position:relative; display:grid; grid-template-columns:1.08fr .92fr; min-height:300px; align-items:center; padding:34px 64px 6px; }
+    .hero-copy { position:relative; z-index:3; padding-bottom:28px; }
+    .eyebrow { margin:0 0 9px; color:#6f91cd; font-size:.76rem; font-weight:650; letter-spacing:.36em; text-transform:uppercase; }
+    h1 { margin:0; font-size:clamp(3.15rem,6vw,5.45rem); line-height:.86; letter-spacing:-.065em; text-transform:uppercase; }
+    h1 .nigeria { color:transparent; background:linear-gradient(180deg,#1495ff,#064fc9); -webkit-background-clip:text; background-clip:text; }
+    .tournament-name { margin:9px 0 12px; font-size:clamp(1rem,1.7vw,1.44rem); font-weight:900; letter-spacing:.24em; text-transform:uppercase; white-space:nowrap; }
+    .tagline { margin:0; color:#0b1b50; font-size:1.03rem; font-weight:750; }
+    .values { display:flex; flex-wrap:wrap; gap:18px; margin-top:21px; color:#15366f; font-size:.76rem; font-weight:800; }
+    .value { display:inline-flex; align-items:center; gap:7px; }
+    .value svg { width:21px; height:21px; color:var(--blue); stroke:currentColor; fill:none; stroke-width:2; }
+    .mascot { position:relative; align-self:stretch; min-height:300px; overflow:visible; }
+    .mascot img { position:absolute; left:50%; bottom:-4px; width:520px; max-width:none; max-height:410px; object-fit:contain; transform:translateX(-48%); filter:drop-shadow(0 18px 28px rgba(25,75,160,.2)); }
+    .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:2px; }
+    .kpi { display:grid; grid-template-columns:60px 1fr; min-height:96px; align-items:center; gap:13px; padding:13px 18px; border-radius:13px; }
+    .kpi-icon { display:grid; width:52px; height:52px; place-items:center; border-radius:14px; color:var(--blue); background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(226,241,255,.84)); font-size:2rem; }
+    .kpi:first-child .kpi-icon { color:#eaa400; }
+    .kpi strong { display:block; font-size:clamp(1.75rem,3vw,2.35rem); line-height:.92; letter-spacing:-.045em; font-variant-numeric:tabular-nums; }
+    .kpi b { display:block; margin-top:7px; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; }
+    .kpi small { display:block; margin-top:2px; color:#7f95be; font-size:.58rem; font-weight:650; letter-spacing:.08em; text-transform:uppercase; }
+    .dashboard { display:grid; grid-template-columns:1.65fr .9fr; align-items:start; gap:12px; padding:12px 0 34px; }
+    .panel { overflow:hidden; border-radius:14px; }
+    .panel-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:17px 20px 11px; }
+    .panel-heading { display:flex; align-items:center; gap:11px; }
+    .panel-heading .head-icon { display:grid; width:34px; height:34px; place-items:center; border-radius:9px; color:#fff; background:var(--blue); font-size:1rem; }
+    .panel h2 { margin:0; font-size:1.06rem; line-height:1.1; }
+    .panel-head p { margin:3px 0 0; color:#7d91b7; font-size:.66rem; }
+    .live { display:inline-flex; align-items:center; gap:7px; color:#0aaa6f; font-size:.7rem; font-weight:850; }
+    .live::before { content:""; width:7px; height:7px; border-radius:50%; background:#16d28b; box-shadow:0 0 0 4px rgba(22,210,139,.1); }
+    .games { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:0 16px 16px; }
+    .game { display:grid; grid-template-columns:68px 1fr; min-width:0; min-height:104px; gap:10px; padding:7px; border:1px solid rgba(50,104,190,.09); border-radius:10px; background:linear-gradient(135deg,rgba(247,251,255,.97),rgba(230,242,255,.78)); }
+    .game-image { position:relative; width:68px; height:88px; overflow:hidden; border-radius:9px; background:linear-gradient(145deg,#1664d5,#79c4ff); }
+    .game-image img { width:100%; height:100%; padding:8px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,.16)); }
+    .game[data-game="Poxel.io"] .game-image img { padding:0; object-fit:cover; }
+    .rank { position:absolute; top:5px; left:5px; z-index:2; display:grid; width:23px; height:23px; place-items:center; border:2px solid #fff; border-radius:50%; color:#fff; background:#0a54cc; box-shadow:0 3px 8px rgba(0,45,120,.3); font-size:.68rem; font-weight:900; }
+    .game-body { min-width:0; align-self:center; }
+    .game-name { display:block; overflow:hidden; font-size:.72rem; font-weight:900; text-overflow:ellipsis; white-space:nowrap; }
+    .bar { height:6px; margin:10px 0 7px; overflow:hidden; border-radius:999px; background:#cfdef1; }
+    .bar span { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,#1768ef,#48adff); }
+    .percent { display:block; font-size:.76rem; font-weight:900; font-variant-numeric:tabular-nums; }
+    .votes { display:block; color:#7c91b8; font-size:.61rem; font-weight:650; }
+    .side-stack { display:grid; grid-template-rows:auto auto; gap:10px; }
+    .roles { padding:0 16px 15px; }
+    .role { display:grid; grid-template-columns:15px 1fr auto; min-height:31px; align-items:center; gap:8px; margin-top:4px; padding:0 10px; border-radius:8px; background:linear-gradient(90deg,rgba(223,250,244,.9),rgba(241,248,255,.8)); font-size:.68rem; }
+    .role:nth-child(2) { background:linear-gradient(90deg,#f3f8ff,#e6f1ff); }
+    .role:nth-child(3) { background:linear-gradient(90deg,#fff8e4,#fff3ca); }
+    .role:nth-child(4) { background:linear-gradient(90deg,#fff0f7,#ffe6f2); }
+    .role-dot { width:11px; height:11px; border-radius:50%; background:#14c884; }
+    .role:nth-child(2) .role-dot { background:#fff; border:1px solid #c9d8ed; }
+    .role:nth-child(3) .role-dot { background:#ffb810; }
+    .role:nth-child(4) .role-dot { background:#f02287; }
+    .role strong { color:var(--blue); font-size:.84rem; }
+    .compact-rules { padding:0 18px 14px; list-style:none; counter-reset:rules; }
+    .compact-rules li { display:grid; grid-template-columns:23px 1fr; min-height:27px; align-items:center; gap:8px; color:#274276; font-size:.67rem; counter-increment:rules; }
+    .compact-rules li::before { content:counter(rules); display:grid; width:21px; height:21px; place-items:center; border-radius:50%; color:var(--blue); background:#dcecff; font-size:.62rem; font-weight:900; }
+    .stats-note { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 16px 15px; padding:10px 12px; border-radius:9px; color:#5d75a1; background:rgba(222,239,255,.78); font-size:.66rem; font-weight:700; }
+    .stats-note strong { color:#174992; }
+    .detail-section { padding:38px 0 54px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:28px; margin-bottom:16px; }
+    .section-head h2 { margin:0; font-size:clamp(1.85rem,4vw,3.05rem); line-height:.95; letter-spacing:-.05em; }
+    .section-head p { max-width:470px; margin:0; color:#6279a6; font-size:.82rem; }
+    .prize-rules { display:grid; grid-template-columns:.82fr 1.18fr; gap:12px; }
+    .big-card { overflow:hidden; border-radius:15px; }
+    .big-card-head { display:flex; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line); }
+    .big-card-head i { display:grid; width:38px; height:38px; place-items:center; border-radius:10px; color:#fff; background:linear-gradient(145deg,#1769ed,#4aa9ff); font-style:normal; }
+    .big-card-head h3 { margin:0; font-size:1rem; }
+    .big-card-head p { margin:2px 0 0; color:#7c90b8; font-size:.68rem; }
+    .prize-total { display:flex; align-items:end; gap:10px; padding:22px 22px 15px; }
+    .prize-total strong { color:#eda800; font-size:4.7rem; line-height:.78; letter-spacing:-.08em; }
+    .prize-total span { color:#5f76a4; font-size:.72rem; font-weight:850; letter-spacing:.07em; text-transform:uppercase; }
+    .prize-list { display:grid; gap:7px; padding:0 18px 18px; }
+    .prize-row { display:grid; grid-template-columns:35px 1fr auto; min-height:49px; align-items:center; gap:9px; padding:0 11px; border:1px solid rgba(66,120,204,.1); border-radius:9px; background:linear-gradient(90deg,rgba(255,250,227,.88),rgba(244,249,255,.78)); }
+    .prize-row strong:last-child { color:#0b58c9; font-size:1.05rem; }
+    .full-rules { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:16px; counter-reset:full-rules; }
+    .full-rule { display:grid; grid-template-columns:30px 1fr; min-height:82px; align-items:start; gap:10px; padding:13px; border:1px solid rgba(66,120,204,.1); border-radius:10px; background:rgba(242,248,255,.78); color:#526b99; font-size:.73rem; counter-increment:full-rules; }
+    .full-rule::before { content:counter(full-rules,decimal-leading-zero); color:#1671eb; font-size:.68rem; font-weight:900; }
+    .full-rule strong { display:block; margin-bottom:2px; color:#112c65; }
+    .update-strip { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:13px; margin-top:12px; padding:14px 18px; border-radius:12px; }
+    .update-icon { display:grid; width:36px; height:36px; place-items:center; border-radius:10px; color:#fff; background:var(--blue); font-size:1.05rem; }
+    .update-strip strong { display:block; font-size:.82rem; }
+    .update-strip p { margin:1px 0 0; color:#7187af; font-size:.68rem; }
+    .update-strip time { color:#145cc8; font-size:.7rem; font-weight:850; }
+    .tournament-board { padding-top:18px; }
+    .timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+    .phase { position:relative; min-height:115px; padding:16px; border-radius:12px; }
+    .phase.active { border-color:rgba(37,120,244,.28); background:rgba(235,246,255,.92); }
+    .phase small { color:#7590bf; font-size:.62rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    .phase h3 { margin:20px 0 3px; font-size:.9rem; }
+    .phase p { margin:0; color:#6b82ad; font-size:.68rem; }
+    .phase-tag { position:absolute; top:12px; right:12px; padding:4px 7px; border-radius:999px; color:#1b67d3; background:#dcecff; font-size:.55rem; font-weight:900; text-transform:uppercase; }
+    .bracket-card { padding:18px; border-radius:15px; }
+    .bracket-scroll { overflow-x:auto; }
+    .bracket { display:grid; grid-template-columns:repeat(3,1fr); min-width:710px; align-items:center; gap:42px; }
+    .round-label { margin-bottom:8px; color:#7189b4; font-size:.6rem; font-weight:900; letter-spacing:.11em; text-transform:uppercase; }
+    .match { position:relative; display:grid; margin:7px 0; border:1px solid rgba(54,115,204,.15); border-radius:8px; background:rgba(240,247,255,.88); }
+    .match span { display:flex; min-height:32px; align-items:center; padding:0 10px; color:#6980a9; font-size:.65rem; }
+    .match span+span { border-top:1px solid rgba(54,115,204,.12); }
+    .match::after { content:""; position:absolute; top:50%; left:100%; width:43px; height:1px; background:rgba(54,115,204,.25); }
+    .round:last-child .match::after { display:none; }
+    .join-banner { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:17px; margin:0 auto 48px; padding:14px 18px; border-radius:14px; }
+    .join-mark { width:54px; height:44px; overflow:hidden; border-radius:10px; }
+    .join-mark img { width:100%; height:100%; object-fit:cover; }
+    .join-banner h2 { margin:0; font-size:1rem; }
+    .join-banner p { margin:2px 0 0; color:#6c82aa; font-size:.68rem; }
+    .join-actions { display:flex; gap:8px; }
+    .soft-btn { display:inline-flex; min-height:39px; align-items:center; justify-content:center; gap:8px; padding:0 14px; border:1px solid rgba(54,115,204,.17); border-radius:9px; color:#5f75a0; background:rgba(239,247,255,.88); font-size:.68rem; font-weight:850; }
+    .soft-btn.primary { color:#fff; border-color:#1764ef; background:linear-gradient(105deg,#1764f0,#3188ff); }
+    footer { padding:0 0 34px; color:#6179a7; font-size:.68rem; text-align:center; }
+    @media (max-width:900px) { .topbar{grid-template-columns:1fr auto}.nav{display:none}.hero{padding-inline:28px}.mascot img{width:460px}.dashboard{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr;grid-template-rows:auto}.prize-rules{grid-template-columns:1fr}.join-banner{grid-template-columns:auto 1fr}.join-actions{grid-column:1/-1} }
+    @media (max-width:680px) { .shell{width:min(100% - 16px,1110px)}.topbar{top:8px;grid-template-columns:minmax(0,1fr) 42px;gap:6px;margin-top:8px;padding:7px 8px}.brand-logo{flex-basis:42px;width:42px}.brand-copy strong{font-size:.68rem;letter-spacing:.02em}.brand-copy small{display:none}.discord-btn{width:40px;min-height:39px;padding:0}.discord-btn span{display:none}.hero{grid-template-columns:1fr;min-height:445px;padding:42px 18px 0;overflow:hidden}.hero-copy{align-self:start;padding-bottom:0}h1{font-size:clamp(3rem,16vw,5rem)}.tournament-name{font-size:1rem;letter-spacing:.17em}.values{gap:11px}.mascot{position:absolute;inset:auto -86px -76px auto;width:390px;min-height:330px;opacity:.68}.mascot img{left:0;width:450px;transform:none}.kpis{grid-template-columns:1fr}.kpi{min-height:84px}.games{grid-template-columns:repeat(2,1fr)}.side-stack{grid-template-columns:1fr}.section-head,.stats-note,.update-strip{align-items:flex-start;grid-template-columns:1fr;flex-direction:column}.full-rules,.timeline{grid-template-columns:1fr}.join-banner{grid-template-columns:1fr}.join-actions{grid-column:auto;flex-wrap:wrap} }
+    @media (max-width:420px) { .games{grid-template-columns:1fr}.game{grid-template-columns:82px 1fr}.game-image{width:82px}.values .value:last-child{display:none} }
+    @media (prefers-reduced-motion:reduce) { *{scroll-behavior:auto!important;transition-duration:.01ms!important} }
   </style>
 </head>
 <body>
-  <header class="shell topbar">
-    <a class="brand" href="#top" aria-label="Dlicom tournament home">
-      <span class="brand-logo"><img src="assets/dlicom-logo.png" alt=""></span>
-      <span class="brand-copy"><b>DLICOM</b><small>Community Tournament</small></span>
-    </a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#standings">Standings</a>
-      <a href="#scoring">Scoring</a>
-      <a href="#prizes">Prizes</a>
-      <a href="#rules">Rules</a>
-      <a class="status-pill" href="#standings"><span class="status-dot"></span>Starts 14 Sep</a>
-    </nav>
+  <header class="shell topbar glass">
+    <a class="brand" href="#home" aria-label="Dlicom RU Nigeria tournament home"><span class="brand-logo"><img src="assets/dlicom-logo.png" alt=""></span><span class="brand-copy"><strong>DLICOMPLUS.RU <b>× NIGERIA</b></strong><small>Community Tournament</small></span></a>
+    <nav class="nav" aria-label="Main navigation"><a class="active" href="#home">Home</a><a href="#voting">Voting</a><a href="#rules">Rules</a></nav>
+    <div class="discord-wrap"><a class="discord-btn" href="#join" aria-label="Join our Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.35A16.3 16.3 0 0 0 15.44 4l-.5 1.02a15 15 0 0 0-5.87 0L8.56 4A16.4 16.4 0 0 0 4.5 5.36C1.93 9.2 1.23 12.96 1.58 16.67A16.6 16.6 0 0 0 6.56 19.2l1.2-1.64a10.8 10.8 0 0 1-1.9-.92l.47-.36c3.67 1.7 7.65 1.7 11.27 0l.48.36c-.62.37-1.26.68-1.92.92l1.2 1.64a16.5 16.5 0 0 0 4.98-2.53c.42-4.3-.72-8.02-2.84-11.32ZM8.31 14.41c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Zm7.38 0c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Z"/></svg><span>Join our Discord</span><span class="arrow">→</span></a></div>
   </header>
-
-  <main id="top">
+  <main id="home">
     <section class="shell hero">
-      <div>
-        <p class="eyebrow">Dlicom community event · provisional dates</p>
-        <h1>RU <span class="outline">×</span> Nigeria</h1>
-        <p class="hero-copy">One community, two regions, one winning game. Discord ballots are reviewed by the team and published here with role-weighted scores.</p>
-        <div class="hero-meta">
-          <span class="meta-chip"><small>Voting window</small><strong>14–17 September 2026</strong></span>
-          <span class="meta-chip"><small>Prize pool</small><strong>$30 guaranteed</strong></span>
-          <span class="meta-chip"><small>Next update</small><strong>Approximately every 6 hours</strong></span>
-        </div>
+      <div class="hero-copy"><p class="eyebrow">Gamers bring people together</p><h1>RU <span>×</span> <span class="nigeria">Nigeria</span></h1><p class="tournament-name">Community Tournament</p><p class="tagline">Different regions. Same passion.</p><div class="values" aria-label="Community values"><span class="value"><svg viewBox="0 0 24 24"><path d="M8 9h8a5 5 0 0 1 4.7 6.7l-1 2.8a2 2 0 0 1-3.4.7L14.7 17H9.3l-1.6 2.2a2 2 0 0 1-3.4-.7l-1-2.8A5 5 0 0 1 8 9Z"/><path d="M8 13v3M6.5 14.5h3M16 14h.01M18 16h.01"/></svg>Play</span><span class="value"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Meet</span><span class="value"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4ZM5 6H3v2a4 4 0 0 0 4 4M19 6h2v2a4 4 0 0 1-4 4"/></svg>Compete</span><span class="value"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>Build together</span></div></div>
+      <div class="mascot" aria-hidden="true"><img src="assets/event-mascot-clean.png" alt=""></div>
+    </section>
+    <section class="shell kpis" aria-label="Tournament summary"><article class="kpi glass"><span class="kpi-icon">🏆</span><div><strong>$30</strong><b>Guaranteed prize pool</b><small>More players. Bigger stories.</small></div></article><article class="kpi glass"><span class="kpi-icon">◷</span><div><strong>72h</strong><b>Voting window</b><small>14–17 September 2026</small></div></article><article class="kpi glass"><span class="kpi-icon">♟</span><div><strong id="total-voters">0</strong><b>Total voters</b><small>Verified Discord ballots</small></div></article></section>
+    <section class="shell dashboard" id="voting">
+      <article class="panel glass"><header class="panel-head"><div class="panel-heading"><span class="head-icon">🎮</span><div><h2>Live Game Standings</h2><p>Verified weighted results from both regions.</p></div></div><span class="live">Voting opens 14 Sep</span></header><div class="games" id="game-grid"></div><div class="stats-note"><span><strong>Manual verification:</strong> votes are checked against region and role.</span><span>Updated approximately every 6 hours</span></div></article>
+      <div class="side-stack"><article class="panel glass"><header class="panel-head"><div class="panel-heading"><span class="head-icon">👥</span><div><h2>Role Voting Power</h2><p>Different roles, different impact.</p></div></div></header><div class="roles"><div class="role"><i class="role-dot"></i><span>Regular</span><strong>×1</strong></div><div class="role"><i class="role-dot"></i><span>Deliver</span><strong>×2</strong></div><div class="role"><i class="role-dot"></i><span>Decoder</span><strong>×3</strong></div><div class="role"><i class="role-dot"></i><span>DSO</span><strong>×5</strong></div></div></article><article class="panel glass" id="rules"><header class="panel-head"><div class="panel-heading"><span class="head-icon">▤</span><div><h2>Tournament Rules</h2><p>Keep it fair. Keep it fun.</p></div></div></header><ol class="compact-rules"><li>Choose 1 game</li><li>One participant = one ballot</li><li>Vote only in your region</li><li>No paid votes</li></ol></article></div>
+    </section>
+    <section class="shell detail-section" aria-labelledby="details-title">
+      <div class="section-head"><div><p class="eyebrow">Tournament details</p><h2 id="details-title">Fair play. Real impact.</h2></div><p>Every ballot is checked against the member’s region and Discord role before the result is added to the public standings.</p></div>
+      <div class="prize-rules">
+        <article class="big-card glass"><header class="big-card-head"><i>🏆</i><div><h3>Guaranteed Prize Pool</h3><p>The pool may increase later.</p></div></header><div class="prize-total"><strong>$30</strong><span>minimum<br>prize pool</span></div><div class="prize-list"><div class="prize-row"><span>🥇</span><strong>1st place</strong><strong>$15</strong></div><div class="prize-row"><span>🥈</span><strong>2nd place</strong><strong>$10</strong></div><div class="prize-row"><span>🥉</span><strong>3rd place</strong><strong>$5</strong></div></div></article>
+        <article class="big-card glass"><header class="big-card-head"><i>✓</i><div><h3>Complete Voting Rules</h3><p>One participant. One region. One game.</p></div></header><div class="full-rules"><div class="full-rule"><div><strong>Eligible regions only</strong>Only official RU and Nigeria members are counted.</div></div><div class="full-rule"><div><strong>Vote in your region</strong>Cross-region ballots are removed during verification.</div></div><div class="full-rule"><div><strong>Choose one game</strong>Each participant may submit one ballot for one game.</div></div><div class="full-rule"><div><strong>Role multiplier applies</strong>Your verified role adds ×1, ×2, ×3 or ×5 points.</div></div><div class="full-rule"><div><strong>No duplicates</strong>One participant equals one counted ballot.</div></div><div class="full-rule"><div><strong>Highest score wins</strong>No paid votes. The top weighted game becomes official.</div></div></div></article>
       </div>
-      <div class="mascot-wrap" aria-hidden="true"><img src="assets/dlicom-mascot.png" alt=""></div>
+      <div class="update-strip glass"><span class="update-icon">↻</span><div><strong>Statistics are updated manually</strong><p>Expect a refresh approximately every 6 hours. The actual interval may vary from a few hours to one day.</p></div><time id="last-update">Awaiting first count</time></div>
     </section>
 
-    <section class="shell stats-band" id="standings" aria-labelledby="standings-title">
-      <div class="summary-grid">
-        <article class="summary-card primary"><span class="summary-label">Current leader</span><strong class="summary-value" id="leader-name">Awaiting first count</strong><span class="summary-detail" id="leader-detail">No verified score yet</span></article>
-        <article class="summary-card"><span class="summary-label">Verified ballots</span><strong class="summary-value" id="total-ballots">0</strong><span class="summary-detail">One person = one game</span></article>
-        <article class="summary-card"><span class="summary-label">Weighted points</span><strong class="summary-value" id="total-points">0</strong><span class="summary-detail">After role multipliers</span></article>
-        <article class="summary-card"><span class="summary-label">Games in the race</span><strong class="summary-value">6</strong><span class="summary-detail">Highest score wins</span></article>
-      </div>
-
-      <div class="standings">
-        <header class="standings-head">
-          <div><p class="eyebrow">Verified Discord ballots</p><h2 id="standings-title">Game standings</h2><p>Ranked by weighted points. Percentages show each game’s share of the total score.</p></div>
-          <div class="updated"><span>Last updated</span><strong id="last-updated">Awaiting first verified count</strong></div>
-        </header>
-        <div class="table-head" aria-hidden="true"><span>Rank</span><span>Game</span><span>Ballots</span><span>RU / NG</span><span>Score share</span></div>
-        <div id="standings-rows"></div>
-        <div class="empty-note" id="empty-note"><span>◎</span>Results will appear after the first manual verification.</div>
-        <div class="stats-foot"><span class="verified">Scores are checked manually against region membership and Discord roles.</span><span>Updates may be earlier or later than the 6-hour estimate.</span></div>
-      </div>
+    <section class="shell detail-section tournament-board" aria-labelledby="roadmap-title">
+      <div class="section-head"><div><p class="eyebrow">After the vote</p><h2 id="roadmap-title">Road to the final</h2></div><p>Registration starts after the winning game is announced. For flexible games, the 1v1 or 2v2 format depends on the number of registered participants.</p></div>
+      <div class="timeline"><article class="phase glass active"><small>Phase 01</small><span class="phase-tag">14–17 Sep</span><h3>Game voting</h3><p>Discord ballots are verified and added here.</p></article><article class="phase glass"><small>Phase 02</small><span class="phase-tag">Next</span><h3>Registration</h3><p>Player or team signup opens after voting.</p></article><article class="phase glass"><small>Phase 03</small><span class="phase-tag">TBA</span><h3>Tournament</h3><p>Matches, scores and winners appear on this page.</p></article></div>
+      <article class="bracket-card glass"><div class="bracket-scroll"><div class="bracket"><div class="round"><div class="round-label">Quarterfinals</div><div class="match"><span>Participant / Team A</span><span>Participant / Team B</span></div><div class="match"><span>Participant / Team C</span><span>Participant / Team D</span></div></div><div class="round"><div class="round-label">Semifinals</div><div class="match"><span>Winner QF 1</span><span>Winner QF 2</span></div></div><div class="round"><div class="round-label">Grand final</div><div class="match"><span>Finalist 1</span><span>Finalist 2</span></div></div></div></div></article>
     </section>
 
-    <section class="section" id="scoring" aria-labelledby="scoring-title">
-      <div class="shell">
-        <div class="section-head">
-          <div><p class="eyebrow">How the score works</p><h2 class="section-title" id="scoring-title">Every role has weight.</h2></div>
-          <p class="section-copy">Each member chooses one game in the official regional Discord poll. The Dlicom team verifies the ballot and adds the role multiplier to that game’s score.</p>
-        </div>
-        <div class="split-panel">
-          <article class="panel">
-            <header class="panel-head"><h3>Region split</h3><p>Verified ballots, not weighted points</p></header>
-            <div class="region-panel">
-              <div class="donut" id="region-donut" style="--ru-share: 50%"><div class="donut-center"><strong id="region-total">0</strong><small>Total</small></div></div>
-              <div class="region-list">
-                <div class="region-row"><i class="region-color"></i><span>RU region</span><strong id="ru-total">0</strong><small id="ru-percent">0% of ballots</small></div>
-                <div class="region-row ng"><i class="region-color"></i><span>Nigeria region</span><strong id="ng-total">0</strong><small id="ng-percent">0% of ballots</small></div>
-              </div>
-            </div>
-          </article>
-          <article class="panel">
-            <header class="panel-head"><h3>Voting power</h3><p>Points added to the selected game</p></header>
-            <div class="role-list">
-              <div class="role-row"><span class="role-name"><i class="role-gem"></i>Regular</span><span class="multiplier">×1</span></div>
-              <div class="role-row"><span class="role-name"><i class="role-gem"></i>Deliver</span><span class="multiplier">×2</span></div>
-              <div class="role-row"><span class="role-name"><i class="role-gem"></i>Decoder</span><span class="multiplier">×3</span></div>
-              <div class="role-row"><span class="role-name"><i class="role-gem"></i>DSO</span><span class="multiplier">×5</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="prizes" aria-labelledby="prize-title">
-      <div class="shell prize-grid">
-        <div>
-          <p class="eyebrow">Guaranteed prize pool</p>
-          <h2 class="section-title" id="prize-title">Thirty dollars.<br>Three winners.</h2>
-          <div class="prize-total"><strong>$30</strong><span>minimum pool</span></div>
-          <p class="section-copy">The prize pool may increase. Any change will be announced separately by the organizers.</p>
-          <div class="podium" aria-label="Prize distribution">
-            <div class="podium-row"><span>🥇</span><strong>1st place</strong><strong>$15</strong></div>
-            <div class="podium-row"><span>🥈</span><strong>2nd place</strong><strong>$10</strong></div>
-            <div class="podium-row"><span>🥉</span><strong>3rd place</strong><strong>$5</strong></div>
-          </div>
-        </div>
-        <div class="prize-visual"><img src="assets/dlicom-token.png" alt="Dlicom character surrounded by tokens"></div>
-      </div>
-    </section>
-
-    <section class="section" id="rules" aria-labelledby="rules-title">
-      <div class="shell">
-        <div class="section-head">
-          <div><p class="eyebrow">Fair play</p><h2 class="section-title" id="rules-title">Voting rules</h2></div>
-          <p class="section-copy">The official poll takes place in Discord. This page displays manually verified statistics and does not accept votes.</p>
-        </div>
-        <div class="rules-grid">
-          <article class="rule"><div><strong>Eligible regions only</strong>Only official members of the RU and Nigeria regions are counted.</div></article>
-          <article class="rule"><div><strong>One region</strong>Vote only in the regional poll where you are officially registered.</div></article>
-          <article class="rule"><div><strong>One game</strong>Each participant may select exactly one game on one ballot.</div></article>
-          <article class="rule"><div><strong>No duplicates</strong>Duplicate and cross-region ballots are removed during verification.</div></article>
-          <article class="rule"><div><strong>No paid votes</strong>There are no paid ballots or score boosts.</div></article>
-          <article class="rule"><div><strong>Highest weighted score wins</strong>The game with the most role-weighted points becomes the tournament game.</div></article>
-        </div>
-        <div class="update-callout"><span>↻</span><div><strong>Statistics are updated manually.</strong><br>Expect a refresh approximately every 6 hours, though the actual interval may range from a few hours to a full day.</div></div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="timeline-title">
-      <div class="shell">
-        <div class="section-head"><div><p class="eyebrow">Event status</p><h2 class="section-title" id="timeline-title">From vote to final</h2></div><p class="section-copy">Registration opens after the winning game is announced. For flexible games, 1v1 or 2v2 is chosen from the final participant count.</p></div>
-        <div class="timeline">
-          <article class="phase active"><span class="phase-label">Phase 01</span><span class="phase-state">14–17 Sep</span><h3>Game voting</h3><p>Discord ballots are checked and added to the leaderboard.</p></article>
-          <article class="phase"><span class="phase-label">Phase 02</span><span class="phase-state">Next</span><h3>Registration</h3><p>Player or team registration begins after the vote.</p></article>
-          <article class="phase"><span class="phase-label">Phase 03</span><span class="phase-state">TBA</span><h3>Tournament</h3><p>Bracket, match times and results will be published here.</p></article>
-        </div>
-
-        <div class="bracket-shell" id="bracket" role="img" aria-label="Upcoming tournament bracket">
-          <div class="bracket">
-            <div class="round"><div class="round-label">Quarterfinals</div><div class="match"><span>Participant / Team A</span><span>Participant / Team B</span></div><div class="match"><span>Participant / Team C</span><span>Participant / Team D</span></div></div>
-            <div class="round"><div class="round-label">Semifinals</div><div class="match"><span>Winner QF 1</span><span>Winner QF 2</span></div></div>
-            <div class="round"><div class="round-label">Grand final</div><div class="match"><span>Finalist 1</span><span>Finalist 2</span></div></div>
-          </div>
-        </div>
-        <div class="locked"><div><strong>Bracket pending</strong>It will be populated after game voting and registration.</div><span>Match results will appear here as the event progresses.</span></div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="community-title">
-      <div class="shell">
-        <div class="section-head"><div><p class="eyebrow">Join the community</p><h2 class="section-title" id="community-title">Stay with Dlicom.</h2></div><p class="section-copy">Official project and Discord links will be added here as soon as the organizers provide the final URLs.</p></div>
-        <div class="link-row"><span class="btn primary pending" aria-disabled="true">Dlicom link coming soon</span><span class="btn pending" aria-disabled="true">Discord link coming soon</span></div>
-      </div>
-    </section>
+    <section class="shell join-banner glass" id="join"><span class="join-mark"><img src="assets/dlicom-logo.png" alt=""></span><div><h2>Be part of something bigger.</h2><p>Two regions. One community. Endless possibilities.</p></div><div class="join-actions"><span class="soft-btn">Dlicom link coming soon</span><span class="soft-btn primary">Join our Discord →</span></div></section>
   </main>
-
-  <footer>
-    <div class="shell footer-row"><span><strong>Dlicom RU × Nigeria Community Tournament</strong><br>Two regions. One community. One tournament.</span><span>🇷🇺 × 🇳🇬</span></div>
-  </footer>
-
+  <footer class="shell">Dlicomplus.ru × Nigeria Community Tournament · Different regions. Same passion.</footer>
   <script>
-    // MANUAL UPDATE AREA: edit only these values after checking the Discord polls.
-    const tournamentData = {
-      lastUpdated: 'Awaiting first verified count',
-      games: [
-        { name: 'eFootball', icon: '⚽', format: '1v1', ruBallots: 0, ngBallots: 0, points: 0 },
-        { name: 'Counter-Strike 1.6', icon: '🔫', format: '1v1 / 2v2', ruBallots: 0, ngBallots: 0, points: 0 },
-        { name: 'Kirka', icon: '🎯', format: '1v1 / 2v2', ruBallots: 0, ngBallots: 0, points: 0 },
-        { name: 'Chess', icon: '♟️', format: '1v1', ruBallots: 0, ngBallots: 0, points: 0 },
-        { name: 'GeoGuessr', icon: '🌍', format: '1v1', ruBallots: 0, ngBallots: 0, points: 0 },
-        { name: 'Poxel.io', icon: '🧱', format: '1v1 / 2v2', ruBallots: 0, ngBallots: 0, points: 0 }
-      ]
-    };
-
-    const total = key => tournamentData.games.reduce((sum, game) => sum + game[key], 0);
-    const totalRU = total('ruBallots');
-    const totalNG = total('ngBallots');
-    const totalBallots = totalRU + totalNG;
-    const totalPoints = total('points');
-    const sortedGames = [...tournamentData.games].sort((a, b) => b.points - a.points || (b.ruBallots + b.ngBallots) - (a.ruBallots + a.ngBallots) || a.name.localeCompare(b.name));
-    const maxPoints = Math.max(1, ...sortedGames.map(game => game.points));
-    const rows = document.querySelector('#standings-rows');
-
-    sortedGames.forEach((game, index) => {
-      const ballots = game.ruBallots + game.ngBallots;
-      const share = totalPoints ? game.points / totalPoints * 100 : 0;
-      const barWidth = totalPoints ? game.points / maxPoints * 100 : 0;
-      const row = document.createElement('article');
-      row.className = `game-row${index === 0 && game.points > 0 ? ' is-leading' : ''}`;
-      row.innerHTML = `
-        <span class="rank">${String(index + 1).padStart(2, '0')}</span>
-        <div class="game-cell">
-          <div class="game-title"><span class="game-icon">${game.icon}</span><span class="game-text"><strong>${game.name}</strong><small>${game.format}</small></span></div>
-          <div class="score-bar" role="progressbar" aria-label="${game.name}: ${share.toFixed(1)} percent of weighted points" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${share.toFixed(1)}"><i style="width:${barWidth.toFixed(1)}%"></i></div>
-        </div>
-        <span class="metric votes-metric">${ballots}<small>ballots</small></span>
-        <span class="metric region-metric">${game.ruBallots} / ${game.ngBallots}<small>RU / NG</small></span>
-        <span class="share">${share.toFixed(1)}%<small>${game.points} pts</small></span>`;
-      rows.appendChild(row);
-    });
-
-    document.querySelector('#total-ballots').textContent = totalBallots;
-    document.querySelector('#total-points').textContent = totalPoints;
-    document.querySelector('#last-updated').textContent = tournamentData.lastUpdated;
-    document.querySelector('#region-total').textContent = totalBallots;
-    document.querySelector('#ru-total').textContent = totalRU;
-    document.querySelector('#ng-total').textContent = totalNG;
-    const ruPercent = totalBallots ? totalRU / totalBallots * 100 : 0;
-    const ngPercent = totalBallots ? totalNG / totalBallots * 100 : 0;
-    document.querySelector('#ru-percent').textContent = `${ruPercent.toFixed(0)}% of ballots`;
-    document.querySelector('#ng-percent').textContent = `${ngPercent.toFixed(0)}% of ballots`;
-    document.querySelector('#region-donut').style.setProperty('--ru-share', `${totalBallots ? ruPercent : 50}%`);
-    document.querySelector('#empty-note').classList.toggle('visible', totalBallots === 0);
-
-    if (totalPoints > 0) {
-      const leader = sortedGames[0];
-      const tied = sortedGames.filter(game => game.points === leader.points).length > 1;
-      document.querySelector('#leader-name').textContent = tied ? 'Tie at the top' : leader.name;
-      document.querySelector('#leader-detail').textContent = tied ? `${leader.points} points each` : `${leader.points} weighted points`;
-    }
+    const tournamentData={lastUpdated:'Awaiting first count',games:[{name:'eFootball',image:'assets/game-efootball.png',votes:0,points:0},{name:'CS 1.6',image:'assets/game-cs.png',votes:0,points:0},{name:'Kirka',image:'assets/game-kirka.png',votes:0,points:0},{name:'Chess',image:'assets/game-chess.png',votes:0,points:0},{name:'GeoGuessr',image:'assets/game-geoguessr.webp',votes:0,points:0},{name:'Poxel.io',image:'assets/game-poxel.png',votes:0,points:0}]};
+    const totalVotes=tournamentData.games.reduce((sum,game)=>sum+game.votes,0);const totalPoints=tournamentData.games.reduce((sum,game)=>sum+game.points,0);const sorted=[...tournamentData.games].sort((a,b)=>b.points-a.points||b.votes-a.votes);document.querySelector('#total-voters').textContent=totalVotes.toLocaleString('en-US');document.querySelector('#last-update').textContent=tournamentData.lastUpdated;const grid=document.querySelector('#game-grid');sorted.forEach((game,index)=>{const share=totalPoints?game.points/totalPoints*100:0;const card=document.createElement('article');card.className='game';card.dataset.game=game.name;card.innerHTML=`<div class="game-image"><span class="rank">${index+1}</span><img src="${game.image}" alt=""></div><div class="game-body"><span class="game-name">${game.name}</span><div class="bar" role="progressbar" aria-label="${game.name}: ${share.toFixed(1)} percent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${share.toFixed(1)}"><span style="width:${share.toFixed(1)}%"></span></div><span class="percent">${share.toFixed(1)}%</span><span class="votes">${game.votes} votes · ${game.points} pts</span></div>`;grid.appendChild(card)});
   </script>
 </body>
 </html>
