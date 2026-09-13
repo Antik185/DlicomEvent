@@ -3,24 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#070a0d">
-  <meta name="description" content="RU × Nigeria Community Tournament — vote for the game, follow the standings and get ready to compete.">
-  <title>RU × Nigeria Community Tournament</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23070a0d'/%3E%3Cpath d='M10 16h17v32H10z' fill='%23009966'/%3E%3Cpath d='M37 16h17v32H37z' fill='%230055ff'/%3E%3Cpath d='M24 25h16v14H24z' fill='%23f5f7ed'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#050714">
+  <meta name="description" content="Official Dlicom RU × Nigeria Community Tournament standings, verified voting statistics, rules, prize pool and tournament updates.">
+  <title>Dlicom Tournament — RU × Nigeria</title>
+  <link rel="icon" type="image/png" href="assets/dlicom-logo.png">
   <style>
     :root {
-      --bg: #070a0d;
-      --panel: #0d1217;
-      --panel-2: #111920;
-      --line: #26323b;
-      --text: #f5f7ed;
-      --muted: #8f9aa2;
-      --green: #32ef8b;
-      --blue: #4d82ff;
-      --gold: #ffd457;
-      --orange: #ff6846;
+      --bg: #050714;
+      --bg-soft: #080d21;
+      --panel: #0c1229;
+      --panel-2: #111a38;
+      --line: rgba(151, 177, 255, .17);
+      --line-strong: rgba(151, 177, 255, .3);
+      --text: #f7f9ff;
+      --muted: #99a8c8;
+      --blue: #2f82ff;
+      --blue-bright: #54b6ff;
+      --cyan: #58f4ff;
+      --green: #3bec91;
+      --gold: #ffd35a;
+      --red: #ff5f6d;
       --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -28,488 +33,426 @@
       min-width: 320px;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% -5%, rgba(77,130,255,.18), transparent 28rem),
-        radial-gradient(circle at 90% 18%, rgba(50,239,139,.12), transparent 30rem),
-        var(--bg);
-      font-family: var(--font);
-      line-height: 1.5;
+        radial-gradient(circle at 18% -4%, rgba(26, 100, 255, .22), transparent 28rem),
+        radial-gradient(circle at 86% 9%, rgba(55, 226, 246, .12), transparent 26rem),
+        linear-gradient(180deg, #050714 0%, #060a18 48%, #040611 100%);
+      font: 16px/1.55 var(--font);
     }
-    button, select { font: inherit; }
-    button { color: inherit; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .24;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, #000, transparent 74%);
+    }
+    img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
-    .shell { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
-    .topbar {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-    .brand { display: flex; align-items: center; gap: 13px; font-weight: 800; letter-spacing: -.02em; }
-    .brand-mark { display: grid; grid-template-columns: 1fr 1fr; width: 36px; height: 36px; overflow: hidden; border: 1px solid #52606a; border-radius: 9px; }
-    .brand-mark i:first-child { background: linear-gradient(#fff 0 33%, #1855e8 33% 66%, #e53935 66%); }
-    .brand-mark i:last-child { background: linear-gradient(90deg, #098653 0 33%, #fff 33% 66%, #098653 66%); }
-    .brand small { display: block; color: var(--muted); font-size: .7rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
-    .nav { display: flex; align-items: center; gap: 24px; color: #c8d0d5; font-size: .9rem; }
-    .nav a:hover, .nav a:focus-visible { color: #fff; }
-    .live-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(50,239,139,.35); border-radius: 999px; background: rgba(50,239,139,.08); color: #b9ffd8; font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
-    .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(50,239,139,.12); }
-    .hero { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(32px, 6vw, 88px); align-items: center; min-height: 580px; padding: 72px 0 62px; }
-    .eyebrow { display: flex; align-items: center; gap: 10px; color: #c0c9cf; font-size: .78rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
-    .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--green); }
-    h1 { max-width: 740px; margin: 22px 0 22px; font-size: clamp(3.2rem, 7vw, 6.6rem); line-height: .89; letter-spacing: -.07em; text-transform: uppercase; }
-    .versus { color: transparent; -webkit-text-stroke: 1.5px #cbd4da; }
-    .lede { max-width: 610px; margin: 0; color: #aeb8bf; font-size: clamp(1rem, 1.6vw, 1.16rem); }
-    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; }
-    .btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid var(--line); border-radius: 8px; background: #11171c; cursor: pointer; font-weight: 750; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
-    .btn:hover { transform: translateY(-2px); border-color: #52616d; }
-    .btn.primary { border-color: var(--green); background: var(--green); color: #041109; box-shadow: 0 12px 36px rgba(50,239,139,.14); }
-    .btn.primary:hover { background: #72ffae; }
-    .btn:focus-visible, .game-card:focus-visible, select:focus-visible { outline: 3px solid rgba(77,130,255,.65); outline-offset: 3px; }
-    .time-note { color: var(--muted); font-size: .85rem; }
-    .scoreboard { position: relative; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(17,25,32,.98), rgba(9,13,17,.98)); box-shadow: 0 36px 80px rgba(0,0,0,.32); }
-    .scoreboard::before { content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; background: linear-gradient(135deg, rgba(77,130,255,.4), transparent 35%, rgba(50,239,139,.28)); }
-    .score-head { display: flex; justify-content: space-between; align-items: start; padding: 8px 7px 18px; }
-    .score-head h2 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -.03em; }
-    .score-head p { margin: 0; color: var(--muted); font-size: .8rem; }
-    .score-total { color: var(--green); font-variant-numeric: tabular-nums; font-weight: 800; }
-    .leader { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; min-height: 64px; padding: 10px 12px; border-top: 1px solid rgba(255,255,255,.06); }
-    .leader:first-of-type { border-radius: 10px; border-top-color: rgba(50,239,139,.2); background: rgba(50,239,139,.055); }
-    .rank { color: #71808a; font-size: .8rem; font-weight: 800; }
-    .game-name { display: flex; align-items: center; gap: 10px; font-weight: 750; }
-    .game-emoji { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid #2b3740; border-radius: 7px; background: #10171c; }
-    .bar { height: 4px; margin-top: 8px; overflow: hidden; border-radius: 4px; background: #202b33; }
-    .bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); }
-    .points { min-width: 46px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
-    .voting { padding: 66px 0; border-top: 1px solid rgba(255,255,255,.07); }
-    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 28px; }
-    .kicker { margin: 0 0 10px; color: var(--green); font-size: .74rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
-    h2.section-title { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: -.055em; line-height: 1; }
-    .section-copy { max-width: 450px; margin: 0; color: var(--muted); }
-    .games { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .game-card { position: relative; min-height: 145px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); text-align: left; cursor: pointer; transition: border .18s ease, transform .18s ease, background .18s ease; }
-    .game-card:hover { transform: translateY(-2px); border-color: #46545e; }
-    .game-card.selected { border-color: var(--green); background: linear-gradient(145deg, rgba(50,239,139,.12), #0d1418); box-shadow: inset 0 0 0 1px rgba(50,239,139,.2); }
-    .game-card .icon { display: block; margin-bottom: 20px; font-size: 1.65rem; }
-    .game-card strong { display: block; font-size: 1rem; }
-    .format { color: var(--muted); font-size: .78rem; }
-    .check { position: absolute; top: 14px; right: 14px; display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid #3a4650; border-radius: 50%; color: transparent; font-size: .75rem; }
-    .selected .check { border-color: var(--green); background: var(--green); color: #041109; }
-    .ballot-bar { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; margin-top: 16px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #0a0f13; }
-    label { display: grid; gap: 7px; color: #c7d0d6; font-size: .82rem; font-weight: 700; }
-    select { width: 100%; min-height: 46px; padding: 0 36px 0 13px; border: 1px solid #34424c; border-radius: 7px; color: #f3f6f7; background: #11181e; }
-    .selection-count { margin: 14px 0 0; color: var(--muted); font-size: .82rem; }
-    .selection-count strong { color: #fff; }
-    .prototype-note { display: flex; align-items: flex-start; gap: 11px; margin-top: 16px; padding: 13px 15px; border: 1px solid rgba(77,130,255,.25); border-radius: 9px; background: rgba(77,130,255,.06); color: #aebbc6; font-size: .8rem; }
-    .prototype-note strong { color: #dfe8ee; }
-    .score-foot { margin: 11px 7px 2px; color: #71808a; font-size: .72rem; }
+    button { font: inherit; color: inherit; }
+    .shell { width: min(1180px, calc(100% - 36px)); margin-inline: auto; }
     .section { padding: 82px 0; border-top: 1px solid rgba(255,255,255,.07); }
-    .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
-    .phase-card { position: relative; min-height: 154px; padding: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
-    .phase-card.active { border-color: rgba(50,239,139,.45); background: linear-gradient(140deg, rgba(50,239,139,.11), var(--panel)); }
-    .phase-num { color: #5c6870; font-size: .78rem; font-weight: 800; letter-spacing: .1em; }
-    .phase-card h3 { margin: 28px 0 5px; font-size: 1.1rem; }
-    .phase-card p { margin: 0; color: var(--muted); font-size: .85rem; }
-    .phase-state { position: absolute; top: 16px; right: 16px; padding: 5px 8px; border-radius: 999px; background: #1b242b; color: #91a0aa; font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .phase-card.active .phase-state { background: rgba(50,239,139,.14); color: #8dffbc; }
-    .prize-layout { display: grid; grid-template-columns: .74fr 1.26fr; gap: clamp(36px, 8vw, 110px); align-items: center; }
-    .prize-total { display: flex; align-items: flex-end; gap: 10px; margin: 25px 0 14px; }
-    .prize-total strong { font-size: clamp(5rem, 12vw, 9rem); line-height: .78; letter-spacing: -.09em; color: var(--gold); }
-    .prize-total span { margin-bottom: 8px; color: #d9e0e4; font-size: 1rem; font-weight: 800; text-transform: uppercase; }
-    .podium { display: grid; gap: 10px; }
-    .podium-row { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 16px; min-height: 80px; padding: 0 22px 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
-    .podium-row:first-child { border-color: rgba(255,212,87,.45); background: linear-gradient(90deg, rgba(255,212,87,.12), var(--panel) 55%); }
-    .medal { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #37444d; border-radius: 9px; background: #11181d; font-size: 1.25rem; }
-    .place { font-weight: 800; }
-    .place small { display: block; margin-top: 2px; color: var(--muted); font-size: .72rem; font-weight: 600; }
-    .amount { font-size: 1.45rem; font-weight: 850; font-variant-numeric: tabular-nums; }
-    .two-col { display: grid; grid-template-columns: .9fr 1.1fr; gap: 16px; align-items: start; }
-    .panel { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+    .eyebrow { margin: 0 0 10px; color: var(--cyan); font-size: .78rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+
+    .topbar { position: relative; z-index: 5; display: flex; min-height: 78px; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.03em; }
+    .brand-logo { width: 42px; height: 42px; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 11px; box-shadow: 0 0 28px rgba(47,130,255,.24); }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-copy { line-height: 1.05; }
+    .brand-copy b { display: block; font-size: 1.04rem; letter-spacing: .08em; }
+    .brand-copy small { color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+    .nav { display: flex; align-items: center; gap: 24px; color: #c7d2eb; font-size: .88rem; font-weight: 700; }
+    .nav a { transition: color .18s ease; }
+    .nav a:hover, .nav a:focus-visible { color: #fff; }
+    .status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(84,182,255,.35); border-radius: 999px; background: rgba(47,130,255,.1); color: #cbe8ff; font-size: .72rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue-bright); box-shadow: 0 0 0 4px rgba(84,182,255,.11); }
+
+    .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(270px, .58fr); gap: clamp(30px, 7vw, 92px); align-items: center; min-height: 438px; padding: 58px 0 42px; overflow: hidden; }
+    .hero h1 { max-width: 760px; margin: 14px 0 19px; font-size: clamp(3.15rem, 7.5vw, 6.7rem); line-height: .88; letter-spacing: -.072em; text-transform: uppercase; }
+    .outline { color: transparent; -webkit-text-stroke: 1.4px #d8e4ff; }
+    .hero-copy { max-width: 650px; margin: 0; color: #adb9d3; font-size: clamp(1rem, 1.7vw, 1.16rem); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .meta-chip { display: grid; gap: 1px; min-width: 168px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 9px; background: rgba(12,18,41,.72); }
+    .meta-chip small { color: #7586ab; font-size: .67rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .meta-chip strong { font-size: .9rem; }
+    .mascot-wrap { position: relative; align-self: end; justify-self: center; width: min(300px, 100%); }
+    .mascot-wrap::before { content: ""; position: absolute; left: 50%; bottom: 4%; width: 82%; aspect-ratio: 1; border-radius: 50%; background: rgba(46,130,255,.33); filter: blur(38px); transform: translateX(-50%); }
+    .mascot-wrap img { position: relative; width: 100%; max-height: 360px; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 25px 42px rgba(0,0,0,.38)); }
+
+    .stats-band { padding: 0 0 76px; }
+    .summary-grid { display: grid; grid-template-columns: 1.2fr repeat(3, .8fr); gap: 10px; margin-bottom: 16px; }
+    .summary-card { min-height: 112px; padding: 17px 18px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(145deg, rgba(17,26,56,.9), rgba(8,13,31,.9)); }
+    .summary-card.primary { border-color: rgba(84,182,255,.38); background: linear-gradient(135deg, rgba(47,130,255,.18), rgba(11,18,42,.96) 60%); }
+    .summary-label { display: block; margin-bottom: 16px; color: #7f8fb2; font-size: .7rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .summary-value { display: block; font-size: clamp(1.45rem, 2.8vw, 2.2rem); font-weight: 900; line-height: 1; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+    .summary-detail { display: block; margin-top: 8px; color: #8292b4; font-size: .72rem; }
+
+    .standings { overflow: hidden; border: 1px solid var(--line-strong); border-radius: 16px; background: rgba(9,14,34,.94); box-shadow: 0 32px 90px rgba(0,0,0,.3); }
+    .standings-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 24px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(47,130,255,.12), transparent 55%); }
+    .standings-head h2 { margin: 0 0 3px; font-size: clamp(1.35rem, 2.4vw, 1.8rem); letter-spacing: -.04em; }
+    .standings-head p { margin: 0; color: var(--muted); font-size: .84rem; }
+    .updated { min-width: max-content; text-align: right; }
+    .updated span { display: block; color: #7f8fb2; font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .updated strong { display: block; margin-top: 3px; color: #dce6fb; font-size: .78rem; }
+    .table-head, .game-row { display: grid; grid-template-columns: 54px minmax(230px, 1fr) 128px 112px 104px; align-items: center; gap: 18px; }
+    .table-head { min-height: 45px; padding: 0 22px; border-bottom: 1px solid var(--line); color: #7182a8; font-size: .66rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .game-row { position: relative; min-height: 88px; padding: 13px 22px; border-bottom: 1px solid rgba(151,177,255,.1); }
+    .game-row:last-child { border-bottom: 0; }
+    .game-row.is-leading { background: linear-gradient(90deg, rgba(47,130,255,.1), transparent 58%); }
+    .rank { color: #66789e; font-size: .78rem; font-weight: 900; }
+    .game-cell { min-width: 0; }
+    .game-title { display: flex; align-items: center; gap: 12px; min-width: 0; font-weight: 850; }
+    .game-icon { flex: 0 0 38px; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--line); border-radius: 9px; background: #101938; font-size: 1.28rem; }
+    .game-text { min-width: 0; }
+    .game-text strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .game-text small { display: block; color: #7586aa; font-size: .7rem; font-weight: 650; }
+    .score-bar { height: 5px; margin: 10px 0 0 50px; overflow: hidden; border-radius: 999px; background: #172142; }
+    .score-bar i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); box-shadow: 0 0 14px rgba(88,244,255,.35); transition: width .5s ease; }
+    .metric { font-size: 1rem; font-weight: 850; font-variant-numeric: tabular-nums; }
+    .metric small { display: block; color: #7182a5; font-size: .67rem; font-weight: 700; }
+    .share { color: var(--cyan); font-size: 1rem; font-weight: 900; font-variant-numeric: tabular-nums; text-align: right; }
+    .empty-note { display: none; align-items: center; justify-content: center; gap: 10px; min-height: 72px; padding: 16px; border-top: 1px solid var(--line); color: #8292b4; font-size: .85rem; }
+    .empty-note.visible { display: flex; }
+    .stats-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 22px; border-top: 1px solid var(--line); background: rgba(18,26,54,.56); color: #8090b0; font-size: .76rem; }
+    .verified { color: #b9c8e4; }
+
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 30px; }
+    .section-title { margin: 0; font-size: clamp(2.05rem, 4.4vw, 3.7rem); line-height: .96; letter-spacing: -.06em; }
+    .section-copy { max-width: 510px; margin: 0; color: var(--muted); }
+
+    .split-panel { display: grid; grid-template-columns: .92fr 1.08fr; gap: 16px; }
+    .panel { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: rgba(12,18,41,.88); }
     .panel-head { padding: 20px 22px; border-bottom: 1px solid var(--line); }
-    .panel-head h3 { margin: 0 0 4px; font-size: 1.15rem; }
-    .panel-head p { margin: 0; color: var(--muted); font-size: .82rem; }
-    .role-list { padding: 7px 20px 13px; }
-    .role-row { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 58px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .panel-head h3 { margin: 0 0 4px; font-size: 1.16rem; }
+    .panel-head p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .region-panel { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 18px; padding: 24px; }
+    .donut { position: relative; display: grid; width: 150px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: conic-gradient(var(--blue) 0 var(--ru-share), var(--green) var(--ru-share) 100%); }
+    .donut::before { content: ""; position: absolute; width: 102px; aspect-ratio: 1; border-radius: 50%; background: #0b122a; box-shadow: inset 0 0 0 1px var(--line); }
+    .donut-center { position: relative; z-index: 1; text-align: center; }
+    .donut-center strong { display: block; font-size: 1.8rem; line-height: 1; }
+    .donut-center small { color: #7485a9; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .region-list { display: grid; gap: 16px; }
+    .region-row { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 10px; }
+    .region-color { width: 9px; height: 9px; border-radius: 2px; background: var(--blue); }
+    .region-row.ng .region-color { background: var(--green); }
+    .region-row span { color: #c5d0e7; font-weight: 750; }
+    .region-row strong { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+    .region-row small { grid-column: 2 / 4; color: #7383a7; font-size: .7rem; }
+    .role-list { padding: 6px 20px 12px; }
+    .role-row { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 57px; border-bottom: 1px solid rgba(151,177,255,.1); }
     .role-row:last-child { border: 0; }
-    .role-name { display: flex; align-items: center; gap: 11px; font-weight: 750; }
-    .role-dot { width: 9px; height: 9px; border-radius: 2px; background: #64717a; transform: rotate(45deg); }
-    .role-row:nth-child(2) .role-dot { background: var(--blue); }
-    .role-row:nth-child(3) .role-dot { background: var(--orange); }
-    .role-row:nth-child(4) .role-dot { background: var(--gold); }
-    .multiplier { color: var(--green); font-size: 1.05rem; font-weight: 850; }
-    .rule-list { display: grid; gap: 0; margin: 0; padding: 7px 22px 13px; list-style: none; counter-reset: rules; }
-    .rule-list li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #b6c0c6; font-size: .9rem; }
-    .rule-list li:last-child { border-bottom: 0; }
-    .rule-list li::before { counter-increment: rules; content: counter(rules, decimal-leading-zero); color: #58666f; font-size: .7rem; font-weight: 800; letter-spacing: .05em; }
-    .bracket-shell { margin-top: 32px; padding: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(135deg, #0e151a, #090d10); }
-    .bracket { display: grid; grid-template-columns: repeat(3, 1fr); gap: 46px; min-width: 760px; align-items: center; }
-    .round-label { margin-bottom: 12px; color: #68767f; font-size: .7rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
-    .match { position: relative; display: grid; gap: 1px; margin: 10px 0; overflow: visible; border: 1px solid #29353e; border-radius: 8px; background: #11181d; }
-    .match span { display: flex; align-items: center; justify-content: space-between; min-height: 37px; padding: 0 11px; color: #75828b; font-size: .78rem; }
-    .match span + span { border-top: 1px solid #29353e; }
-    .match::after { content: ""; position: absolute; left: 100%; top: 50%; width: 47px; height: 1px; background: #2d3a43; }
+    .role-name { display: flex; align-items: center; gap: 11px; font-weight: 800; }
+    .role-gem { width: 9px; height: 9px; border-radius: 2px; background: #7e8eae; transform: rotate(45deg); }
+    .role-row:nth-child(2) .role-gem { background: var(--blue-bright); }
+    .role-row:nth-child(3) .role-gem { background: #b96dff; }
+    .role-row:nth-child(4) .role-gem { background: var(--gold); }
+    .multiplier { color: var(--cyan); font-size: 1.1rem; font-weight: 900; }
+
+    .prize-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(34px, 7vw, 90px); align-items: center; }
+    .prize-visual { position: relative; min-height: 330px; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(47,130,255,.25); border-radius: 18px; background: radial-gradient(circle at 45% 44%, rgba(47,130,255,.34), transparent 46%), #080d20; }
+    .prize-visual img { width: min(500px, 94%); filter: drop-shadow(0 22px 45px rgba(0,0,0,.34)); }
+    .prize-total { display: flex; align-items: flex-end; gap: 12px; margin: 24px 0 18px; }
+    .prize-total strong { color: var(--gold); font-size: clamp(5.4rem, 12vw, 8.6rem); line-height: .75; letter-spacing: -.09em; }
+    .prize-total span { margin-bottom: 7px; color: #cbd5ea; font-size: .9rem; font-weight: 850; text-transform: uppercase; }
+    .podium { display: grid; gap: 8px; margin-top: 26px; }
+    .podium-row { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 12px; min-height: 62px; padding: 0 16px; border: 1px solid var(--line); border-radius: 9px; background: rgba(12,18,41,.74); }
+    .podium-row:first-child { border-color: rgba(255,211,90,.35); }
+    .podium-row strong:last-child { font-size: 1.15rem; }
+
+    .rules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; counter-reset: rule; }
+    .rule { display: grid; grid-template-columns: 42px 1fr; gap: 14px; min-height: 112px; align-items: start; padding: 19px; border: 1px solid var(--line); border-radius: 12px; background: rgba(12,18,41,.74); color: #b3bfd8; }
+    .rule::before { counter-increment: rule; content: counter(rule, decimal-leading-zero); color: #5f719b; font-size: .72rem; font-weight: 900; letter-spacing: .06em; }
+    .rule strong { display: block; margin-bottom: 4px; color: var(--text); }
+    .update-callout { display: grid; grid-template-columns: auto 1fr; gap: 14px; margin-top: 18px; padding: 17px 19px; border: 1px solid rgba(84,182,255,.27); border-radius: 11px; background: rgba(47,130,255,.08); color: #a8b6d2; }
+    .update-callout span:first-child { color: var(--cyan); font-size: 1.15rem; }
+    .update-callout strong { color: #e6eeff; }
+
+    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .phase { position: relative; min-height: 146px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: rgba(12,18,41,.8); }
+    .phase.active { border-color: rgba(84,182,255,.42); background: linear-gradient(145deg, rgba(47,130,255,.16), rgba(12,18,41,.9)); }
+    .phase-label { color: #68799e; font-size: .68rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .phase h3 { margin: 24px 0 4px; font-size: 1.08rem; }
+    .phase p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .phase-state { position: absolute; top: 16px; right: 16px; padding: 4px 8px; border-radius: 999px; background: #17213f; color: #8292b4; font-size: .62rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .phase.active .phase-state { background: rgba(84,182,255,.15); color: #bee7ff; }
+
+    .bracket-shell { margin-top: 28px; padding: 24px; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, rgba(13,20,44,.94), rgba(6,10,24,.94)); }
+    .bracket { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; min-width: 760px; align-items: center; }
+    .round-label { margin-bottom: 12px; color: #68799e; font-size: .68rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+    .match { position: relative; display: grid; margin: 10px 0; overflow: visible; border: 1px solid var(--line); border-radius: 8px; background: #101735; }
+    .match span { display: flex; min-height: 37px; align-items: center; padding: 0 11px; color: #7080a3; font-size: .76rem; }
+    .match span + span { border-top: 1px solid var(--line); }
+    .match::after { content: ""; position: absolute; top: 50%; left: 100%; width: 49px; height: 1px; background: rgba(151,177,255,.22); }
     .round:last-child .match::after { display: none; }
-    .finale .match { border-color: rgba(255,212,87,.35); }
-    .locked-box { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; padding: 18px 20px; border: 1px dashed #33414a; border-radius: 10px; }
-    .locked-box strong { display: block; margin-bottom: 2px; }
-    .locked-box p { margin: 0; color: var(--muted); font-size: .82rem; }
-    .btn[disabled] { opacity: .48; cursor: not-allowed; transform: none; }
-    .results-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
-    .results { width: 100%; min-width: 650px; border-collapse: collapse; }
-    .results th, .results td { padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.06); }
-    .results th { color: #778690; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
-    .results td { color: #aab5bc; font-size: .86rem; }
-    .results-empty { display: flex; align-items: center; justify-content: center; gap: 11px; min-height: 100px; color: #82909a; }
-    .results-empty span { font-size: 1.35rem; filter: grayscale(1); }
-    footer { padding: 34px 0 44px; border-top: 1px solid rgba(255,255,255,.07); }
-    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #73808a; font-size: .78rem; }
-    .footer-row strong { color: #dce3e7; }
-    dialog { width: min(540px, calc(100% - 24px)); padding: 0; overflow: hidden; border: 1px solid #3a4852; border-radius: 15px; color: var(--text); background: #0d1318; box-shadow: 0 40px 110px rgba(0,0,0,.72); }
-    dialog::backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(6px); }
-    .modal-head { display: flex; justify-content: space-between; align-items: start; padding: 22px; border-bottom: 1px solid var(--line); }
-    .modal-head h2 { margin: 0 0 3px; font-size: 1.35rem; }
-    .modal-head p { margin: 0; color: var(--muted); font-size: .8rem; }
-    .icon-btn { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 8px; background: #151d23; cursor: pointer; }
-    .modal-body { padding: 22px; }
-    .review-line { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.07); color: #929fa8; font-size: .86rem; }
-    .review-line strong { color: #eef2f4; text-align: right; }
-    .modal-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; margin-top: 22px; }
-    .toast { position: fixed; right: 20px; bottom: 20px; z-index: 30; max-width: 390px; padding: 15px 17px; border: 1px solid rgba(50,239,139,.4); border-radius: 10px; background: #102019; box-shadow: 0 20px 60px rgba(0,0,0,.45); color: #d8ffe8; opacity: 0; transform: translateY(20px); pointer-events: none; transition: .25s ease; }
-    .toast.show { opacity: 1; transform: translateY(0); }
-    .submitted { color: var(--green); }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
-    @media (max-width: 860px) {
-      .nav a:not(.live-pill) { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 55px; }
-      .scoreboard { max-width: 620px; }
-      .games { grid-template-columns: repeat(2, 1fr); }
-      .ballot-bar { grid-template-columns: 1fr 1fr; }
-      .ballot-bar .btn { grid-column: 1 / -1; }
-      .prize-layout, .two-col { grid-template-columns: 1fr; }
-      .phase-grid { grid-template-columns: 1fr; }
-      .phase-card { min-height: 126px; }
-      .phase-card h3 { margin-top: 18px; }
+    .locked { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 16px; padding: 16px 18px; border: 1px dashed var(--line-strong); border-radius: 10px; color: #8191b2; font-size: .8rem; }
+    .locked strong { display: block; color: #e3ebfb; font-size: .9rem; }
+
+    .link-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .btn { display: inline-flex; min-height: 47px; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid var(--line-strong); border-radius: 8px; background: #121a37; font-weight: 850; transition: transform .18s ease, border-color .18s ease; }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(84,182,255,.62); }
+    .btn.primary { border-color: var(--blue); background: var(--blue); color: white; box-shadow: 0 14px 34px rgba(47,130,255,.22); }
+    .btn.pending { color: #8191b0; cursor: default; }
+    .btn.pending:hover { transform: none; border-color: var(--line-strong); }
+    .btn:focus-visible, .nav a:focus-visible { outline: 3px solid rgba(84,182,255,.56); outline-offset: 3px; }
+    footer { padding: 34px 0 42px; border-top: 1px solid rgba(255,255,255,.07); }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; color: #7484a8; font-size: .78rem; }
+    .footer-row strong { color: #dbe5fa; }
+
+    @media (max-width: 940px) {
+      .nav a:not(.status-pill) { display: none; }
+      .hero { grid-template-columns: 1fr 240px; }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .table-head, .game-row { grid-template-columns: 42px minmax(210px, 1fr) 100px 92px; }
+      .table-head span:nth-child(4), .game-row .region-metric { display: none; }
+      .prize-grid { grid-template-columns: 1fr; }
+      .prize-visual { order: 2; min-height: 270px; }
     }
-    @media (max-width: 560px) {
-      .shell { width: min(100% - 20px, 1180px); }
-      .brand span { font-size: .86rem; }
-      .brand small { font-size: .6rem; }
-      .hero { padding: 44px 0; }
-      h1 { font-size: clamp(3rem, 17vw, 5rem); }
-      .section-head { display: grid; }
-      .games { grid-template-columns: 1fr; }
-      .game-card { min-height: 116px; }
-      .ballot-bar { grid-template-columns: 1fr; }
-      .ballot-bar .btn { grid-column: auto; }
-      .section, .voting { padding: 60px 0; }
-      .locked-box, .footer-row { align-items: flex-start; flex-direction: column; }
-      .prize-total strong { font-size: 6rem; }
-      .podium-row { grid-template-columns: 48px 1fr auto; padding-right: 14px; }
-      .modal-actions { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 22px, 1180px); }
+      .topbar { min-height: 68px; }
+      .brand-copy small { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 42px; }
+      .hero h1 { font-size: clamp(3.1rem, 17vw, 5.2rem); }
+      .mascot-wrap { position: absolute; right: -56px; bottom: -6px; width: 220px; opacity: .25; }
+      .hero-copy, .hero-meta { position: relative; z-index: 1; }
+      .summary-grid { grid-template-columns: 1fr 1fr; }
+      .standings-head { align-items: flex-start; flex-direction: column; }
+      .updated { text-align: left; }
+      .table-head { display: none; }
+      .game-row { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; min-height: 100px; padding: 14px; }
+      .game-row .votes-metric, .game-row .region-metric { display: none; }
+      .game-row .share { grid-column: 3; grid-row: 1; }
+      .score-bar { margin-left: 50px; }
+      .stats-foot, .section-head, .footer-row, .locked { align-items: flex-start; flex-direction: column; }
+      .split-panel, .rules-grid { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr; }
+      .region-panel { grid-template-columns: 145px 1fr; }
+      .section { padding: 60px 0; }
+    }
+    @media (max-width: 480px) {
+      .brand-logo { width: 36px; height: 36px; }
+      .status-pill { padding: 7px 9px; font-size: .62rem; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .summary-card { min-height: 96px; }
+      .region-panel { grid-template-columns: 1fr; justify-items: center; }
+      .region-list { width: 100%; }
+      .prize-total strong { font-size: 5.3rem; }
+      .prize-visual { min-height: 220px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
   <header class="shell topbar">
-    <a class="brand" href="#top" aria-label="RU × Nigeria Tournament home">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
-      <span>RU × Nigeria<small>Community Tournament</small></span>
+    <a class="brand" href="#top" aria-label="Dlicom tournament home">
+      <span class="brand-logo"><img src="assets/dlicom-logo.png" alt=""></span>
+      <span class="brand-copy"><b>DLICOM</b><small>Community Tournament</small></span>
     </a>
     <nav class="nav" aria-label="Main navigation">
-      <a href="#vote">Vote</a>
+      <a href="#standings">Standings</a>
+      <a href="#scoring">Scoring</a>
       <a href="#prizes">Prizes</a>
       <a href="#rules">Rules</a>
-      <a class="live-pill" href="#vote"><span class="pulse"></span>Voting live</a>
+      <a class="status-pill" href="#standings"><span class="status-dot"></span>Starts 14 Sep</a>
     </nav>
   </header>
 
   <main id="top">
     <section class="shell hero">
       <div>
-        <p class="eyebrow">One shared arena</p>
-        <h1>Russia <span class="versus">×</span><br>Nigeria</h1>
-        <p class="lede">Two regions choose one game. Cast up to two votes, help set the arena, and compete for a guaranteed <strong>$30 prize pool.</strong></p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#vote">Cast your vote <span aria-hidden="true">↓</span></a>
-          <span class="time-note">Voting window · <strong>3 days</strong></span>
+        <p class="eyebrow">Dlicom community event · provisional dates</p>
+        <h1>RU <span class="outline">×</span> Nigeria</h1>
+        <p class="hero-copy">One community, two regions, one winning game. Discord ballots are reviewed by the team and published here with role-weighted scores.</p>
+        <div class="hero-meta">
+          <span class="meta-chip"><small>Voting window</small><strong>14–17 September 2026</strong></span>
+          <span class="meta-chip"><small>Prize pool</small><strong>$30 guaranteed</strong></span>
+          <span class="meta-chip"><small>Next update</small><strong>Approximately every 6 hours</strong></span>
         </div>
       </div>
-      <aside class="scoreboard" id="standings" aria-labelledby="score-title">
-        <div class="score-head">
-          <div><h2 id="score-title">Live standings</h2><p>Weighted community score</p></div>
-          <span class="score-total"><span id="total-points">0</span> pts</span>
-        </div>
-        <div class="leader" data-game="Counter-Strike 1.6"><span class="rank">01</span><div><span class="game-name"><span class="game-emoji">🔫</span>Counter-Strike 1.6</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
-        <div class="leader" data-game="eFootball"><span class="rank">02</span><div><span class="game-name"><span class="game-emoji">⚽</span>eFootball</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
-        <div class="leader" data-game="Chess"><span class="rank">03</span><div><span class="game-name"><span class="game-emoji">♟️</span>Chess</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
-        <div class="leader" data-game="Kirka"><span class="rank">04</span><div><span class="game-name"><span class="game-emoji">🎯</span>Kirka</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
-        <div class="leader" data-game="GeoGuessr"><span class="rank">05</span><div><span class="game-name"><span class="game-emoji">🌍</span>GeoGuessr</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
-        <div class="leader" data-game="Poxel.io"><span class="rank">06</span><div><span class="game-name"><span class="game-emoji">🧱</span>Poxel.io</span><div class="bar"><span style="width:0%"></span></div></div><span class="points">0</span></div>
-        <p class="score-foot">Prototype tally · official live connection pending</p>
-      </aside>
+      <div class="mascot-wrap" aria-hidden="true"><img src="assets/dlicom-mascot.png" alt=""></div>
     </section>
 
-    <section class="voting" id="vote">
-      <div class="shell">
-        <div class="section-head">
-          <div><p class="kicker">Community ballot</p><h2 class="section-title">Choose the game</h2></div>
-          <p class="section-copy">Pick up to two. Your community role multiplies the points awarded to every selected game.</p>
-        </div>
-        <div class="games" id="game-grid">
-          <button class="game-card" data-game="eFootball" aria-pressed="false"><span class="check">✓</span><span class="icon">⚽</span><strong>eFootball</strong><span class="format">1v1</span></button>
-          <button class="game-card" data-game="Counter-Strike 1.6" aria-pressed="false"><span class="check">✓</span><span class="icon">🔫</span><strong>Counter-Strike 1.6</strong><span class="format">1v1 / 2v2</span></button>
-          <button class="game-card" data-game="Kirka" aria-pressed="false"><span class="check">✓</span><span class="icon">🎯</span><strong>Kirka</strong><span class="format">1v1 / 2v2</span></button>
-          <button class="game-card" data-game="Chess" aria-pressed="false"><span class="check">✓</span><span class="icon">♟️</span><strong>Chess</strong><span class="format">1v1</span></button>
-          <button class="game-card" data-game="GeoGuessr" aria-pressed="false"><span class="check">✓</span><span class="icon">🌍</span><strong>GeoGuessr</strong><span class="format">1v1</span></button>
-          <button class="game-card" data-game="Poxel.io" aria-pressed="false"><span class="check">✓</span><span class="icon">🧱</span><strong>Poxel.io</strong><span class="format">1v1 / 2v2</span></button>
-        </div>
-        <div class="ballot-bar">
-          <label>Region<select id="region"><option value="">Select your region</option><option>RU</option><option>Nigeria</option></select></label>
-          <label>Community role<select id="role"><option value="">Select your role</option><option value="1">Regular ×1</option><option value="2">Deliver ×2</option><option value="3">Decoder ×3</option><option value="5">DSO ×5</option></select></label>
-          <button class="btn primary" id="review-vote" type="button">Review ballot</button>
-        </div>
-        <p class="selection-count" aria-live="polite"><strong id="selection-count">0 of 2</strong> games selected</p>
-        <p class="prototype-note"><span aria-hidden="true">ⓘ</span><span><strong>Prototype voting:</strong> this version stores one ballot on the current device. Connect the official member database or Discord bot before public voting to verify region and role across the community.</span></p>
+    <section class="shell stats-band" id="standings" aria-labelledby="standings-title">
+      <div class="summary-grid">
+        <article class="summary-card primary"><span class="summary-label">Current leader</span><strong class="summary-value" id="leader-name">Awaiting first count</strong><span class="summary-detail" id="leader-detail">No verified score yet</span></article>
+        <article class="summary-card"><span class="summary-label">Verified ballots</span><strong class="summary-value" id="total-ballots">0</strong><span class="summary-detail">One person = one game</span></article>
+        <article class="summary-card"><span class="summary-label">Weighted points</span><strong class="summary-value" id="total-points">0</strong><span class="summary-detail">After role multipliers</span></article>
+        <article class="summary-card"><span class="summary-label">Games in the race</span><strong class="summary-value">6</strong><span class="summary-detail">Highest score wins</span></article>
+      </div>
+
+      <div class="standings">
+        <header class="standings-head">
+          <div><p class="eyebrow">Verified Discord ballots</p><h2 id="standings-title">Game standings</h2><p>Ranked by weighted points. Percentages show each game’s share of the total score.</p></div>
+          <div class="updated"><span>Last updated</span><strong id="last-updated">Awaiting first verified count</strong></div>
+        </header>
+        <div class="table-head" aria-hidden="true"><span>Rank</span><span>Game</span><span>Ballots</span><span>RU / NG</span><span>Score share</span></div>
+        <div id="standings-rows"></div>
+        <div class="empty-note" id="empty-note"><span>◎</span>Results will appear after the first manual verification.</div>
+        <div class="stats-foot"><span class="verified">Scores are checked manually against region membership and Discord roles.</span><span>Updates may be earlier or later than the 6-hour estimate.</span></div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="timeline-title">
+    <section class="section" id="scoring" aria-labelledby="scoring-title">
       <div class="shell">
         <div class="section-head">
-          <div><p class="kicker">Event status</p><h2 class="section-title" id="timeline-title">Road to the final</h2></div>
-          <p class="section-copy">The winning game unlocks registration. Team format is decided from the final participant count.</p>
+          <div><p class="eyebrow">How the score works</p><h2 class="section-title" id="scoring-title">Every role has weight.</h2></div>
+          <p class="section-copy">Each member chooses one game in the official regional Discord poll. The Dlicom team verifies the ballot and adds the role multiplier to that game’s score.</p>
         </div>
-        <div class="phase-grid">
-          <article class="phase-card active"><span class="phase-num">01</span><span class="phase-state">Live now</span><h3>Game vote</h3><p>Three-day weighted community poll.</p></article>
-          <article class="phase-card"><span class="phase-num">02</span><span class="phase-state">Next</span><h3>Registration</h3><p>Opens after the winning game is announced.</p></article>
-          <article class="phase-card"><span class="phase-num">03</span><span class="phase-state">TBA</span><h3>Tournament</h3><p>Bracket and match schedule appear here.</p></article>
+        <div class="split-panel">
+          <article class="panel">
+            <header class="panel-head"><h3>Region split</h3><p>Verified ballots, not weighted points</p></header>
+            <div class="region-panel">
+              <div class="donut" id="region-donut" style="--ru-share: 50%"><div class="donut-center"><strong id="region-total">0</strong><small>Total</small></div></div>
+              <div class="region-list">
+                <div class="region-row"><i class="region-color"></i><span>RU region</span><strong id="ru-total">0</strong><small id="ru-percent">0% of ballots</small></div>
+                <div class="region-row ng"><i class="region-color"></i><span>Nigeria region</span><strong id="ng-total">0</strong><small id="ng-percent">0% of ballots</small></div>
+              </div>
+            </div>
+          </article>
+          <article class="panel">
+            <header class="panel-head"><h3>Voting power</h3><p>Points added to the selected game</p></header>
+            <div class="role-list">
+              <div class="role-row"><span class="role-name"><i class="role-gem"></i>Regular</span><span class="multiplier">×1</span></div>
+              <div class="role-row"><span class="role-name"><i class="role-gem"></i>Deliver</span><span class="multiplier">×2</span></div>
+              <div class="role-row"><span class="role-name"><i class="role-gem"></i>Decoder</span><span class="multiplier">×3</span></div>
+              <div class="role-row"><span class="role-name"><i class="role-gem"></i>DSO</span><span class="multiplier">×5</span></div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="section" id="prizes" aria-labelledby="prize-title">
-      <div class="shell prize-layout">
+      <div class="shell prize-grid">
         <div>
-          <p class="kicker">Guaranteed prize pool</p>
-          <h2 class="section-title" id="prize-title">Play for the podium.</h2>
-          <div class="prize-total"><strong>$30</strong><span>minimum</span></div>
-          <p class="section-copy">The pool may increase. Any update will be announced separately before the tournament.</p>
+          <p class="eyebrow">Guaranteed prize pool</p>
+          <h2 class="section-title" id="prize-title">Thirty dollars.<br>Three winners.</h2>
+          <div class="prize-total"><strong>$30</strong><span>minimum pool</span></div>
+          <p class="section-copy">The prize pool may increase. Any change will be announced separately by the organizers.</p>
+          <div class="podium" aria-label="Prize distribution">
+            <div class="podium-row"><span>🥇</span><strong>1st place</strong><strong>$15</strong></div>
+            <div class="podium-row"><span>🥈</span><strong>2nd place</strong><strong>$10</strong></div>
+            <div class="podium-row"><span>🥉</span><strong>3rd place</strong><strong>$5</strong></div>
+          </div>
         </div>
-        <div class="podium" aria-label="Prize distribution">
-          <div class="podium-row"><span class="medal">🥇</span><span class="place">1st place<small>Champion</small></span><span class="amount">$15</span></div>
-          <div class="podium-row"><span class="medal">🥈</span><span class="place">2nd place<small>Runner-up</small></span><span class="amount">$10</span></div>
-          <div class="podium-row"><span class="medal">🥉</span><span class="place">3rd place<small>Bronze</small></span><span class="amount">$5</span></div>
-        </div>
+        <div class="prize-visual"><img src="assets/dlicom-token.png" alt="Dlicom character surrounded by tokens"></div>
       </div>
     </section>
 
     <section class="section" id="rules" aria-labelledby="rules-title">
       <div class="shell">
         <div class="section-head">
-          <div><p class="kicker">Fair play</p><h2 class="section-title" id="rules-title">Every vote has weight</h2></div>
-          <p class="section-copy">Your role multiplier applies to every selected game. A Decoder choosing two games gives each one 3 points.</p>
+          <div><p class="eyebrow">Fair play</p><h2 class="section-title" id="rules-title">Voting rules</h2></div>
+          <p class="section-copy">The official poll takes place in Discord. This page displays manually verified statistics and does not accept votes.</p>
         </div>
-        <div class="two-col">
-          <article class="panel">
-            <header class="panel-head"><h3>Voting power</h3><p>Community role multiplier</p></header>
-            <div class="role-list">
-              <div class="role-row"><span class="role-name"><i class="role-dot"></i>Regular</span><span class="multiplier">×1</span></div>
-              <div class="role-row"><span class="role-name"><i class="role-dot"></i>Deliver</span><span class="multiplier">×2</span></div>
-              <div class="role-row"><span class="role-name"><i class="role-dot"></i>Decoder</span><span class="multiplier">×3</span></div>
-              <div class="role-row"><span class="role-name"><i class="role-dot"></i>DSO</span><span class="multiplier">×5</span></div>
-            </div>
-          </article>
-          <article class="panel">
-            <header class="panel-head"><h3>Voting rules</h3><p>One participant, one ballot</p></header>
-            <ol class="rule-list">
-              <li>Only official RU and Nigeria region members are eligible.</li>
-              <li>Vote only in the region where you are officially registered.</li>
-              <li>Select one or two games on a single ballot.</li>
-              <li>Duplicate and cross-region ballots will not be counted.</li>
-              <li>No paid votes. The highest weighted score wins.</li>
-              <li>For flexible games, 1v1 or 2v2 depends on registration numbers.</li>
-            </ol>
-          </article>
+        <div class="rules-grid">
+          <article class="rule"><div><strong>Eligible regions only</strong>Only official members of the RU and Nigeria regions are counted.</div></article>
+          <article class="rule"><div><strong>One region</strong>Vote only in the regional poll where you are officially registered.</div></article>
+          <article class="rule"><div><strong>One game</strong>Each participant may select exactly one game on one ballot.</div></article>
+          <article class="rule"><div><strong>No duplicates</strong>Duplicate and cross-region ballots are removed during verification.</div></article>
+          <article class="rule"><div><strong>No paid votes</strong>There are no paid ballots or score boosts.</div></article>
+          <article class="rule"><div><strong>Highest weighted score wins</strong>The game with the most role-weighted points becomes the tournament game.</div></article>
         </div>
+        <div class="update-callout"><span>↻</span><div><strong>Statistics are updated manually.</strong><br>Expect a refresh approximately every 6 hours, though the actual interval may range from a few hours to a full day.</div></div>
       </div>
     </section>
 
-    <section class="section" id="bracket" aria-labelledby="bracket-title">
+    <section class="section" aria-labelledby="timeline-title">
       <div class="shell">
-        <div class="section-head">
-          <div><p class="kicker">Tournament board</p><h2 class="section-title" id="bracket-title">Bracket</h2></div>
-          <p class="section-copy">Slots will populate after game voting closes and player registration is confirmed.</p>
+        <div class="section-head"><div><p class="eyebrow">Event status</p><h2 class="section-title" id="timeline-title">From vote to final</h2></div><p class="section-copy">Registration opens after the winning game is announced. For flexible games, 1v1 or 2v2 is chosen from the final participant count.</p></div>
+        <div class="timeline">
+          <article class="phase active"><span class="phase-label">Phase 01</span><span class="phase-state">14–17 Sep</span><h3>Game voting</h3><p>Discord ballots are checked and added to the leaderboard.</p></article>
+          <article class="phase"><span class="phase-label">Phase 02</span><span class="phase-state">Next</span><h3>Registration</h3><p>Player or team registration begins after the vote.</p></article>
+          <article class="phase"><span class="phase-label">Phase 03</span><span class="phase-state">TBA</span><h3>Tournament</h3><p>Bracket, match times and results will be published here.</p></article>
         </div>
-        <div class="bracket-shell" role="img" aria-label="Locked eight-player tournament bracket placeholder">
+
+        <div class="bracket-shell" id="bracket" role="img" aria-label="Upcoming tournament bracket">
           <div class="bracket">
-            <div class="round"><div class="round-label">Quarterfinals</div><div class="match"><span>Player / Team A</span><span>Player / Team B</span></div><div class="match"><span>Player / Team C</span><span>Player / Team D</span></div></div>
+            <div class="round"><div class="round-label">Quarterfinals</div><div class="match"><span>Participant / Team A</span><span>Participant / Team B</span></div><div class="match"><span>Participant / Team C</span><span>Participant / Team D</span></div></div>
             <div class="round"><div class="round-label">Semifinals</div><div class="match"><span>Winner QF 1</span><span>Winner QF 2</span></div></div>
-            <div class="round finale"><div class="round-label">Grand final</div><div class="match"><span>Finalist 1</span><span>Finalist 2</span></div></div>
+            <div class="round"><div class="round-label">Grand final</div><div class="match"><span>Finalist 1</span><span>Finalist 2</span></div></div>
           </div>
         </div>
-        <div class="locked-box"><div><strong>Registration is not open yet</strong><p>It begins immediately after the winning game is announced.</p></div><button class="btn" type="button" disabled>Registration locked</button></div>
+        <div class="locked"><div><strong>Bracket pending</strong>It will be populated after game voting and registration.</div><span>Match results will appear here as the event progresses.</span></div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="results-title">
+    <section class="section" aria-labelledby="community-title">
       <div class="shell">
-        <div class="section-head"><div><p class="kicker">Official record</p><h2 class="section-title" id="results-title">Match results</h2></div><p class="section-copy">Scores and winners will be published here as each match is completed.</p></div>
-        <div class="results-wrap">
-          <table class="results"><thead><tr><th>Round</th><th>Match</th><th>Score</th><th>Status</th></tr></thead><tbody><tr><td colspan="4"><div class="results-empty"><span>⌛</span>No matches scheduled yet</div></td></tr></tbody></table>
-        </div>
+        <div class="section-head"><div><p class="eyebrow">Join the community</p><h2 class="section-title" id="community-title">Stay with Dlicom.</h2></div><p class="section-copy">Official project and Discord links will be added here as soon as the organizers provide the final URLs.</p></div>
+        <div class="link-row"><span class="btn primary pending" aria-disabled="true">Dlicom link coming soon</span><span class="btn pending" aria-disabled="true">Discord link coming soon</span></div>
       </div>
     </section>
   </main>
 
-  <footer><div class="shell footer-row"><span><strong>RU × Nigeria Community Tournament</strong><br>Two regions. One community. One tournament.</span><span>🇷🇺 × 🇳🇬</span></div></footer>
-
-  <dialog id="ballot-dialog" aria-labelledby="dialog-title">
-    <div class="modal-head"><div><h2 id="dialog-title">Review your ballot</h2><p>Confirm once — duplicate votes are not accepted.</p></div><button class="icon-btn" id="close-dialog" aria-label="Close review">×</button></div>
-    <div class="modal-body">
-      <div class="review-line"><span>Region</span><strong id="review-region">—</strong></div>
-      <div class="review-line"><span>Role</span><strong id="review-role">—</strong></div>
-      <div class="review-line"><span>Games</span><strong id="review-games">—</strong></div>
-      <div class="review-line"><span>Points awarded</span><strong id="review-points">—</strong></div>
-      <div class="modal-actions"><button class="btn" id="edit-ballot" type="button">Go back</button><button class="btn primary" id="confirm-vote" type="button">Confirm ballot</button></div>
-    </div>
-  </dialog>
-  <div class="toast" id="toast" role="status" aria-live="polite">Ballot saved on this device. Thank you for voting!</div>
+  <footer>
+    <div class="shell footer-row"><span><strong>Dlicom RU × Nigeria Community Tournament</strong><br>Two regions. One community. One tournament.</span><span>🇷🇺 × 🇳🇬</span></div>
+  </footer>
 
   <script>
-    const selected = new Set();
-    const cards = [...document.querySelectorAll('.game-card')];
-    const count = document.querySelector('#selection-count');
-    const regionSelect = document.querySelector('#region');
-    const roleSelect = document.querySelector('#role');
-    const dialog = document.querySelector('#ballot-dialog');
-    const reviewButton = document.querySelector('#review-vote');
-    const gameOrder = ['Counter-Strike 1.6', 'eFootball', 'Chess', 'Kirka', 'GeoGuessr', 'Poxel.io'];
+    // MANUAL UPDATE AREA: edit only these values after checking the Discord polls.
+    const tournamentData = {
+      lastUpdated: 'Awaiting first verified count',
+      games: [
+        { name: 'eFootball', icon: '⚽', format: '1v1', ruBallots: 0, ngBallots: 0, points: 0 },
+        { name: 'Counter-Strike 1.6', icon: '🔫', format: '1v1 / 2v2', ruBallots: 0, ngBallots: 0, points: 0 },
+        { name: 'Kirka', icon: '🎯', format: '1v1 / 2v2', ruBallots: 0, ngBallots: 0, points: 0 },
+        { name: 'Chess', icon: '♟️', format: '1v1', ruBallots: 0, ngBallots: 0, points: 0 },
+        { name: 'GeoGuessr', icon: '🌍', format: '1v1', ruBallots: 0, ngBallots: 0, points: 0 },
+        { name: 'Poxel.io', icon: '🧱', format: '1v1 / 2v2', ruBallots: 0, ngBallots: 0, points: 0 }
+      ]
+    };
 
-    function toggleGame(card) {
-      const game = card.dataset.game;
-      if (selected.has(game)) selected.delete(game);
-      else if (selected.size < 2) selected.add(game);
-      card.classList.toggle('selected', selected.has(game));
-      card.setAttribute('aria-pressed', String(selected.has(game)));
-      count.textContent = `${selected.size} of 2`;
-    }
+    const total = key => tournamentData.games.reduce((sum, game) => sum + game[key], 0);
+    const totalRU = total('ruBallots');
+    const totalNG = total('ngBallots');
+    const totalBallots = totalRU + totalNG;
+    const totalPoints = total('points');
+    const sortedGames = [...tournamentData.games].sort((a, b) => b.points - a.points || (b.ruBallots + b.ngBallots) - (a.ruBallots + a.ngBallots) || a.name.localeCompare(b.name));
+    const maxPoints = Math.max(1, ...sortedGames.map(game => game.points));
+    const rows = document.querySelector('#standings-rows');
 
-    cards.forEach(card => card.addEventListener('click', () => toggleGame(card)));
-
-    function showFormError() {
-      document.querySelector('.ballot-bar').animate([
-        { transform: 'translateX(0)' }, { transform: 'translateX(-6px)' },
-        { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }
-      ], { duration: 260 });
-    }
-
-    function openReview() {
-      const region = regionSelect.value;
-      const role = roleSelect.value;
-      if (!region || !role || selected.size === 0) {
-        showFormError();
-        return false;
-      }
-      const roleLabel = roleSelect.options[roleSelect.selectedIndex].text;
-      document.querySelector('#review-region').textContent = region;
-      document.querySelector('#review-role').textContent = roleLabel;
-      document.querySelector('#review-games').textContent = [...selected].join(' + ');
-      document.querySelector('#review-points').textContent = `${role} point${role === '1' ? '' : 's'} per game`;
-      dialog.showModal();
-      return true;
-    }
-
-    function renderScores(ballot) {
-      const scores = Object.fromEntries(gameOrder.map(game => [game, 0]));
-      if (ballot) ballot.games.forEach(game => { scores[game] += Number(ballot.role); });
-      const max = Math.max(1, ...Object.values(scores));
-      const leaders = [...document.querySelectorAll('.leader')];
-      leaders.sort((a, b) => scores[b.dataset.game] - scores[a.dataset.game] || gameOrder.indexOf(a.dataset.game) - gameOrder.indexOf(b.dataset.game));
-      const parent = leaders[0].parentElement;
-      leaders.forEach((row, index) => {
-        row.querySelector('.rank').textContent = String(index + 1).padStart(2, '0');
-        row.querySelector('.points').textContent = scores[row.dataset.game];
-        row.querySelector('.bar span').style.width = `${scores[row.dataset.game] / max * 100}%`;
-        parent.insertBefore(row, parent.querySelector('.score-foot'));
-      });
-      document.querySelector('#total-points').textContent = Object.values(scores).reduce((sum, value) => sum + value, 0);
-    }
-
-    function setSubmittedState(ballot) {
-      selected.clear();
-      ballot.games.forEach(game => selected.add(game));
-      cards.forEach(card => {
-        card.disabled = true;
-        card.classList.toggle('selected', selected.has(card.dataset.game));
-        card.setAttribute('aria-pressed', String(selected.has(card.dataset.game)));
-      });
-      regionSelect.value = ballot.region;
-      roleSelect.value = String(ballot.role);
-      regionSelect.disabled = true;
-      roleSelect.disabled = true;
-      reviewButton.disabled = true;
-      reviewButton.textContent = 'Ballot submitted';
-      reviewButton.classList.add('submitted');
-      count.textContent = `${selected.size} of 2`;
-      renderScores(ballot);
-    }
-
-    function submitBallot(input) {
-      const allowedRegions = ['RU', 'Nigeria'];
-      const allowedRoles = [1, 2, 3, 5];
-      if (!allowedRegions.includes(input.region)) throw new Error('Select an eligible region.');
-      if (!allowedRoles.includes(Number(input.role))) throw new Error('Select a valid community role.');
-      if (!Array.isArray(input.games) || input.games.length < 1 || input.games.length > 2 || input.games.some(game => !gameOrder.includes(game))) throw new Error('Choose one or two valid games.');
-      if (localStorage.getItem('ruNgTournamentBallot')) throw new Error('A ballot is already stored on this device.');
-      const ballot = { region: input.region, role: Number(input.role), games: [...new Set(input.games)] };
-      if (ballot.games.length !== input.games.length) throw new Error('Duplicate game selections are not allowed.');
-      localStorage.setItem('ruNgTournamentBallot', JSON.stringify(ballot));
-      setSubmittedState(ballot);
-      return { status: 'submitted', region: ballot.region, roleMultiplier: ballot.role, games: ballot.games, pointsPerGame: ballot.role };
-    }
-
-    reviewButton.addEventListener('click', openReview);
-    document.querySelector('#close-dialog').addEventListener('click', () => dialog.close());
-    document.querySelector('#edit-ballot').addEventListener('click', () => dialog.close());
-    document.querySelector('#confirm-vote').addEventListener('click', () => {
-      try {
-        submitBallot({ region: regionSelect.value, role: Number(roleSelect.value), games: [...selected] });
-        dialog.close();
-        const toast = document.querySelector('#toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 4200);
-      } catch (error) {
-        dialog.close();
-        alert(error.message);
-      }
+    sortedGames.forEach((game, index) => {
+      const ballots = game.ruBallots + game.ngBallots;
+      const share = totalPoints ? game.points / totalPoints * 100 : 0;
+      const barWidth = totalPoints ? game.points / maxPoints * 100 : 0;
+      const row = document.createElement('article');
+      row.className = `game-row${index === 0 && game.points > 0 ? ' is-leading' : ''}`;
+      row.innerHTML = `
+        <span class="rank">${String(index + 1).padStart(2, '0')}</span>
+        <div class="game-cell">
+          <div class="game-title"><span class="game-icon">${game.icon}</span><span class="game-text"><strong>${game.name}</strong><small>${game.format}</small></span></div>
+          <div class="score-bar" role="progressbar" aria-label="${game.name}: ${share.toFixed(1)} percent of weighted points" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${share.toFixed(1)}"><i style="width:${barWidth.toFixed(1)}%"></i></div>
+        </div>
+        <span class="metric votes-metric">${ballots}<small>ballots</small></span>
+        <span class="metric region-metric">${game.ruBallots} / ${game.ngBallots}<small>RU / NG</small></span>
+        <span class="share">${share.toFixed(1)}%<small>${game.points} pts</small></span>`;
+      rows.appendChild(row);
     });
 
-    const saved = localStorage.getItem('ruNgTournamentBallot');
-    if (saved) {
-      try { setSubmittedState(JSON.parse(saved)); } catch { localStorage.removeItem('ruNgTournamentBallot'); renderScores(null); }
-    } else renderScores(null);
+    document.querySelector('#total-ballots').textContent = totalBallots;
+    document.querySelector('#total-points').textContent = totalPoints;
+    document.querySelector('#last-updated').textContent = tournamentData.lastUpdated;
+    document.querySelector('#region-total').textContent = totalBallots;
+    document.querySelector('#ru-total').textContent = totalRU;
+    document.querySelector('#ng-total').textContent = totalNG;
+    const ruPercent = totalBallots ? totalRU / totalBallots * 100 : 0;
+    const ngPercent = totalBallots ? totalNG / totalBallots * 100 : 0;
+    document.querySelector('#ru-percent').textContent = `${ruPercent.toFixed(0)}% of ballots`;
+    document.querySelector('#ng-percent').textContent = `${ngPercent.toFixed(0)}% of ballots`;
+    document.querySelector('#region-donut').style.setProperty('--ru-share', `${totalBallots ? ruPercent : 50}%`);
+    document.querySelector('#empty-note').classList.toggle('visible', totalBallots === 0);
 
-    if (document.modelContext?.registerTool) {
-      try {
-        document.modelContext.registerTool({
-          name: 'submit_local_ballot',
-          title: 'Submit tournament ballot',
-          description: 'Submit one RU × Nigeria tournament ballot in this prototype on the current device and update the visible standings.',
-          inputSchema: {
-            type: 'object',
-            properties: {
-              region: { type: 'string', enum: ['RU', 'Nigeria'] },
-              role: { type: 'integer', enum: [1, 2, 3, 5] },
-              games: { type: 'array', minItems: 1, maxItems: 2, uniqueItems: true, items: { type: 'string', enum: gameOrder } }
-            },
-            required: ['region', 'role', 'games'],
-            additionalProperties: false
-          },
-          annotations: { readOnlyHint: false, untrustedContentHint: false },
-          execute: submitBallot
-        });
-      } catch (error) { console.warn('WebMCP unavailable:', error); }
+    if (totalPoints > 0) {
+      const leader = sortedGames[0];
+      const tied = sortedGames.filter(game => game.points === leader.points).length > 1;
+      document.querySelector('#leader-name').textContent = tied ? 'Tie at the top' : leader.name;
+      document.querySelector('#leader-detail').textContent = tied ? `${leader.points} points each` : `${leader.points} weighted points`;
     }
   </script>
 </body>
