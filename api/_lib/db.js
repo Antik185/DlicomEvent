@@ -7,8 +7,14 @@ export const ROLE_POINTS = Object.freeze({ regular: 1, dliever: 2, dcoded: 3, dc
 let schemaPromise;
 
 export function getSql() {
-  if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not configured.');
-  return neon(process.env.DATABASE_URL);
+  const databaseUrl =
+    process.env.DATABASE_URL ||
+    process.env.Storage_DATABASE_URL ||
+    process.env.Storage_POSTGRES_URL;
+  if (!databaseUrl) {
+    throw new Error('No supported Neon database URL is configured.');
+  }
+  return neon(databaseUrl);
 }
 
 export async function ensureSchema() {

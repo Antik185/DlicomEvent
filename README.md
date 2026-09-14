@@ -5,7 +5,7 @@ The public site is served from `dist`, with a protected vote-management page at 
 ## Deploy on Vercel
 
 1. Import `Antik185/DlicomEvent` into Vercel.
-2. Add a Neon Postgres integration from Vercel Marketplace and expose its connection string as `DATABASE_URL`.
+2. Add a Neon Postgres integration from Vercel Marketplace. The API accepts the standard `DATABASE_URL` as well as Vercel-prefixed `Storage_DATABASE_URL` and `Storage_POSTGRES_URL` variables.
 3. Add these project environment variables:
    - `ADMIN_PASSWORD`: a strong private password for `/admin`.
    - `ADMIN_SESSION_SECRET`: at least 32 random characters used to sign admin sessions.
