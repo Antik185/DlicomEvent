@@ -2,187 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#dcebff">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#eef4ff">
   <meta name="description" content="Official Dlicom RU × Nigeria Community Tournament standings, voting statistics, rules and prize information.">
   <title>Dlicom Community Tournament — RU × Nigeria</title>
   <link rel="icon" type="image/png" href="assets/dlicom-logo.png">
   <style>
-    :root { --navy:#07194c; --blue:#0968f1; --blue-2:#3ca6ff; --muted:#667ba9; --line:rgba(54,115,204,.16); --glass:rgba(255,255,255,.83); --shadow:0 18px 55px rgba(20,77,154,.14); --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; min-width:320px; overflow-x:hidden; color:var(--navy); background:#ddecff url("assets/event-background.png") center top/cover fixed no-repeat; font:16px/1.45 var(--font); }
-    body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(235,247,255,.08)); }
-    img { display:block; max-width:100%; }
-    a { color:inherit; text-decoration:none; }
-    .shell { width:min(1110px,calc(100% - 28px)); margin-inline:auto; }
-    .glass { border:1px solid rgba(255,255,255,.88); background:var(--glass); box-shadow:var(--shadow); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
-    .topbar { position:sticky; top:12px; z-index:20; display:grid; grid-template-columns:1.25fr auto 1.25fr; align-items:center; gap:18px; min-height:58px; margin-top:14px; padding:7px 14px; border-radius:15px; }
-    .brand { display:flex; min-width:0; align-items:center; gap:11px; }
-    .brand-logo { flex:0 0 54px; width:54px; height:42px; overflow:hidden; border-radius:9px; background:#061841; }
-    .brand-logo img { width:100%; height:100%; object-fit:cover; }
-    .brand-copy { min-width:0; line-height:1.02; }
-    .brand-copy strong { display:block; overflow:hidden; color:#07184b; font-size:.96rem; font-weight:900; letter-spacing:.055em; text-overflow:ellipsis; white-space:nowrap; }
-    .brand-copy strong b { color:var(--blue); }
-    .brand-copy small { display:block; margin-top:4px; font-size:.56rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
-    .nav { display:flex; align-items:center; gap:8px; font-size:.82rem; font-weight:700; }
-    .nav a { padding:10px 14px; border-radius:9px; color:#516792; transition:background .18s ease,color .18s ease; }
-    .nav a:hover,.nav a:focus-visible,.nav a.active { color:var(--blue); background:rgba(255,255,255,.86); }
-    .discord-wrap { display:flex; justify-content:flex-end; }
-    .discord-btn { display:inline-flex; min-height:42px; align-items:center; justify-content:center; gap:9px; padding:0 14px; border:1px solid rgba(255,255,255,.5); border-radius:10px; color:#fff; background:linear-gradient(105deg,#1764f0,#3188ff); box-shadow:0 8px 22px rgba(0,87,226,.25); font-size:.78rem; font-weight:800; }
-    .discord-btn svg { width:19px; height:19px; fill:currentColor; }
-    .discord-btn .arrow { font-size:1.1rem; transition:transform .18s ease; }
-    .discord-btn:hover .arrow { transform:translateX(3px); }
-    .hero { position:relative; display:grid; grid-template-columns:1.08fr .92fr; min-height:300px; align-items:center; padding:34px 64px 6px; }
-    .hero-copy { position:relative; z-index:3; padding-bottom:28px; }
-    .eyebrow { margin:0 0 9px; color:#6f91cd; font-size:.76rem; font-weight:650; letter-spacing:.36em; text-transform:uppercase; }
-    h1 { margin:0; font-size:clamp(3.15rem,6vw,5.45rem); line-height:.86; letter-spacing:-.065em; text-transform:uppercase; }
-    h1 .nigeria { color:transparent; background:linear-gradient(180deg,#1495ff,#064fc9); -webkit-background-clip:text; background-clip:text; }
-    .tournament-name { margin:9px 0 12px; font-size:clamp(1rem,1.7vw,1.44rem); font-weight:900; letter-spacing:.24em; text-transform:uppercase; white-space:nowrap; }
-    .tagline { margin:0; color:#0b1b50; font-size:1.03rem; font-weight:750; }
-    .values { display:flex; flex-wrap:wrap; gap:18px; margin-top:21px; color:#15366f; font-size:.76rem; font-weight:800; }
-    .value { display:inline-flex; align-items:center; gap:7px; }
-    .value svg { width:21px; height:21px; color:var(--blue); stroke:currentColor; fill:none; stroke-width:2; }
-    .mascot { position:relative; align-self:stretch; min-height:300px; overflow:visible; }
-    .mascot img { position:absolute; left:50%; bottom:-4px; width:520px; max-width:none; max-height:410px; object-fit:contain; transform:translateX(-48%); filter:drop-shadow(0 18px 28px rgba(25,75,160,.2)); }
-    .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:2px; }
-    .kpi { display:grid; grid-template-columns:60px 1fr; min-height:96px; align-items:center; gap:13px; padding:13px 18px; border-radius:13px; }
-    .kpi-icon { display:grid; width:52px; height:52px; place-items:center; border-radius:14px; color:var(--blue); background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(226,241,255,.84)); font-size:2rem; }
-    .kpi:first-child .kpi-icon { color:#eaa400; }
-    .kpi strong { display:block; font-size:clamp(1.75rem,3vw,2.35rem); line-height:.92; letter-spacing:-.045em; font-variant-numeric:tabular-nums; }
-    .kpi b { display:block; margin-top:7px; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; }
-    .kpi small { display:block; margin-top:2px; color:#7f95be; font-size:.58rem; font-weight:650; letter-spacing:.08em; text-transform:uppercase; }
-    .dashboard { display:grid; grid-template-columns:1.65fr .9fr; align-items:start; gap:12px; padding:12px 0 34px; }
-    .panel { overflow:hidden; border-radius:14px; }
-    .panel-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:17px 20px 11px; }
-    .panel-heading { display:flex; align-items:center; gap:11px; }
-    .panel-heading .head-icon { display:grid; width:34px; height:34px; place-items:center; border-radius:9px; color:#fff; background:var(--blue); font-size:1rem; }
-    .panel h2 { margin:0; font-size:1.06rem; line-height:1.1; }
-    .panel-head p { margin:3px 0 0; color:#7d91b7; font-size:.66rem; }
-    .live { display:inline-flex; align-items:center; gap:7px; color:#0aaa6f; font-size:.7rem; font-weight:850; }
-    .live::before { content:""; width:7px; height:7px; border-radius:50%; background:#16d28b; box-shadow:0 0 0 4px rgba(22,210,139,.1); }
-    .games { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:0 16px 16px; }
-    .game { display:grid; grid-template-columns:68px 1fr; min-width:0; min-height:104px; gap:10px; padding:7px; border:1px solid rgba(50,104,190,.09); border-radius:10px; background:linear-gradient(135deg,rgba(247,251,255,.97),rgba(230,242,255,.78)); }
-    .game-image { position:relative; width:68px; height:88px; overflow:hidden; border-radius:9px; background:linear-gradient(145deg,#1664d5,#79c4ff); }
-    .game-image img { width:100%; height:100%; padding:8px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,.16)); }
-    .game[data-game="Poxel.io"] .game-image img { padding:0; object-fit:cover; }
-    .rank { position:absolute; top:5px; left:5px; z-index:2; display:grid; width:23px; height:23px; place-items:center; border:2px solid #fff; border-radius:50%; color:#fff; background:#0a54cc; box-shadow:0 3px 8px rgba(0,45,120,.3); font-size:.68rem; font-weight:900; }
-    .game-body { min-width:0; align-self:center; }
-    .game-name { display:block; overflow:hidden; font-size:.72rem; font-weight:900; text-overflow:ellipsis; white-space:nowrap; }
-    .bar { height:6px; margin:10px 0 7px; overflow:hidden; border-radius:999px; background:#cfdef1; }
-    .bar span { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,#1768ef,#48adff); }
-    .percent { display:block; font-size:.76rem; font-weight:900; font-variant-numeric:tabular-nums; }
-    .votes { display:block; color:#7c91b8; font-size:.61rem; font-weight:650; }
-    .side-stack { display:grid; grid-template-rows:auto auto; gap:10px; }
-    .roles { padding:0 16px 15px; }
-    .role { display:grid; grid-template-columns:15px 1fr auto; min-height:31px; align-items:center; gap:8px; margin-top:4px; padding:0 10px; border-radius:8px; background:linear-gradient(90deg,rgba(223,250,244,.9),rgba(241,248,255,.8)); font-size:.68rem; }
-    .role:nth-child(2) { background:linear-gradient(90deg,#f3f8ff,#e6f1ff); }
-    .role:nth-child(3) { background:linear-gradient(90deg,#fff8e4,#fff3ca); }
-    .role:nth-child(4) { background:linear-gradient(90deg,#fff0f7,#ffe6f2); }
-    .role-dot { width:11px; height:11px; border-radius:50%; background:#14c884; }
-    .role:nth-child(2) .role-dot { background:#fff; border:1px solid #c9d8ed; }
-    .role:nth-child(3) .role-dot { background:#ffb810; }
-    .role:nth-child(4) .role-dot { background:#f02287; }
-    .role strong { color:var(--blue); font-size:.84rem; }
-    .compact-rules { padding:0 18px 14px; list-style:none; counter-reset:rules; }
-    .compact-rules li { display:grid; grid-template-columns:23px 1fr; min-height:27px; align-items:center; gap:8px; color:#274276; font-size:.67rem; counter-increment:rules; }
-    .compact-rules li::before { content:counter(rules); display:grid; width:21px; height:21px; place-items:center; border-radius:50%; color:var(--blue); background:#dcecff; font-size:.62rem; font-weight:900; }
-    .stats-note { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 16px 15px; padding:10px 12px; border-radius:9px; color:#5d75a1; background:rgba(222,239,255,.78); font-size:.66rem; font-weight:700; }
-    .stats-note strong { color:#174992; }
-    .detail-section { padding:38px 0 54px; }
-    .section-head { display:flex; align-items:end; justify-content:space-between; gap:28px; margin-bottom:16px; }
-    .section-head h2 { margin:0; font-size:clamp(1.85rem,4vw,3.05rem); line-height:.95; letter-spacing:-.05em; }
-    .section-head p { max-width:470px; margin:0; color:#6279a6; font-size:.82rem; }
-    .prize-rules { display:grid; grid-template-columns:.82fr 1.18fr; gap:12px; }
-    .big-card { overflow:hidden; border-radius:15px; }
-    .big-card-head { display:flex; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line); }
-    .big-card-head i { display:grid; width:38px; height:38px; place-items:center; border-radius:10px; color:#fff; background:linear-gradient(145deg,#1769ed,#4aa9ff); font-style:normal; }
-    .big-card-head h3 { margin:0; font-size:1rem; }
-    .big-card-head p { margin:2px 0 0; color:#7c90b8; font-size:.68rem; }
-    .prize-total { display:flex; align-items:end; gap:10px; padding:22px 22px 15px; }
-    .prize-total strong { color:#eda800; font-size:4.7rem; line-height:.78; letter-spacing:-.08em; }
-    .prize-total span { color:#5f76a4; font-size:.72rem; font-weight:850; letter-spacing:.07em; text-transform:uppercase; }
-    .prize-list { display:grid; gap:7px; padding:0 18px 18px; }
-    .prize-row { display:grid; grid-template-columns:35px 1fr auto; min-height:49px; align-items:center; gap:9px; padding:0 11px; border:1px solid rgba(66,120,204,.1); border-radius:9px; background:linear-gradient(90deg,rgba(255,250,227,.88),rgba(244,249,255,.78)); }
-    .prize-row strong:last-child { color:#0b58c9; font-size:1.05rem; }
-    .full-rules { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:16px; counter-reset:full-rules; }
-    .full-rule { display:grid; grid-template-columns:30px 1fr; min-height:82px; align-items:start; gap:10px; padding:13px; border:1px solid rgba(66,120,204,.1); border-radius:10px; background:rgba(242,248,255,.78); color:#526b99; font-size:.73rem; counter-increment:full-rules; }
-    .full-rule::before { content:counter(full-rules,decimal-leading-zero); color:#1671eb; font-size:.68rem; font-weight:900; }
-    .full-rule strong { display:block; margin-bottom:2px; color:#112c65; }
-    .update-strip { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:13px; margin-top:12px; padding:14px 18px; border-radius:12px; }
-    .update-icon { display:grid; width:36px; height:36px; place-items:center; border-radius:10px; color:#fff; background:var(--blue); font-size:1.05rem; }
-    .update-strip strong { display:block; font-size:.82rem; }
-    .update-strip p { margin:1px 0 0; color:#7187af; font-size:.68rem; }
-    .update-strip time { color:#145cc8; font-size:.7rem; font-weight:850; }
-    .tournament-board { padding-top:18px; }
-    .timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
-    .phase { position:relative; min-height:115px; padding:16px; border-radius:12px; }
-    .phase.active { border-color:rgba(37,120,244,.28); background:rgba(235,246,255,.92); }
-    .phase small { color:#7590bf; font-size:.62rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
-    .phase h3 { margin:20px 0 3px; font-size:.9rem; }
-    .phase p { margin:0; color:#6b82ad; font-size:.68rem; }
-    .phase-tag { position:absolute; top:12px; right:12px; padding:4px 7px; border-radius:999px; color:#1b67d3; background:#dcecff; font-size:.55rem; font-weight:900; text-transform:uppercase; }
-    .bracket-card { padding:18px; border-radius:15px; }
-    .bracket-scroll { overflow-x:auto; }
-    .bracket { display:grid; grid-template-columns:repeat(3,1fr); min-width:710px; align-items:center; gap:42px; }
-    .round-label { margin-bottom:8px; color:#7189b4; font-size:.6rem; font-weight:900; letter-spacing:.11em; text-transform:uppercase; }
-    .match { position:relative; display:grid; margin:7px 0; border:1px solid rgba(54,115,204,.15); border-radius:8px; background:rgba(240,247,255,.88); }
-    .match span { display:flex; min-height:32px; align-items:center; padding:0 10px; color:#6980a9; font-size:.65rem; }
-    .match span+span { border-top:1px solid rgba(54,115,204,.12); }
-    .match::after { content:""; position:absolute; top:50%; left:100%; width:43px; height:1px; background:rgba(54,115,204,.25); }
-    .round:last-child .match::after { display:none; }
-    .join-banner { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:17px; margin:0 auto 48px; padding:14px 18px; border-radius:14px; }
-    .join-mark { width:54px; height:44px; overflow:hidden; border-radius:10px; }
-    .join-mark img { width:100%; height:100%; object-fit:cover; }
-    .join-banner h2 { margin:0; font-size:1rem; }
-    .join-banner p { margin:2px 0 0; color:#6c82aa; font-size:.68rem; }
-    .join-actions { display:flex; gap:8px; }
-    .soft-btn { display:inline-flex; min-height:39px; align-items:center; justify-content:center; gap:8px; padding:0 14px; border:1px solid rgba(54,115,204,.17); border-radius:9px; color:#5f75a0; background:rgba(239,247,255,.88); font-size:.68rem; font-weight:850; }
-    .soft-btn.primary { color:#fff; border-color:#1764ef; background:linear-gradient(105deg,#1764f0,#3188ff); }
-    footer { padding:0 0 34px; color:#6179a7; font-size:.68rem; text-align:center; }
-    @media (max-width:900px) { .topbar{grid-template-columns:1fr auto}.nav{display:none}.hero{padding-inline:28px}.mascot img{width:460px}.dashboard{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr;grid-template-rows:auto}.prize-rules{grid-template-columns:1fr}.join-banner{grid-template-columns:auto 1fr}.join-actions{grid-column:1/-1} }
-    @media (max-width:680px) { .shell{width:min(100% - 16px,1110px)}.topbar{top:8px;grid-template-columns:minmax(0,1fr) 42px;gap:6px;margin-top:8px;padding:7px 8px}.brand-logo{flex-basis:42px;width:42px}.brand-copy strong{font-size:.68rem;letter-spacing:.02em}.brand-copy small{display:none}.discord-btn{width:40px;min-height:39px;padding:0}.discord-btn span{display:none}.hero{grid-template-columns:1fr;min-height:445px;padding:42px 18px 0;overflow:hidden}.hero-copy{align-self:start;padding-bottom:0}h1{font-size:clamp(3rem,16vw,5rem)}.tournament-name{font-size:1rem;letter-spacing:.17em}.values{gap:11px}.mascot{position:absolute;inset:auto -86px -76px auto;width:390px;min-height:330px;opacity:.68}.mascot img{left:0;width:450px;transform:none}.kpis{grid-template-columns:1fr}.kpi{min-height:84px}.games{grid-template-columns:repeat(2,1fr)}.side-stack{grid-template-columns:1fr}.section-head,.stats-note,.update-strip{align-items:flex-start;grid-template-columns:1fr;flex-direction:column}.full-rules,.timeline{grid-template-columns:1fr}.join-banner{grid-template-columns:1fr}.join-actions{grid-column:auto;flex-wrap:wrap} }
-    @media (max-width:420px) { .games{grid-template-columns:1fr}.game{grid-template-columns:82px 1fr}.game-image{width:82px}.values .value:last-child{display:none} }
-    @media (prefers-reduced-motion:reduce) { *{scroll-behavior:auto!important;transition-duration:.01ms!important} }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=League+Spartan:wght@600;700;800;900&family=Patrick+Hand&display=swap');
+    :root{--bg:#eef4ff;--ink:#0d2858;--muted:#7488ab;--blue:#1676ff;--blue2:#65c1ff;--green:#38ca78;--yellow:#f5bf2c;--pink:#f14ab9;--line:rgba(39,99,182,.14);--shadow:0 30px 80px rgba(33,82,151,.15);--font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;--display:"League Spartan",var(--font);--hand:"Patrick Hand","Comic Sans MS",cursive}
+    *{box-sizing:border-box}html{font-size:125%;scroll-behavior:smooth}
+    body{position:relative;isolation:isolate;margin:0;min-width:320px;min-height:100vh;overflow-x:hidden;color:var(--ink);font:1rem/1.45 var(--font);background:radial-gradient(circle at 12% 0%,rgba(114,185,255,.38),transparent 28%),radial-gradient(circle at 86% 5%,rgba(123,146,255,.18),transparent 24%),linear-gradient(180deg,#eef5ff 0%,#f9fbff 52%,#edf4ff 100%)}
+    body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(rgba(40,102,190,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(40,102,190,.022) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(circle at center,black 55%,transparent 100%)}
+    body:after{content:"";position:fixed;left:0;bottom:0;z-index:-1;width:350px;aspect-ratio:299/225;pointer-events:none;background:url('assets/corner-gamepad.png') left bottom/contain no-repeat;opacity:.85}
+    header,main,footer{position:relative}
+    img{display:block;max-width:100%}a{color:inherit;text-decoration:none}.shell{width:min(1536px,80vw);margin-inline:auto;position:relative}
+    .topbar{z-index:1;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;min-height:68px;margin-top:16px;padding:8px 15px;border:1px solid rgba(255,255,255,.82);border-radius:18px;background:linear-gradient(100deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,.5) 38%,rgba(255,255,255,.29) 72%,rgba(255,255,255,.12) 100%);box-shadow:0 18px 48px rgba(31,78,145,.11),inset 0 1px 0 rgba(255,255,255,.78);backdrop-filter:blur(22px) saturate(140%)}
+    .brand{display:flex;min-width:0;align-items:center;gap:11px;margin-left:50px}.brand-logo{flex:0 0 58px;width:58px;height:50px;overflow:hidden;border-radius:10px;background:#061841}.brand-logo img{width:100%;height:100%;object-fit:cover}.brand-copy{min-width:0;line-height:1.02}.brand-copy strong{display:block;overflow:hidden;font-family:var(--display);font-size:1rem;font-weight:900;letter-spacing:.045em;text-overflow:ellipsis;white-space:nowrap}.brand-copy strong b{color:var(--blue)}.brand-copy small{display:block;margin-top:4px;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .nav{display:flex;justify-self:start;align-items:center;gap:9px;margin-left:120px;font-size:.9rem;font-weight:750}.nav a{padding:11px 15px;border-radius:10px;color:#516792;white-space:nowrap;transition:.18s ease}.nav a:hover,.nav a:focus-visible,.nav a.active{color:var(--blue);background:rgba(255,255,255,.9);box-shadow:0 9px 20px rgba(24,105,221,.08)}
+    .discord-wrap{display:flex;justify-content:flex-end}.discord-btn{display:inline-flex;min-height:46px;align-items:center;justify-content:center;gap:10px;padding:0 16px;border:1px solid rgba(255,255,255,.5);border-radius:11px;color:#fff;background:linear-gradient(105deg,#1764f0,#3188ff);box-shadow:0 8px 22px rgba(0,87,226,.25);font-size:.84rem;font-weight:800}.discord-btn,.footer-discord{position:relative;isolation:isolate;overflow:hidden;transition:transform .28s ease,box-shadow .28s ease,filter .28s ease}.discord-btn:before,.footer-discord:before{content:"";position:absolute;z-index:-1;inset:-35% auto -35% -38%;width:24%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transition:left .55s ease}.discord-btn:hover,.discord-btn:focus-visible,.footer-discord:hover,.footer-discord:focus-visible{transform:translateY(-3px) scale(1.02);filter:saturate(1.08);box-shadow:0 17px 34px rgba(23,103,221,.34)}.discord-btn:hover:before,.discord-btn:focus-visible:before,.footer-discord:hover:before,.footer-discord:focus-visible:before{left:118%}.discord-btn:active,.footer-discord:active{transform:translateY(-1px) scale(.99)}.discord-btn svg,.footer-discord svg{width:30px;height:30px;fill:currentColor}.arrow{font-size:1.1rem;transition:transform .28s ease}.discord-btn:hover .arrow,.discord-btn:focus-visible .arrow{transform:translateX(3px)}
+    .hero{z-index:21;display:grid;grid-template-columns:1.05fr .95fr;min-height:430px;align-items:center;padding:30px 54px 0}.hero-copy{z-index:3;margin-left:130px;padding-bottom:140px}.eyebrow{margin:15px 0 10px;color:#7e97bf;font-size:.82rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase}.hero h1{position:relative;isolation:isolate;margin:0;font-family:var(--display);font-size:clamp(3.4rem,5.625vw,5.1rem);font-weight:800;line-height:.86;letter-spacing:-.045em;text-transform:uppercase;white-space:nowrap}.hero h1:before{content:"";position:absolute;z-index:-1;top:50%;left:41%;width:108%;height:250%;transform:translate(-43%,-50%);border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,.65) 0%,rgba(255,255,255,.31) 47%,rgba(255,255,255,.08) 68%,transparent 76%)}.nigeria{color:transparent;background:linear-gradient(180deg,#2499ff,#0654cc);-webkit-background-clip:text;background-clip:text}.tournament-name{margin:0 6px 12px 0;font-family:var(--display);font-size:clamp(1.08rem,2vw,1.42rem);font-weight:900;letter-spacing:.21em;text-transform:uppercase;white-space:nowrap}.tagline{margin:0;font-family:var(--hand);font-size:1.32rem;font-weight:500}.values{display:flex;flex-wrap:wrap;gap:19px;margin-top:22px;color:#15366f;font-size:.82rem;font-weight:800}.value{display:inline-flex;align-items:center;gap:7px}.value img{width:50px;height:50px;margin-right:5px;object-fit:contain}.mascot{z-index:30;align-self:stretch;min-height:430px;overflow:visible;pointer-events:none}.mascot img{position:absolute;top:-30px;left:75%;width:610px;max-width:none;max-height:none;object-fit:contain;transform:translateX(-49%)}
+    .stats{z-index:31;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:-90px}.stat{position:relative;overflow:hidden;min-height:146px;padding:21px 22px 18px;border-radius:23px;background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(245,250,255,.91));border:1px solid rgba(255,255,255,.9);box-shadow:0 18px 38px rgba(43,94,159,.09),inset 0 1px 0 rgba(255,255,255,.95)}.stat.prize{text-align:center}.stat:after{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-64px;border-radius:50%;opacity:.48}.stat.prize:after{background:radial-gradient(circle,rgba(240,183,50,.20),transparent 70%)}.stat.time:after{background:radial-gradient(circle,rgba(34,126,255,.18),transparent 70%)}.stat.voters:after{background:radial-gradient(circle,rgba(59,199,120,.18),transparent 70%)}.stat-label{position:relative;z-index:1;font-size:.66rem;text-transform:uppercase;letter-spacing:.18em;font-weight:950}.prize .stat-label{color:#ba8919}.time .stat-label{color:#3479c9}.voters .stat-label{color:#279366}.stat-num{position:relative;z-index:1;margin-top:10px;font-size:2.55rem;font-weight:950;line-height:1;letter-spacing:-.05em}.stat-desc{position:relative;z-index:1;margin-top:7px;color:var(--muted);font-size:.86rem;font-weight:760}.stat-line{position:absolute;left:22px;right:22px;bottom:16px;height:3px;border-radius:999px}.prize .stat-line{background:linear-gradient(90deg,#e0a321,#ffd874)}.time .stat-line{background:linear-gradient(90deg,#1f7bff,#77d0ff)}.voters .stat-line{background:linear-gradient(90deg,#2ebb75,#83e4b5)}
+    .section{padding:42px 0 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 2px 15px}.section-head h2{margin:0;font-family:var(--display);font-size:clamp(2rem,4vw,3.05rem);letter-spacing:-.035em;line-height:.95}.section-head p{margin:6px 0 0;color:var(--muted)}.live{color:#15b66e;font-size:.8rem;font-weight:950;text-transform:uppercase;white-space:nowrap}
+    .role-strip{display:flex;gap:8px;flex-wrap:wrap;padding:11px 12px;margin-bottom:12px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.84);box-shadow:0 14px 32px rgba(44,94,159,.07);backdrop-filter:blur(14px)}.role-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:#fff;border:1px solid #e1ebf8;font-size:.83rem;font-weight:850}.role-chip strong{color:var(--blue)}.dot{width:10px;height:10px;border-radius:50%;display:inline-block}.reg{background:var(--green)}.del{background:#fff;border:1px solid #d2dbe7}.dec{background:var(--yellow)}.dso{background:var(--pink)}.role-note{margin-left:auto;color:var(--muted);background:rgba(255,255,255,.58)}
+    .leaderboard-card{padding:14px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(248,251,255,.84));border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.94);backdrop-filter:blur(16px)}.lb-head,.lb-row{display:grid;grid-template-columns:54px minmax(260px,1.7fr) 92px 92px minmax(220px,1fr);gap:10px;align-items:center}.lb-head{padding:9px 12px;color:#8799b8;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;font-weight:950}.lb-row{position:relative;padding:11px 12px;margin-top:8px;border-radius:16px;background:linear-gradient(180deg,#fbfdff,#f4f9ff);border:1px solid #e0eaf7;transition:.2s ease}.lb-row:hover{transform:translateY(-1px);background:#fff;box-shadow:0 14px 30px rgba(49,100,164,.09)}.rank{width:38px;height:32px;border-radius:999px;background:linear-gradient(145deg,#cbd6e3,#6b757c);color:#fff;display:grid;place-items:center;font-size:.7rem;font-weight:950;box-shadow:0 8px 16px rgba(74,89,105,.16)}.game-cell{display:flex;align-items:center;gap:11px;min-width:0}.thumb{width:52px;height:52px;border-radius:14px;background:linear-gradient(145deg,#edf5ff,#fff);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none;border:1px solid #e0eaf7}.thumb img{width:100%;height:100%;object-fit:fill}.game-copy{min-width:0}.game-copy strong{display:block;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.game-copy span{display:block;margin-top:2px;color:var(--muted);font-size:.72rem}.pct{display:flex;flex-direction:column;gap:2px}.pct .cell-label{color:#98a8c2;font-size:.62rem;font-weight:900;text-transform:uppercase}.pct b{font-size:.84rem;color:#234a83}.total-cell{display:grid;gap:7px}.total-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.total-top strong{font-size:1.05rem}.total-top small{color:var(--muted);font-size:.68rem}.progress{height:9px;border-radius:999px;background:#dbe8f7;overflow:hidden}.progress i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#1d79ff,#74caff)}
+    .lower-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:18px}.panel{border-radius:24px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.86);box-shadow:var(--shadow);padding:20px;backdrop-filter:blur(16px)}.panel h3{margin:0 0 10px;font-family:var(--display);font-size:1.3rem;letter-spacing:-.02em}.panel p{margin:0;color:var(--muted);line-height:1.65}.prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.prize-card{padding:15px;border-radius:16px;background:#fff;border:1px solid #e2ebf7;text-align:center}.prize-card strong{display:block;margin-top:5px;font-size:1.45rem}.timeline{display:grid;gap:9px;margin-top:12px}.step{display:grid;grid-template-columns:36px 1fr;gap:11px;align-items:start;padding:11px 12px;border-radius:15px;background:#fff;border:1px solid #e2ebf7}.step>span{width:36px;height:36px;border-radius:50%;background:#edf5ff;color:var(--blue);display:grid;place-items:center;font-size:.76rem;font-weight:950}.step b{display:block;font-size:.9rem}.step small{display:block;margin-top:3px;color:var(--muted);line-height:1.45}
+    .accordion{margin-top:18px;border-radius:24px;overflow:hidden;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.86);box-shadow:var(--shadow)}details{border-top:1px solid #e3edf8;background:rgba(255,255,255,.62)}details:first-child{border-top:0}summary{cursor:pointer;list-style:none;padding:17px 19px;font-weight:900;display:flex;justify-content:space-between}summary::-webkit-details-marker{display:none}summary:after{content:"+";color:var(--blue);font-size:1.2rem;transition:transform .35s ease}details[open] summary:after{content:"−";transform:rotate(180deg)}.details{display:block;max-height:0;overflow:hidden;padding:0 19px;color:var(--muted);line-height:1.7;opacity:0;transform:translateY(-6px);transition:max-height .55s cubic-bezier(.22,.8,.25,1),padding-bottom .45s ease,opacity .35s ease,transform .45s ease}.details ul{margin:0;padding-left:18px}details[open] .details{max-height:440px;padding-bottom:18px;opacity:1;transform:translateY(0)}
+    footer{padding:24px 0 40px}.footer-card{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 19px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.58));border:1px solid rgba(255,255,255,.86);box-shadow:var(--shadow)}.footer-brand{display:flex;align-items:center;gap:11px}.footer-brand img{width:50px;height:50px;border-radius:14px;object-fit:cover;background:#061841}.footer-brand b{display:block}.footer-brand span{display:block;margin-top:3px;color:var(--muted);font-size:.84rem}.footer-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}.footer-discord{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:14px;padding:12px 18px;background:linear-gradient(135deg,#1767ef,#3188ff);color:#fff;font-size:17px;font-weight:500;box-shadow:0 14px 28px rgba(23,103,221,.24);white-space:nowrap}.footer-art{width:180px;flex:none;border:0;box-shadow:none}.footer-art img{display:block;max-width:100%;height:auto;margin-left:10px}
+    @media(max-width:2100px){body:after{width:200px}}
+    @media(max-width:1790px){.hero-copy{margin-left:50px}}
+    @media(max-width:1611px){.hero-copy{margin-left:25px}body:after{width:150px}}
+    @media(max-width:1555px){.mascot img{left:78%;width:560px}.value img{width:40px;height:40px}}
+    @media(max-width:1460px){.value img{width:30px;height:30px}}
+    @media(max-width:1280px){.shell{width:min(1280px,calc(100% - 32px))}.nav{margin-left:50px}.brand{margin-left:20px}}
+    @media(max-width:1100px){.topbar{grid-template-columns:1fr auto}.nav{display:none}.hero{padding-inline:36px}.hero-copy{margin-left:0}.mascot img{left:58%}.lb-head,.lb-row{grid-template-columns:54px minmax(220px,1.5fr) 82px 82px minmax(190px,1fr)}}
+    @media(max-width:980px){.hero{grid-template-columns:1fr;min-height:700px;overflow:hidden}.mascot{position:absolute;inset:130px -200px auto auto;width:560px}.mascot img{top:0;left:0;transform:none}.stats{grid-template-columns:1fr}.lower-grid{grid-template-columns:1fr}.lb-head{display:none}.lb-row{grid-template-columns:44px 1fr minmax(150px,.8fr)}.lb-row .pct{display:none}.role-note{width:100%;margin-left:0}}
+    @media(max-width:640px){html{font-size:112.5%}body:after{width:150px;opacity:.72}.shell{width:calc(100% - 18px)}.topbar{grid-template-columns:minmax(0,1fr) 48px;gap:7px;margin-top:8px;min-height:60px;padding:7px 8px}.brand{margin-left:0}.brand-logo{flex-basis:48px;width:48px;height:44px}.brand-copy strong{font-size:.82rem}.brand-copy small{display:none}.discord-btn{width:46px;min-height:44px;padding:0}.discord-btn span{display:none}.hero{min-height:610px;padding:54px 18px 0}.hero-copy{align-self:start;padding-bottom:0}.hero h1{font-size:clamp(2.6rem,13.5vw,4.5rem)}.hero h1:before{width:125%;height:220%}.tournament-name{font-size:1rem;letter-spacing:.12em;white-space:normal}.tagline{font-size:1.05rem}.values{gap:10px;font-size:.78rem}.value img{width:30px;height:30px}.mascot{inset:150px -280px auto auto;width:560px;opacity:.8}.mascot img{width:650px}.section-head{align-items:flex-start;flex-direction:column}.live{white-space:normal}.lb-row{grid-template-columns:38px minmax(0,1fr) 100px;padding:10px}.thumb{width:46px;height:46px}.total-top{gap:4px}.prizes{grid-template-columns:1fr}.footer-card{flex-direction:column;align-items:flex-start}.footer-actions{width:100%;align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition-duration:.01s!important}}
+    .stats{padding-inline:80px}.stat{padding:15px 22px 22px;text-align:center}.stat-line{bottom:12px}.stat-num{letter-spacing:normal}.thumb{width:65px;height:65px}
+    .lb-row:nth-child(1) .rank{color:#6e4b00;background:linear-gradient(145deg,#ffe58b,#dba41c);box-shadow:0 8px 16px rgba(206,151,22,.20)}
+    .lb-row:nth-child(2) .rank{color:#526075;background:linear-gradient(145deg,#f8fbff,#b8c5d5);box-shadow:0 8px 16px rgba(106,126,153,.16)}
+    .lb-row:nth-child(3) .rank{color:#fff8ef;background:linear-gradient(145deg,#d9955b,#9f6133);box-shadow:0 8px 16px rgba(147,88,43,.16)}
+    @media(max-width:980px){.stats{padding-inline:0}}
+    .tagline{font-size:1.6rem}
+    .role-chip .del{background:var(--pink);border:0}.role-chip .dec{background:var(--yellow)}.role-chip .dso{background:#fff;border:1px solid #d2dbe7}
+    .standings-title{color:#173a67}@supports ((background-clip:text) or (-webkit-background-clip:text)){.standings-title{background:linear-gradient(90deg,#173a67 0%,#173a67 43%,#4f887f 48%,#87b7aa 50%,#4f887f 52%,#173a67 57%,#173a67 100%);background-size:300% 100%;background-position:100% 0;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:standingsSheen 5.2s ease-in-out infinite}}
+    .podium{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:10px;align-items:end;min-height:285px;margin-top:18px}.place{position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;border:1px solid var(--line);border-radius:22px 22px 16px 16px;box-shadow:0 16px 36px rgba(43,94,159,.08),inset 0 1px 0 rgba(255,255,255,.9);animation:podiumFloat 4.8s ease-in-out infinite;will-change:transform}.place:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.55),transparent 36%,rgba(255,255,255,.12) 60%,transparent 80%)}.place:after{content:"";position:absolute;left:-35%;top:-10%;width:26%;height:130%;transform:rotate(18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.48),transparent);animation:shineSweep 5.8s ease-in-out infinite;pointer-events:none}.place.first{height:260px;background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.65),transparent 32%),linear-gradient(180deg,#fff0a3,#f5c53e 58%,#d99b08);border-color:#ecc95a}.place.second{height:230px;background:radial-gradient(circle at 50% 8%,rgba(255,255,255,.75),transparent 34%),linear-gradient(180deg,#f8fbff,#dfe7f0 60%,#b8c4d3);border-color:#ccd8e6;animation-delay:.7s}.place.third{height:200px;background:radial-gradient(circle at 50% 8%,rgba(255,255,255,.64),transparent 34%),linear-gradient(180deg,#f3d6bf,#d59b6c 60%,#a8673b);border-color:#d4a07a;animation-delay:1.4s}.place.second:after{animation-delay:1.2s}.place.third:after{animation-delay:2.3s}.medal{position:absolute;top:-10px;left:50%;width:88px;height:124px;transform:translateX(-50%);display:block;animation:medalBob 3.4s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(35,72,124,.16))}.medal img{display:block;width:100%;height:100%;object-fit:contain}.place.first .medal{width:80px;height:150px}.place.second .medal{width:70px;animation-delay:.45s}.place.third .medal{width:55px;height:110px;animation-delay:.9s}.place-copy{position:relative;z-index:1;padding:18px 12px 20px;text-align:center}.place-copy strong{display:block;font-size:2.15rem;line-height:1}.place.first .place-copy strong{font-size:2.65rem;animation:winnerPulse 3.2s ease-in-out infinite}.podium-base{position:relative;z-index:1;height:52px;display:grid;place-items:center;border-top:1px solid rgba(255,255,255,.58);background:rgba(255,255,255,.26);font-size:.72rem;font-weight:950;letter-spacing:.04em}.first .podium-base{color:#704e00}.second .podium-base{color:#5c6a7a}.third .podium-base{color:#653e25}
+    @keyframes standingsSheen{0%,16%{background-position:100% 0}84%,100%{background-position:0 0}}@keyframes podiumFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes medalBob{0%,100%{transform:translateX(-50%) translateY(0) rotate(0)}50%{transform:translateX(-50%) translateY(-5px) rotate(2deg)}}@keyframes shineSweep{0%,22%{left:-35%;opacity:0}32%{opacity:.85}52%{left:115%;opacity:0}100%{left:115%;opacity:0}}@keyframes winnerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+    @media(max-width:700px){.podium{grid-template-columns:1fr;min-height:0}.place,.place.first,.place.second,.place.third{height:180px}.place.first{order:-1}}
+    .nav-toggle{display:none;width:46px;height:46px;padding:0;border:1px solid rgba(255,255,255,.72);border-radius:12px;background:rgba(255,255,255,.62);box-shadow:0 8px 20px rgba(31,78,145,.1);cursor:pointer}.nav-toggle span{display:block;width:21px;height:2px;margin:4px auto;border-radius:999px;background:#1b4f92;transition:transform .28s ease,opacity .2s ease}.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+    @media(max-width:1100px){.topbar{grid-template-columns:minmax(0,1fr) 46px auto}.hero{z-index:0}.nav-toggle{display:block}.nav{position:absolute;top:calc(100% + 8px);left:0;right:0;display:flex;margin:0;padding:9px;justify-content:center;flex-wrap:wrap;gap:5px;border:1px solid rgba(255,255,255,.86);border-radius:16px;background:rgba(239,247,255,.94);box-shadow:0 18px 38px rgba(31,78,145,.16);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity .24s ease,transform .24s ease,visibility .24s ease}.topbar.menu-open .nav{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}}
+    @media(max-width:980px){body:after{width:150px;opacity:.76}.hero{min-height:640px;padding:44px 28px 0}.mascot{inset:150px -150px auto auto;width:480px}.mascot img{width:520px}.stats{margin-top:-55px}.section{padding-top:34px}}
+    @media(max-width:640px){body:after{width:150px;opacity:.7}.topbar{grid-template-columns:minmax(0,1fr) 42px 46px;gap:5px}.nav-toggle{width:42px;height:44px}.nav{left:-1px;right:-1px;align-items:stretch;flex-direction:column;padding:8px}.nav a{text-align:center}.hero{min-height:540px;padding:36px 14px 0}.hero-copy{z-index:31}.hero h1{font-size:clamp(2.35rem,12vw,3.6rem);white-space:normal}.tournament-name{font-size:.86rem;letter-spacing:.1em}.tagline{font-size:1.1rem}.values{gap:8px 12px;margin-top:16px;text-shadow:0 1px 8px rgba(255,255,255,.92)}.value img{width:30px;height:30px}.mascot{inset:165px -95px auto auto;width:360px;opacity:.74}.mascot img{width:400px}.stats{margin-top:-34px;gap:10px}.stat{min-height:128px}.section-head h2{font-size:2rem}.role-strip{gap:6px}.role-chip{font-size:.72rem}.leaderboard-card{padding:8px;border-radius:18px}.lb-row{grid-template-columns:34px minmax(0,1fr) 88px;gap:7px;padding:9px 8px}.rank{width:32px;height:28px;font-size:.62rem}.thumb{width:44px;height:44px}.game-cell{gap:8px}.game-copy strong{font-size:.82rem}.game-copy span{font-size:.65rem}.total-top strong{font-size:.9rem}.total-top small{font-size:.59rem}.progress{height:7px}.panel{padding:15px;border-radius:18px}.accordion{border-radius:18px}summary{padding:15px}.details{padding-inline:15px}.footer-card{padding:14px}}
+    @media(max-width:420px){body:after{width:145px;opacity:.62}.shell{width:calc(100% - 12px)}.brand-logo{flex-basis:44px;width:44px}.brand-copy strong{font-size:.76rem}.discord-btn{width:42px}.discord-btn svg{width:27px;height:27px}.hero{min-height:515px;padding-inline:10px}.hero h1{font-size:2.3rem}.mascot{right:-120px;width:340px}.mascot img{width:370px}.lb-row{grid-template-columns:31px minmax(0,1fr) 78px;gap:5px}.thumb{width:40px;height:40px}.total-top{gap:2px}.footer-discord{font-size:15px;padding:10px 14px}}
+    @media(max-width:1361px){.mascot img{top:-1px;width:500px}}
+    @media(max-width:1274px){body:after{display:none}}
+    @media(max-width:1100px){.hero-copy{margin-left:25px}.topbar{z-index:0}.topbar.menu-open{z-index:1000}.mascot img{top:-2px;left:75%;width:510px}}
+    @media(max-width:980px){.mascot img{left:18%;width:400px}}
+    @media(max-width:979px){.hero{padding:0 28px}.hero-copy{padding-bottom:300px}.mascot{inset:10px 0 auto auto}.stats{margin-top:-280px}}
+    @media(max-width:900px){.footer-art img{max-width:70%}}
+    @media(max-width:890px){.mascot img{left:100px;width:380px}}
+    @media(max-width:865px){.footer-brand b,.footer-brand span{font-size:.6rem}.footer-discord{display:none}.footer-card{flex-direction:row;align-items:center}.nav{left:auto;right:56px;width:min(280px,calc(100vw - 28px));align-items:stretch;flex-direction:column}.nav a{text-align:center}}
+    @media(max-width:850px){.mascot img{left:155px;width:330px}}
+    @media(max-width:796px){.mascot{display:none}}
+    @media(max-width:700px){.medal{display:none}}
+    @media(max-width:688px){.brand-copy small{font-size:.48rem}}
+    @media(max-width:640px){.brand-copy small{display:block}.stats{margin-top:-640px}.eyebrow{margin-top:30px}}
+    @media(max-width:635px){.lb-row{grid-template-columns:32px minmax(98px,1fr) minmax(115px,50%)}}
+    @media(max-width:612px){.footer-art img{margin-left:50px}}
+    @media(max-width:500px){.stats{margin-top:-220px}.eyebrow{color:#000}.mascot img{left:70px;width:401px}}
+    @media(max-width:450px){.eyebrow{font-size:.67rem}}
+    @media(prefers-reduced-motion:reduce){.standings-title,.place,.medal,.place:after,.place.first .place-copy strong{animation:none!important}.standings-title{background:none!important;color:#173a67!important;-webkit-text-fill-color:currentColor!important}}
   </style>
 </head>
 <body>
-  <header class="shell topbar glass">
-    <a class="brand" href="#home" aria-label="Dlicom RU Nigeria tournament home"><span class="brand-logo"><img src="assets/dlicom-logo.png" alt=""></span><span class="brand-copy"><strong>DLICOMPLUS.RU <b>× NIGERIA</b></strong><small>Community Tournament</small></span></a>
-    <nav class="nav" aria-label="Main navigation"><a class="active" href="#home">Home</a><a href="#voting">Voting</a><a href="#rules">Rules</a></nav>
-    <div class="discord-wrap"><a class="discord-btn" href="#join" aria-label="Join our Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.35A16.3 16.3 0 0 0 15.44 4l-.5 1.02a15 15 0 0 0-5.87 0L8.56 4A16.4 16.4 0 0 0 4.5 5.36C1.93 9.2 1.23 12.96 1.58 16.67A16.6 16.6 0 0 0 6.56 19.2l1.2-1.64a10.8 10.8 0 0 1-1.9-.92l.47-.36c3.67 1.7 7.65 1.7 11.27 0l.48.36c-.62.37-1.26.68-1.92.92l1.2 1.64a16.5 16.5 0 0 0 4.98-2.53c.42-4.3-.72-8.02-2.84-11.32ZM8.31 14.41c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Zm7.38 0c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Z"/></svg><span>Join our Discord</span><span class="arrow">→</span></a></div>
+  <header class="shell topbar">
+    <a class="brand" href="#home" aria-label="Dlicom RU Nigeria tournament home"><span class="brand-logo"><img src="assets/dlicom-logo.png" alt=""></span><span class="brand-copy"><strong>RU <b>× NIGERIA</b></strong><small>Community Tournament</small></span></a>
+    <nav class="nav" id="main-navigation" aria-label="Main navigation"><a class="active" href="#home" aria-current="page">Home</a><a href="#standings">Voting</a><a href="#rules">Rules</a><a href="#after-vote">After the vote</a></nav>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="main-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="discord-wrap"><a class="discord-btn" href="https://discord.gg/S9jtV7wWub" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.35A16.3 16.3 0 0 0 15.44 4l-.5 1.02a15 15 0 0 0-5.87 0L8.56 4A16.4 16.4 0 0 0 4.5 5.36C1.93 9.2 1.23 12.96 1.58 16.67A16.6 16.6 0 0 0 6.56 19.2l1.2-1.64a10.8 10.8 0 0 1-1.9-.92l.47-.36c3.67 1.7 7.65 1.7 11.27 0l.48.36c-.62.37-1.26.68-1.92.92l1.2 1.64a16.5 16.5 0 0 0 4.98-2.53c.42-4.3-.72-8.02-2.84-11.32ZM8.31 14.41c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Zm7.38 0c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Z"/></svg><span>Join our Discord</span><span class="arrow">→</span></a></div>
   </header>
   <main id="home">
     <section class="shell hero">
-      <div class="hero-copy"><p class="eyebrow">Gamers bring people together</p><h1>RU <span>×</span> <span class="nigeria">Nigeria</span></h1><p class="tournament-name">Community Tournament</p><p class="tagline">Different regions. Same passion.</p><div class="values" aria-label="Community values"><span class="value"><svg viewBox="0 0 24 24"><path d="M8 9h8a5 5 0 0 1 4.7 6.7l-1 2.8a2 2 0 0 1-3.4.7L14.7 17H9.3l-1.6 2.2a2 2 0 0 1-3.4-.7l-1-2.8A5 5 0 0 1 8 9Z"/><path d="M8 13v3M6.5 14.5h3M16 14h.01M18 16h.01"/></svg>Play</span><span class="value"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Meet</span><span class="value"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4ZM5 6H3v2a4 4 0 0 0 4 4M19 6h2v2a4 4 0 0 1-4 4"/></svg>Compete</span><span class="value"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>Build together</span></div></div>
-      <div class="mascot" aria-hidden="true"><img src="assets/event-mascot-clean.png" alt=""></div>
+      <div class="hero-copy"><p class="eyebrow">Gamers bring people together</p><h1>RU <span>×</span> <span class="nigeria">Nigeria</span></h1><p class="tournament-name">Community Tournament</p><p class="tagline">Different regions. Same passion.</p><div class="values" aria-label="Community values"><span class="value"><img src="assets/icons/play.png" alt="">Play</span><span class="value"><img src="assets/icons/meet.png" alt="">Meet</span><span class="value"><img src="assets/icons/Compete.png" alt="">Compete</span><span class="value"><img src="assets/icons/Build.png" alt="">Build together</span></div></div>
+      <div class="mascot" aria-hidden="true"><img src="assets/event-mascot-v2.png" alt=""></div>
     </section>
-    <section class="shell kpis" aria-label="Tournament summary"><article class="kpi glass"><span class="kpi-icon">🏆</span><div><strong>$30</strong><b>Guaranteed prize pool</b><small>More players. Bigger stories.</small></div></article><article class="kpi glass"><span class="kpi-icon">◷</span><div><strong>72h</strong><b>Voting window</b><small>14–17 September 2026</small></div></article><article class="kpi glass"><span class="kpi-icon">♟</span><div><strong id="total-voters">0</strong><b>Total voters</b><small>Verified Discord ballots</small></div></article></section>
-    <section class="shell dashboard" id="voting">
-      <article class="panel glass"><header class="panel-head"><div class="panel-heading"><span class="head-icon">🎮</span><div><h2>Live Game Standings</h2><p>Verified weighted results from both regions.</p></div></div><span class="live">Voting opens 14 Sep</span></header><div class="games" id="game-grid"></div><div class="stats-note"><span><strong>Manual verification:</strong> votes are checked against region and role.</span><span>Updated approximately every 6 hours</span></div></article>
-      <div class="side-stack"><article class="panel glass"><header class="panel-head"><div class="panel-heading"><span class="head-icon">👥</span><div><h2>Role Voting Power</h2><p>Different roles, different impact.</p></div></div></header><div class="roles"><div class="role"><i class="role-dot"></i><span>Regular</span><strong>×1</strong></div><div class="role"><i class="role-dot"></i><span>Deliver</span><strong>×2</strong></div><div class="role"><i class="role-dot"></i><span>Decoder</span><strong>×3</strong></div><div class="role"><i class="role-dot"></i><span>DSO</span><strong>×5</strong></div></div></article><article class="panel glass" id="rules"><header class="panel-head"><div class="panel-heading"><span class="head-icon">▤</span><div><h2>Tournament Rules</h2><p>Keep it fair. Keep it fun.</p></div></div></header><ol class="compact-rules"><li>Choose 1 game</li><li>One participant = one ballot</li><li>Vote only in your region</li><li>No paid votes</li></ol></article></div>
+    <section class="shell stats" aria-label="Tournament statistics">
+      <article class="stat prize"><div class="stat-label">Prize Pool</div><div class="stat-num">$30</div><div class="stat-desc">Guaranteed</div><div class="stat-line"></div></article>
+      <article class="stat time"><div class="stat-label">Voting</div><div class="stat-num">3 Days</div><div class="stat-desc">14–17 September 2026</div><div class="stat-line"></div></article>
+      <article class="stat voters"><div class="stat-label">Community</div><div class="stat-num" id="total-voters">0</div><div class="stat-desc">Total verified voters</div><div class="stat-line"></div></article>
     </section>
-    <section class="shell detail-section" aria-labelledby="details-title">
-      <div class="section-head"><div><p class="eyebrow">Tournament details</p><h2 id="details-title">Fair play. Real impact.</h2></div><p>Every ballot is checked against the member’s region and Discord role before the result is added to the public standings.</p></div>
-      <div class="prize-rules">
-        <article class="big-card glass"><header class="big-card-head"><i>🏆</i><div><h3>Guaranteed Prize Pool</h3><p>The pool may increase later.</p></div></header><div class="prize-total"><strong>$30</strong><span>minimum<br>prize pool</span></div><div class="prize-list"><div class="prize-row"><span>🥇</span><strong>1st place</strong><strong>$15</strong></div><div class="prize-row"><span>🥈</span><strong>2nd place</strong><strong>$10</strong></div><div class="prize-row"><span>🥉</span><strong>3rd place</strong><strong>$5</strong></div></div></article>
-        <article class="big-card glass"><header class="big-card-head"><i>✓</i><div><h3>Complete Voting Rules</h3><p>One participant. One region. One game.</p></div></header><div class="full-rules"><div class="full-rule"><div><strong>Eligible regions only</strong>Only official RU and Nigeria members are counted.</div></div><div class="full-rule"><div><strong>Vote in your region</strong>Cross-region ballots are removed during verification.</div></div><div class="full-rule"><div><strong>Choose one game</strong>Each participant may submit one ballot for one game.</div></div><div class="full-rule"><div><strong>Role multiplier applies</strong>Your verified role adds ×1, ×2, ×3 or ×5 points.</div></div><div class="full-rule"><div><strong>No duplicates</strong>One participant equals one counted ballot.</div></div><div class="full-rule"><div><strong>Highest score wins</strong>No paid votes. The top weighted game becomes official.</div></div></div></article>
+    <section id="standings" class="section"><div class="shell">
+      <div class="section-head"><div><h2 class="standings-title">Live Game Standings</h2><p>Verified weighted results from both regions.</p></div><div class="live">● Voting opens 14 Sep</div></div>
+      <div class="role-strip" aria-label="Role voting power"><span class="role-chip"><i class="dot reg"></i>Regular <strong>×1</strong></span><span class="role-chip"><i class="dot del"></i>Dliever <strong>×2</strong></span><span class="role-chip"><i class="dot dec"></i>Dcoded <strong>×3</strong></span><span class="role-chip"><i class="dot dso"></i>DCO <strong>×5</strong></span><span class="role-chip role-note">Only RU and Nigeria members vote in their own region.</span></div>
+      <div class="leaderboard-card"><div class="lb-head"><div>#</div><div>Game</div><div>RU</div><div>NG</div><div>Total</div></div><div id="leaderboard"></div></div>
+      <div class="lower-grid">
+        <article class="panel" id="prizes"><h3>Prize Distribution</h3><p>The event starts with a guaranteed <strong>$30</strong> prize pool.</p><div class="podium"><article class="place second"><div class="medal"><img src="assets/medal-2.png" alt="Second place medal"></div><div class="place-copy"><strong>$10</strong></div><div class="podium-base">SILVER</div></article><article class="place first"><div class="medal"><img src="assets/medal-1.png" alt="First place medal"></div><div class="place-copy"><strong>$15</strong></div><div class="podium-base">CHAMPION</div></article><article class="place third"><div class="medal"><img src="assets/medal-3.png" alt="Third place medal"></div><div class="place-copy"><strong>$5</strong></div><div class="podium-base">BRONZE</div></article></div></article>
+        <article class="panel" id="after-vote"><h3>After the Vote</h3><div class="timeline"><div class="step"><span>01</span><div><b>Voting closes</b><small>Weighted regional results are finalized.</small></div></div><div class="step"><span>02</span><div><b>Winning game announced</b><small>The game with the highest total score becomes the official tournament game.</small></div></div><div class="step"><span>03</span><div><b>Format confirmed</b><small>For supported games, the format will be 1v1 or 2v2 depending on the number of participants.</small></div></div></div></article>
       </div>
-      <div class="update-strip glass"><span class="update-icon">↻</span><div><strong>Statistics are updated manually</strong><p>Expect a refresh approximately every 6 hours. The actual interval may vary from a few hours to one day.</p></div><time id="last-update">Awaiting first count</time></div>
-    </section>
-
-    <section class="shell detail-section tournament-board" aria-labelledby="roadmap-title">
-      <div class="section-head"><div><p class="eyebrow">After the vote</p><h2 id="roadmap-title">Road to the final</h2></div><p>Registration starts after the winning game is announced. For flexible games, the 1v1 or 2v2 format depends on the number of registered participants.</p></div>
-      <div class="timeline"><article class="phase glass active"><small>Phase 01</small><span class="phase-tag">14–17 Sep</span><h3>Game voting</h3><p>Discord ballots are verified and added here.</p></article><article class="phase glass"><small>Phase 02</small><span class="phase-tag">Next</span><h3>Registration</h3><p>Player or team signup opens after voting.</p></article><article class="phase glass"><small>Phase 03</small><span class="phase-tag">TBA</span><h3>Tournament</h3><p>Matches, scores and winners appear on this page.</p></article></div>
-      <article class="bracket-card glass"><div class="bracket-scroll"><div class="bracket"><div class="round"><div class="round-label">Quarterfinals</div><div class="match"><span>Participant / Team A</span><span>Participant / Team B</span></div><div class="match"><span>Participant / Team C</span><span>Participant / Team D</span></div></div><div class="round"><div class="round-label">Semifinals</div><div class="match"><span>Winner QF 1</span><span>Winner QF 2</span></div></div><div class="round"><div class="round-label">Grand final</div><div class="match"><span>Finalist 1</span><span>Finalist 2</span></div></div></div></div></article>
-    </section>
-
-    <section class="shell join-banner glass" id="join"><span class="join-mark"><img src="assets/dlicom-logo.png" alt=""></span><div><h2>Be part of something bigger.</h2><p>Two regions. One community. Endless possibilities.</p></div><div class="join-actions"><span class="soft-btn">Dlicom link coming soon</span><span class="soft-btn primary">Join our Discord →</span></div></section>
+      <div class="accordion" id="rules">
+        <details open><summary>Voting Rules</summary><div class="details"><ul><li>Choose <strong>one game</strong>.</li><li>Each participant gets <strong>one vote</strong>.</li><li>Vote only in your <strong>official region</strong>.</li><li>Only votes from the <strong>RU and Nigeria regions</strong> will be counted.</li><li><strong>Duplicate votes and votes cast in multiple regions will not be counted.</strong></li></ul></div></details>
+        <details><summary>Role Voting Power</summary><div class="details">Regular ×1 · Dliever ×2 · Dcoded ×3 · DCO ×5.</div></details>
+        <details><summary>Game List &amp; Formats</summary><div class="details">eFootball - 1v1<br>Counter-Strike 1.6 - 1v1 / 2v2<br>Kirka - 1v1 / 2v2<br>Chess - 1v1<br>GeoGuessr - 1v1<br>Poxel.io - 1v1 / 2v2</div></details>
+      </div>
+    </div></section>
   </main>
-  <footer class="shell">Dlicomplus.ru × Nigeria Community Tournament · Different regions. Same passion.</footer>
+  <footer id="join"><div class="shell"><div class="footer-card"><div class="footer-brand"><img src="assets/dlicom-logo.png" alt=""><div><b>Two regions. One community.</b><span>RU × Nigeria</span></div></div><div class="footer-actions"><a class="footer-discord" href="https://discord.gg/S9jtV7wWub" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.35A16.3 16.3 0 0 0 15.44 4l-.5 1.02a15 15 0 0 0-5.87 0L8.56 4A16.4 16.4 0 0 0 4.5 5.36C1.93 9.2 1.23 12.96 1.58 16.67A16.6 16.6 0 0 0 6.56 19.2l1.2-1.64a10.8 10.8 0 0 1-1.9-.92l.47-.36c3.67 1.7 7.65 1.7 11.27 0l.48.36c-.62.37-1.26.68-1.92.92l1.2 1.64a16.5 16.5 0 0 0 4.98-2.53c.42-4.3-.72-8.02-2.84-11.32ZM8.31 14.41c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Zm7.38 0c-1.1 0-2-1.02-2-2.26 0-1.25.88-2.27 2-2.27 1.12 0 2.02 1.03 2 2.27 0 1.24-.88 2.26-2 2.26Z"/></svg><span class="footer-discord-label">Join our Discord →</span></a><div class="footer-art"><img src="assets/footer-image-2.png" alt="Play, meet, compete and build together"></div></div></div></div></footer>
   <script>
-    const tournamentData={lastUpdated:'Awaiting first count',games:[{name:'eFootball',image:'assets/game-efootball.png',votes:0,points:0},{name:'CS 1.6',image:'assets/game-cs.png',votes:0,points:0},{name:'Kirka',image:'assets/game-kirka.png',votes:0,points:0},{name:'Chess',image:'assets/game-chess.png',votes:0,points:0},{name:'GeoGuessr',image:'assets/game-geoguessr.webp',votes:0,points:0},{name:'Poxel.io',image:'assets/game-poxel.png',votes:0,points:0}]};
-    const totalVotes=tournamentData.games.reduce((sum,game)=>sum+game.votes,0);const totalPoints=tournamentData.games.reduce((sum,game)=>sum+game.points,0);const sorted=[...tournamentData.games].sort((a,b)=>b.points-a.points||b.votes-a.votes);document.querySelector('#total-voters').textContent=totalVotes.toLocaleString('en-US');document.querySelector('#last-update').textContent=tournamentData.lastUpdated;const grid=document.querySelector('#game-grid');sorted.forEach((game,index)=>{const share=totalPoints?game.points/totalPoints*100:0;const card=document.createElement('article');card.className='game';card.dataset.game=game.name;card.innerHTML=`<div class="game-image"><span class="rank">${index+1}</span><img src="${game.image}" alt=""></div><div class="game-body"><span class="game-name">${game.name}</span><div class="bar" role="progressbar" aria-label="${game.name}: ${share.toFixed(1)} percent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${share.toFixed(1)}"><span style="width:${share.toFixed(1)}%"></span></div><span class="percent">${share.toFixed(1)}%</span><span class="votes">${game.votes} votes · ${game.points} pts</span></div>`;grid.appendChild(card)});
+    const tournamentData={games:[
+      {name:'eFootball',format:'1v1',image:'assets/games/efootball.png',votes:0,ruPoints:0,ngPoints:0},
+      {name:'CS 1.6',format:'1v1 / 2v2',image:'assets/games/cs16.png',votes:0,ruPoints:0,ngPoints:0},
+      {name:'Kirka',format:'1v1 / 2v2',image:'assets/games/kirka.webp',votes:0,ruPoints:0,ngPoints:0},
+      {name:'Chess',format:'1v1',image:'assets/games/chess.jpg',votes:0,ruPoints:0,ngPoints:0},
+      {name:'GeoGuessr',format:'1v1',image:'assets/games/geoguessor.png',votes:0,ruPoints:0,ngPoints:0},
+      {name:'Poxel.io',format:'1v1 / 2v2',image:'assets/games/poxel.jpg',votes:0,ruPoints:0,ngPoints:0}
+    ]};
+    const totalVotes=tournamentData.games.reduce((sum,game)=>sum+game.votes,0);
+    const totalRu=tournamentData.games.reduce((sum,game)=>sum+game.ruPoints,0);
+    const totalNg=tournamentData.games.reduce((sum,game)=>sum+game.ngPoints,0);
+    const totalPoints=totalRu+totalNg;
+    const sorted=[...tournamentData.games].sort((a,b)=>(b.ruPoints+b.ngPoints)-(a.ruPoints+a.ngPoints)||b.votes-a.votes);
+    document.querySelector('#total-voters').textContent=totalVotes.toLocaleString('en-US');
+    const board=document.querySelector('#leaderboard');
+    sorted.forEach((game,index)=>{
+      const points=game.ruPoints+game.ngPoints;
+      const ruShare=totalRu?game.ruPoints/totalRu*100:0;
+      const ngShare=totalNg?game.ngPoints/totalNg*100:0;
+      const share=totalPoints?points/totalPoints*100:0;
+      const row=document.createElement('article');
+      row.className='lb-row';
+      row.innerHTML=`<div class="rank">#${index+1}</div><div class="game-cell"><div class="thumb"><img src="${game.image}" alt=""></div><div class="game-copy"><strong>${game.name}</strong><span>${game.format}</span></div></div><div class="pct"><span class="cell-label">RU</span><b>${ruShare.toFixed(1)}%</b></div><div class="pct"><span class="cell-label">NG</span><b>${ngShare.toFixed(1)}%</b></div><div class="total-cell"><div class="total-top"><strong>${share.toFixed(1)}%</strong><small>${points} pts</small></div><div class="progress" role="progressbar" aria-label="${game.name}: ${share.toFixed(1)} percent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${share.toFixed(1)}"><i style="width:${share.toFixed(1)}%"></i></div></div>`;
+      board.appendChild(row);
+    });
+    const navItems=[...document.querySelectorAll('.nav a[href^="#"]')].map(link=>({link,target:document.querySelector(link.hash)})).filter(item=>item.target);
+    const topbar=document.querySelector('.topbar');
+    const navToggle=document.querySelector('.nav-toggle');
+    const setMobileMenu=open=>{
+      topbar.classList.toggle('menu-open',open);
+      navToggle.setAttribute('aria-expanded',String(open));
+    };
+    navToggle.addEventListener('click',()=>setMobileMenu(!topbar.classList.contains('menu-open')));
+    document.addEventListener('click',event=>{if(!topbar.contains(event.target))setMobileMenu(false)});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'){setMobileMenu(false);navToggle.focus()}});
+    let navFrame=0;
+    const updateActiveNav=()=>{
+      const marker=window.scrollY+Math.min(window.innerHeight*.38,320);
+      const ordered=[...navItems].sort((a,b)=>(a.target.getBoundingClientRect().top+window.scrollY)-(b.target.getBoundingClientRect().top+window.scrollY));
+      let current=ordered[0];
+      ordered.forEach(item=>{if(item.target.getBoundingClientRect().top+window.scrollY<=marker)current=item});
+      navItems.forEach(item=>{
+        const active=item===current;
+        item.link.classList.toggle('active',active);
+        if(active)item.link.setAttribute('aria-current','page');else item.link.removeAttribute('aria-current');
+      });
+    };
+    const requestNavUpdate=()=>{if(navFrame)return;navFrame=requestAnimationFrame(()=>{navFrame=0;updateActiveNav()})};
+    navItems.forEach(item=>item.link.addEventListener('click',()=>{
+      navItems.forEach(other=>other.link.classList.toggle('active',other===item));
+      setMobileMenu(false);
+    }));
+    window.addEventListener('scroll',requestNavUpdate,{passive:true});
+    window.addEventListener('resize',requestNavUpdate);
+    window.addEventListener('hashchange',requestNavUpdate);
+    updateActiveNav();
   </script>
 </body>
 </html>

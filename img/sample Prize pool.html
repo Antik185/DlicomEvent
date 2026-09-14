@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prize Distribution Podium</title>
+<style>
+:root{
+  --ink:#132f62;
+  --muted:#758bad;
+  --blue:#1778ff;
+  --line:#dce7f5;
+  --shadow:0 22px 60px rgba(43,94,159,.12);
+  --gold1:#fff0a3; --gold2:#f5c53e; --gold3:#d99b08;
+  --silver1:#f8fbff; --silver2:#dfe7f0; --silver3:#b8c4d3;
+  --bronze1:#f3d6bf; --bronze2:#d59b6c; --bronze3:#a8673b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 0%,rgba(105,178,255,.20),transparent 30%),
+    linear-gradient(180deg,#eff6ff,#f9fbff);
+  padding:34px 0 60px;
+}
+.wrap{width:min(980px,calc(100% - 28px));margin:auto}
+.section{
+  padding:24px;
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(248,251,255,.9));
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+}
+h2{
+  margin:0;
+  font-size:1.9rem;
+  letter-spacing:-.035em;
+}
+.sub{
+  margin:10px 0 24px;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.6;
+}
+.sub strong{color:#5d79a4}
+
+.podium{
+  display:grid;
+  grid-template-columns:1fr 1.08fr 1fr;
+  gap:14px;
+  align-items:end;
+  min-height:300px;
+}
+.place{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  overflow:hidden;
+  border-radius:24px 24px 18px 18px;
+  border:1px solid var(--line);
+  box-shadow:
+    0 16px 36px rgba(43,94,159,.08),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+.place:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(125deg,rgba(255,255,255,.55),transparent 36%,rgba(255,255,255,.12) 60%,transparent 80%);
+}
+.place.first{
+  height:290px;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(255,255,255,.65),transparent 32%),
+    linear-gradient(180deg,var(--gold1),var(--gold2) 58%,var(--gold3));
+  border-color:#ecc95a;
+}
+.place.second{
+  height:240px;
+  background:
+    radial-gradient(circle at 50% 8%,rgba(255,255,255,.75),transparent 34%),
+    linear-gradient(180deg,var(--silver1),var(--silver2) 60%,var(--silver3));
+  border-color:#ccd8e6;
+}
+.place.third{
+  height:205px;
+  background:
+    radial-gradient(circle at 50% 8%,rgba(255,255,255,.64),transparent 34%),
+    linear-gradient(180deg,var(--bronze1),var(--bronze2) 60%,var(--bronze3));
+  border-color:#d4a07a;
+}
+
+.medal{
+  position:absolute;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:27px;
+  background:rgba(255,255,255,.74);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 10px 22px rgba(35,72,124,.12);
+  backdrop-filter:blur(8px);
+}
+.place.first .medal{
+  width:68px;height:68px;font-size:32px;
+}
+.place-copy{
+  position:relative;
+  z-index:1;
+  padding:20px 18px 22px;
+  text-align:center;
+}
+.place-copy small{
+  display:block;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-weight:950;
+  margin-bottom:8px;
+}
+.place.first small{color:#8a6200}
+.place.second small{color:#647487}
+.place.third small{color:#744625}
+
+.place-copy strong{
+  display:block;
+  font-size:2.35rem;
+  line-height:1;
+  letter-spacing:-.045em;
+}
+.place.first .place-copy strong{font-size:2.8rem}
+.place-copy span{
+  display:block;
+  margin-top:7px;
+  font-size:.9rem;
+  font-weight:800;
+}
+.place.first .place-copy span{color:#7b5800}
+.place.second .place-copy span{color:#5e6f84}
+.place.third .place-copy span{color:#6f4428}
+
+.base{
+  position:relative;
+  z-index:1;
+  height:58px;
+  display:grid;
+  place-items:center;
+  font-weight:950;
+  letter-spacing:.04em;
+  border-top:1px solid rgba(255,255,255,.58);
+  background:rgba(255,255,255,.26);
+}
+.first .base{color:#704e00}
+.second .base{color:#5c6a7a}
+.third .base{color:#653e25}
+
+.note{
+  margin-top:16px;
+  padding:12px 14px;
+  border-radius:15px;
+  color:var(--muted);
+  background:#f5f9ff;
+  border:1px solid #e1ebf7;
+  font-size:.86rem;
+}
+@media(max-width:700px){
+  .podium{
+    grid-template-columns:1fr;
+    min-height:0;
+    align-items:stretch;
+  }
+  .place,.place.first,.place.second,.place.third{height:190px}
+  .place.first{order:-1}
+}
+
+/* subtle podium motion */
+.place{
+  animation:podiumFloat 4.8s ease-in-out infinite;
+  will-change:transform;
+}
+.place.first{animation-delay:0s}
+.place.second{animation-delay:.7s}
+.place.third{animation-delay:1.4s}
+
+@keyframes podiumFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+.medal{
+  animation:medalBob 3.4s ease-in-out infinite;
+  will-change:transform;
+}
+.place.second .medal{animation-delay:.45s}
+.place.third .medal{animation-delay:.9s}
+
+@keyframes medalBob{
+  0%,100%{transform:translateX(-50%) translateY(0) rotate(0deg)}
+  50%{transform:translateX(-50%) translateY(-7px) rotate(2deg)}
+}
+
+.place::after{
+  content:"";
+  position:absolute;
+  left:-35%;
+  top:-10%;
+  width:26%;
+  height:130%;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.48),transparent);
+  animation:shineSweep 5.8s ease-in-out infinite;
+  pointer-events:none;
+}
+.place.second::after{animation-delay:1.2s}
+.place.third::after{animation-delay:2.3s}
+
+@keyframes shineSweep{
+  0%,22%{left:-35%;opacity:0}
+  32%{opacity:.9}
+  52%{left:115%;opacity:0}
+  100%{left:115%;opacity:0}
+}
+
+.base{
+  animation:baseGlow 4s ease-in-out infinite;
+}
+.place.second .base{animation-delay:.6s}
+.place.third .base{animation-delay:1.2s}
+
+@keyframes baseGlow{
+  0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+  50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 -8px 24px rgba(255,255,255,.12)}
+}
+
+.place.first .place-copy strong{
+  animation:winnerPulse 3.2s ease-in-out infinite;
+}
+@keyframes winnerPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.035)}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .place,.medal,.place::after,.base,.place.first .place-copy strong{
+    animation:none!important;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="section">
+    <h2>Prize Distribution</h2>
+    <p class="sub">The event starts with a guaranteed <strong>$30</strong> prize pool. Any increase will be announced separately.</p>
+
+    <div class="podium">
+      <article class="place second">
+        <div class="medal">🥈</div>
+        <div class="place-copy">
+          <small>Runner-Up</small>
+          <strong>$10</strong>
+          
+        </div>
+        <div class="base">SILVER</div>
+      </article>
+
+      <article class="place first">
+        <div class="medal">🥇</div>
+        <div class="place-copy">
+          <small>Champion</small>
+          <strong>$15</strong>
+          
+        </div>
+        <div class="base">CHAMPION</div>
+      </article>
+
+      <article class="place third">
+        <div class="medal">🥉</div>
+        <div class="place-copy">
+          <small>Third Place</small>
+          <strong>$5</strong>
+          
+        </div>
+        <div class="base">BRONZE</div>
+      </article>
+    </div>
+
+    <div class="note">Guaranteed total: $30 · 1st $15 · 2nd $10 · 3rd $5</div>
+  </section>
+</div>
+</body>
+</html>

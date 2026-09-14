@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Game Standings — Green Flow Title</title>
+<style>
+:root{
+  --bg:#eef5ff;
+  --ink:#112c5f;
+  --muted:#7890b8;
+  --blue:#1678ff;
+  --green:#18bb71;
+  --green-soft:#7ce3ad;
+  --line:#dce7f5;
+  --shadow:0 18px 50px rgba(43,94,159,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%,rgba(98,177,255,.20),transparent 26%),
+    linear-gradient(180deg,#edf5ff,#f9fbff);
+  padding:38px 0 70px;
+}
+.wrap{width:min(1180px,calc(100% - 28px));margin:auto}
+.section{
+  padding:20px;
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(248,251,255,.9));
+  border:1px solid rgba(255,255,255,.92);
+  box-shadow:var(--shadow);
+}
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:14px;
+}
+.section-head h2{
+  position:relative;
+  margin:0;
+  font-size:60px;
+  line-height:1;
+  letter-spacing:-.05em;
+  font-weight:950;
+  color:transparent;
+  background:
+    linear-gradient(90deg,
+      #112c5f 0%,
+      #112c5f 30%,
+      #1bc775 47%,
+      #8ef1b9 50%,
+      #16b86e 53%,
+      #112c5f 70%,
+      #112c5f 100%);
+  background-size:240% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:titleFlow 5.8s linear infinite;
+  filter:drop-shadow(0 2px 0 rgba(255,255,255,.28));
+}
+.section-head h2::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-9px;
+  height:4px;
+  border-radius:999px;
+  background:
+    linear-gradient(90deg,
+      rgba(24,187,113,0) 0%,
+      rgba(24,187,113,.20) 20%,
+      rgba(24,187,113,.95) 48%,
+      rgba(140,242,184,.95) 50%,
+      rgba(24,187,113,.95) 52%,
+      rgba(24,187,113,.20) 80%,
+      rgba(24,187,113,0) 100%);
+  background-size:240% 100%;
+  animation:titleFlow 5.8s linear infinite;
+  box-shadow:0 0 14px rgba(24,187,113,.28);
+}
+@keyframes titleFlow{
+  0%{background-position:200% 50%}
+  100%{background-position:-40% 50%}
+}
+.section-head p{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:16px;
+}
+.right-status{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  color:#14b169;
+  font-weight:950;
+  font-size:14px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.right-status i{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#18c173;
+  box-shadow:0 0 0 0 rgba(24,193,115,.32);
+  animation:pulse 1.8s ease-out infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(24,193,115,.32)}
+  70%{box-shadow:0 0 0 9px rgba(24,193,115,0)}
+  100%{box-shadow:0 0 0 0 rgba(24,193,115,0)}
+}
+.rolebar{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+  min-height:68px;
+  padding:11px 12px;
+  border-radius:20px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.rolebar::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-18%;
+  width:16%;
+  height:180%;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.82),transparent);
+  animation:shine 7s ease-in-out infinite;
+}
+@keyframes shine{
+  0%,32%{left:-18%;opacity:0}
+  42%{opacity:1}
+  60%{left:112%;opacity:0}
+  100%{left:112%;opacity:0}
+}
+.chip{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 12px;
+  border-radius:12px;
+  background:#fff;
+  border:1px solid var(--line);
+  color:#243f70;
+  font-weight:850;
+  font-size:14px;
+  transition:.22s ease;
+}
+.chip:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(32,86,155,.10);
+}
+.chip b{color:var(--blue)}
+.notice{
+  margin-left:auto;
+  color:#7287ab;
+  background:rgba(255,255,255,.74);
+}
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  display:inline-block;
+}
+.reg{background:#3cc86f}
+.del{background:#ec53c0}
+.dec{background:#f1bd28}
+.dco{background:#fff;border:1px solid #cfd8e6}
+
+@media(max-width:760px){
+  .section-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .section-head h2{
+    font-size:42px;
+  }
+  .notice{
+    margin-left:0;
+    width:100%;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Live Game Standings</h2>
+          <p>Verified weighted results from both regions.</p>
+        </div>
+        <div class="right-status"><i></i>Voting opens 14 Sep</div>
+      </div>
+
+      <div class="rolebar">
+        <span class="chip"><span class="dot reg"></span>Regular <b>×1</b></span>
+        <span class="chip"><span class="dot del"></span>Deliver <b>×2</b></span>
+        <span class="chip"><span class="dot dec"></span>Dcoded <b>×3</b></span>
+        <span class="chip"><span class="dot dco"></span>DCO <b>×5</b></span>
+        <span class="chip notice">Only RU and Nigeria members vote in their own region.</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
