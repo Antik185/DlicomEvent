@@ -8,8 +8,8 @@ function unauthorized(res) {
 
 export default async function handler(req, res) {
   if (!isAdmin(req)) return unauthorized(res);
-  if (!['GET', 'POST', 'DELETE'].includes(req.method)) {
-    return methodNotAllowed(res, ['GET', 'POST', 'DELETE']);
+  if (!['GET', 'POST', 'PATCH', 'DELETE'].includes(req.method)) {
+    return methodNotAllowed(res, ['GET', 'POST', 'PATCH', 'DELETE']);
   }
 
   try {
@@ -32,6 +32,21 @@ export default async function handler(req, res) {
       const deleted = await sql`DELETE FROM tournament_votes WHERE id = ${id} RETURNING id`;
       if (!deleted.length) return sendJson(res, 404, { error: 'Vote not found.' });
       return sendJson(res, 200, { ok: true });
+    }
+
+    if (req.method === 'PATCH') {
+      const id = Number(body.id);
+      const region = String(body.region || '').toUpperCase();
+      if (!Number.isSafeInteger(id) || id < 1) return sendJson(res, 400, { error: 'Invalid vote id.' });
+      if (!REGIONS.includes(region)) return sendJson(res, 400, { error: 'Choose RU or Nigeria.' });
+      const updated = await sql`
+        UPDATE tournament_votes
+        SET region = ${region}
+        WHERE id = ${id}
+        RETURNING id, nickname, region, role, game, points, created_at
+      `;
+      if (!updated.length) return sendJson(res, 404, { error: 'Vote not found.' });
+      return sendJson(res, 200, { vote: updated[0] });
     }
 
     const { nickname, nicknameKey } = normalizeNickname(body.nickname);
