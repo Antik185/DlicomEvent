@@ -10,7 +10,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=League+Spartan:wght@700;800&display=swap');
     :root{--ink:#102b5b;--muted:#6e83a6;--blue:#1676ff;--line:#dae6f5;--danger:#cf3f55;--shadow:0 28px 70px rgba(33,82,151,.15);font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#eef4ff}
-    *{box-sizing:border-box}body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(circle at 10% 0,rgba(103,182,255,.34),transparent 30%),linear-gradient(180deg,#eef5ff,#f9fbff 55%,#edf4ff)}button,input,select{font:inherit}button{cursor:pointer}.shell{width:min(1180px,calc(100% - 32px));margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px;padding:12px 16px;border:1px solid rgba(255,255,255,.85);border-radius:18px;background:rgba(255,255,255,.64);box-shadow:0 16px 44px rgba(35,82,145,.1);backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:12px;font:800 1.1rem 'League Spartan',sans-serif}.brand img{width:48px;height:44px;object-fit:cover;border-radius:10px;background:#071944}.top-actions{display:flex;align-items:center;gap:10px}.link,.ghost{border:1px solid var(--line);border-radius:11px;padding:10px 14px;color:var(--ink);background:#fff;text-decoration:none;font-weight:700}.ghost{display:none}.login{width:min(480px,calc(100% - 32px));margin:12vh auto 0;padding:26px;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:rgba(255,255,255,.86);box-shadow:var(--shadow);backdrop-filter:blur(18px)}h1,h2{font-family:'League Spartan',sans-serif}h1{margin:0;font-size:2rem}h2{margin:0 0 16px;font-size:1.55rem}.muted{margin:7px 0 20px;color:var(--muted)}label{display:grid;gap:7px;color:#34527f;font-size:.82rem;font-weight:800}input,select{width:100%;min-height:46px;border:1px solid var(--line);border-radius:11px;padding:10px 12px;color:var(--ink);background:#fff;outline:none}input:focus,select:focus{border-color:#70aaff;box-shadow:0 0 0 3px rgba(22,118,255,.12)}.primary{min-height:46px;border:0;border-radius:11px;padding:10px 18px;color:#fff;background:linear-gradient(105deg,#1764f0,#3188ff);box-shadow:0 10px 24px rgba(23,103,221,.24);font-weight:800}.login .primary{width:100%;margin-top:14px}.message{min-height:22px;margin-top:12px;color:var(--danger);font-size:.82rem;font-weight:700}.dashboard{display:none;padding:34px 0 50px}.dashboard.active{display:block}.grid{display:grid;grid-template-columns:minmax(290px,.75fr) minmax(0,1.5fr);gap:18px}.card{padding:20px;border:1px solid rgba(255,255,255,.9);border-radius:22px;background:rgba(255,255,255,.82);box-shadow:var(--shadow);backdrop-filter:blur(16px)}.vote-form{display:grid;gap:13px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}.points{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:12px;background:#edf5ff;color:#577096;font-weight:700}.points strong{color:var(--blue);font-size:1.4rem}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.count{color:var(--muted);font-weight:700}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{padding:11px 10px;border-bottom:1px solid #edf2f8;text-align:left;white-space:nowrap}th{color:#7185a5;background:#f7faff;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em}tbody tr:last-child td{border-bottom:0}.region-select{width:auto;min-width:92px;min-height:34px;padding:5px 28px 5px 9px;border-radius:8px;font-size:.8rem;font-weight:750}.region-select:disabled{opacity:.55;cursor:wait}.delete{border:0;border-radius:8px;padding:7px 10px;color:var(--danger);background:#fff0f3;font-weight:800}.empty{padding:28px;text-align:center;color:var(--muted)}.status-ok{color:#23865a}.status-error{color:var(--danger)}
+    *{box-sizing:border-box}body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(circle at 10% 0,rgba(103,182,255,.34),transparent 30%),linear-gradient(180deg,#eef5ff,#f9fbff 55%,#edf4ff)}button,input,select{font:inherit}button{cursor:pointer}.shell{width:min(1180px,calc(100% - 32px));margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px;padding:12px 16px;border:1px solid rgba(255,255,255,.85);border-radius:18px;background:rgba(255,255,255,.64);box-shadow:0 16px 44px rgba(35,82,145,.1);backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:12px;font:800 1.1rem 'League Spartan',sans-serif}.brand img{width:48px;height:44px;object-fit:cover;border-radius:10px;background:#071944}.top-actions{display:flex;align-items:center;gap:10px}.link,.ghost{border:1px solid var(--line);border-radius:11px;padding:10px 14px;color:var(--ink);background:#fff;text-decoration:none;font-weight:700}.ghost{display:none}.login{width:min(480px,calc(100% - 32px));margin:12vh auto 0;padding:26px;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:rgba(255,255,255,.86);box-shadow:var(--shadow);backdrop-filter:blur(18px)}h1,h2{font-family:'League Spartan',sans-serif}h1{margin:0;font-size:2rem}h2{margin:0 0 16px;font-size:1.55rem}.muted{margin:7px 0 20px;color:var(--muted)}label{display:grid;gap:7px;color:#34527f;font-size:.82rem;font-weight:800}input,select{width:100%;min-height:46px;border:1px solid var(--line);border-radius:11px;padding:10px 12px;color:var(--ink);background:#fff;outline:none}input:focus,select:focus{border-color:#70aaff;box-shadow:0 0 0 3px rgba(22,118,255,.12)}input.duplicate{border-color:#e66b7d;box-shadow:0 0 0 3px rgba(207,63,85,.1)}.field-message{display:none;color:var(--danger);font-size:.76rem;font-weight:750}.field-message.visible{display:block}.primary{min-height:46px;border:0;border-radius:11px;padding:10px 18px;color:#fff;background:linear-gradient(105deg,#1764f0,#3188ff);box-shadow:0 10px 24px rgba(23,103,221,.24);font-weight:800}.primary:disabled{cursor:not-allowed;opacity:.5;box-shadow:none}.login .primary{width:100%;margin-top:14px}.message{min-height:22px;margin-top:12px;color:var(--danger);font-size:.82rem;font-weight:700}.dashboard{display:none;padding:34px 0 50px}.dashboard.active{display:block}.grid{display:grid;grid-template-columns:minmax(290px,.75fr) minmax(0,1.5fr);gap:18px}.card{padding:20px;border:1px solid rgba(255,255,255,.9);border-radius:22px;background:rgba(255,255,255,.82);box-shadow:var(--shadow);backdrop-filter:blur(16px)}.vote-form{display:grid;gap:13px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}.points{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:12px;background:#edf5ff;color:#577096;font-weight:700}.points strong{color:var(--blue);font-size:1.4rem}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.count{color:var(--muted);font-weight:700}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{padding:11px 10px;border-bottom:1px solid #edf2f8;text-align:left;white-space:nowrap}th{color:#7185a5;background:#f7faff;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em}tbody tr:last-child td{border-bottom:0}.region-select{width:auto;min-width:92px;min-height:34px;padding:5px 28px 5px 9px;border-radius:8px;font-size:.8rem;font-weight:750}.region-select:disabled{opacity:.55;cursor:wait}.delete{border:0;border-radius:8px;padding:7px 10px;color:var(--danger);background:#fff0f3;font-weight:800}.empty{padding:28px;text-align:center;color:var(--muted)}.status-ok{color:#23865a}.status-error{color:var(--danger)}
     @media(max-width:820px){.grid{grid-template-columns:1fr}.topbar{margin-top:10px}.brand span{display:none}.card{padding:15px}.form-row{grid-template-columns:1fr 1fr}}
     @media(max-width:480px){.shell{width:calc(100% - 18px)}.form-row{grid-template-columns:1fr}.link{font-size:.76rem;padding:9px 10px}.login{padding:20px}}
   </style>
@@ -37,14 +37,14 @@
         <article class="card">
           <h2>Add verified vote</h2>
           <form class="vote-form" id="vote-form">
-            <label>Discord nickname<input id="nickname" name="nickname" maxlength="64" autocomplete="off" required></label>
+            <label>Discord nickname<input id="nickname" name="nickname" maxlength="64" autocomplete="off" aria-describedby="nickname-message" required><span class="field-message" id="nickname-message" role="status" aria-live="polite">This nickname has already voted.</span></label>
             <div class="form-row">
               <label>Region<select id="region" name="region"><option value="RU">RU</option><option value="NG">Nigeria</option></select></label>
               <label>Role<select id="role" name="role"><option value="regular" data-points="1">Regular ×1</option><option value="dliever" data-points="2">Dliever ×2</option><option value="dcoded" data-points="3">Dcoded ×3</option><option value="dco" data-points="5">DCO ×5</option></select></label>
             </div>
             <label>Game<select id="game" name="game"><option value="efootball">eFootball</option><option value="cs16">Counter-Strike 1.6</option><option value="kirka">Kirka</option><option value="chess">Chess</option><option value="geoguessr">GeoGuessr</option><option value="poxel">Poxel.io</option></select></label>
             <div class="points"><span>Points added automatically</span><strong id="points-preview">1</strong></div>
-            <button class="primary" type="submit">Add vote</button>
+            <button class="primary" id="add-vote" type="submit">Add vote</button>
             <div class="message" id="vote-message" role="status" aria-live="polite"></div>
           </form>
         </article>
@@ -74,6 +74,10 @@
     const votesBody=document.querySelector('#votes-body');
     const emptyState=document.querySelector('#empty-state');
     const roleSelect=document.querySelector('#role');
+    const nicknameInput=document.querySelector('#nickname');
+    const nicknameMessage=document.querySelector('#nickname-message');
+    const addVoteButton=document.querySelector('#add-vote');
+    let existingNicknameKeys=new Set();
 
     async function api(url,options={}){
       const response=await fetch(url,{credentials:'same-origin',headers:{'Content-Type':'application/json',...(options.headers||{})},...options});
@@ -92,7 +96,16 @@
 
     function cell(text){const td=document.createElement('td');td.textContent=text;return td}
 
+    function nicknameKey(value){return String(value||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase('en-US')}
+
+    function checkNickname(){
+      const isDuplicate=existingNicknameKeys.has(nicknameKey(nicknameInput.value));
+      nicknameInput.classList.toggle('duplicate',isDuplicate);nicknameInput.setAttribute('aria-invalid',String(isDuplicate));nicknameMessage.classList.toggle('visible',isDuplicate);addVoteButton.disabled=isDuplicate;
+      return !isDuplicate;
+    }
+
     function renderVotes(votes){
+      existingNicknameKeys=new Set(votes.map(vote=>nicknameKey(vote.nickname)));checkNickname();
       votesBody.replaceChildren();
       emptyState.style.display=votes.length?'none':'block';
       document.querySelector('#vote-count').textContent=`${votes.length} ${votes.length===1?'vote':'votes'}`;
@@ -135,13 +148,14 @@
     });
 
     document.querySelector('#vote-form').addEventListener('submit',async event=>{
-      event.preventDefault();voteMessage.className='message';voteMessage.textContent='Saving…';
-      const payload={nickname:document.querySelector('#nickname').value,region:document.querySelector('#region').value,role:roleSelect.value,game:document.querySelector('#game').value};
-      try{await api('/api/admin/votes',{method:'POST',body:JSON.stringify(payload)});document.querySelector('#nickname').value='';voteMessage.className='message status-ok';voteMessage.textContent='Vote added and standings updated.';await loadVotes();document.querySelector('#nickname').focus()}
+      event.preventDefault();if(!checkNickname())return;voteMessage.className='message';voteMessage.textContent='Saving…';
+      const payload={nickname:nicknameInput.value,region:document.querySelector('#region').value,role:roleSelect.value,game:document.querySelector('#game').value};
+      try{await api('/api/admin/votes',{method:'POST',body:JSON.stringify(payload)});nicknameInput.value='';voteMessage.className='message status-ok';voteMessage.textContent='Vote added and standings updated.';await loadVotes();nicknameInput.focus()}
       catch(error){if(error.status===401)return showLogin('Session expired. Sign in again.');voteMessage.className='message status-error';voteMessage.textContent=error.message}
     });
 
     roleSelect.addEventListener('change',()=>{document.querySelector('#points-preview').textContent=roleSelect.selectedOptions[0].dataset.points});
+    nicknameInput.addEventListener('input',checkNickname);
     logoutButton.addEventListener('click',async()=>{try{await api('/api/admin/logout',{method:'POST',body:'{}'})}finally{showLogin();document.querySelector('#password').focus()}});
     loadVotes();
   </script>
